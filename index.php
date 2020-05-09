@@ -179,72 +179,84 @@
 
 										<!-- product -->
 										<div class="product">
-											<div class="product-img">
-												<img src="public/img/product02.png" alt="">
-												<!-- <div class="product-label">
-													<span class="new">NEW</span>
-												</div> -->
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="public/img/product03.png" alt="">
-												<div class="product-label">
-													<span class="sale">-30%</span>
+											<a href="product.php">
+												<div class="product-img">
+													<img src="public/img/product02.png" alt="">
+													<!-- <div class="product-label">
+														<span class="new">NEW</span>
+													</div> -->
 												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
+												<div class="product-body">
+													<p class="product-category">Category</p>
+													<h3 class="product-name"><a href="#">product name goes here</a></h3>
+													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+												</div>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												</div>
+											</a>
 										</div>
 										<!-- /product -->
 
 										<!-- product -->
 										<div class="product">
-											<div class="product-img">
-												<img src="public/img/product04.png" alt="">
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
+
+											<a href="product.php">
+												<div class="product-img">
+													<img src="public/img/product03.png" alt="">
+													<!-- <div class="product-label">
+														<span class="sale">-30%</span>
+													</div> -->
+												</div>
+												<div class="product-body">
+													<p class="product-category">Category</p>
+													<h3 class="product-name"><a href="#">product name goes here</a></h3>
+													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+												</div>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												</div>
+											</a>
+
 										</div>
 										<!-- /product -->
 
 										<!-- product -->
 										<div class="product">
-											<div class="product-img">
-												<img src="public/img/product05.png" alt="">
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
+											<a href="product.php">
+												<div class="product-img">
+													<img src="public/img/product04.png" alt="">
+												</div>
+												<div class="product-body">
+													<p class="product-category">Category</p>
+													<h3 class="product-name"><a href="#">product name goes here</a></h3>
+													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+												</div>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												</div>
+											</a>
+										</div>
+										<!-- /product -->
+
+										<!-- product -->
+										<div class="product">
+
+											<a href="product.php">
+												<div class="product-img">
+													<img src="public/img/product05.png" alt="">
+												</div>
+												<div class="product-body">
+													<p class="product-category">Category</p>
+													<h3 class="product-name"><a href="#">product name goes here</a></h3>
+													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+													
+												</div>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												</div>
+											</a>
+
 										</div>
 										<!-- /product -->
 									</div>
@@ -326,91 +338,102 @@
 									<div class="products-slick" data-nav="#slick-nav-2">
 										<!-- product -->
 										<div class="product">
-											<div class="product-img">
-												<img src="public/img/product06.png" alt="">
-												<!-- <div class="product-label">
-													<span class="sale">-30%</span>
-													<span class="new">NEW</span>
-												</div> -->
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="public/img/product07.png" alt="">
-												<!-- <div class="product-label">
-													<span class="new">NEW</span>
-												</div> -->
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="public/img/product08.png" alt="">
-												<div class="product-label">
-													<span class="sale">-30%</span>
+											<a href="product.php">
+												<div class="product-img">
+													<img src="public/img/product06.png" alt="">
+													<!-- <div class="product-label">
+														<span class="sale">-30%</span>
+														<span class="new">NEW</span>
+													</div> -->
 												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
+												<div class="product-body">
+													<p class="product-category">Category</p>
+													<h3 class="product-name"><a href="#">product name goes here</a></h3>
+													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+												</div>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												</div>
+											</a>
 										</div>
 										<!-- /product -->
 
 										<!-- product -->
 										<div class="product">
-											<div class="product-img">
-												<img src="public/img/product09.png" alt="">
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
+											<a href="product.php">
+												<div class="product-img">
+													<img src="public/img/product07.png" alt="">
+													<!-- <div class="product-label">
+														<span class="new">NEW</span>
+													</div> -->
+												</div>
+												<div class="product-body">
+													<p class="product-category">Category</p>
+													<h3 class="product-name"><a href="#">product name goes here</a></h3>
+													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+												</div>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												</div>
+											</a>
+
 										</div>
 										<!-- /product -->
 
 										<!-- product -->
 										<div class="product">
-											<div class="product-img">
-												<img src="public/img/product01.png" alt="">
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
+											<a href="product.php">
+												<div class="product-img">
+													<img src="public/img/product08.png" alt="">
+													<!-- <div class="product-label">
+														<span class="sale">-30%</span>
+													</div> -->
+												</div>
+												<div class="product-body">
+													<p class="product-category">Category</p>
+													<h3 class="product-name"><a href="#">product name goes here</a></h3>
+													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+												</div>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												</div>
+											</a>
+										</div>
+										<!-- /product -->
+
+										<!-- product -->
+										<div class="product">
+											<a href="product.php">
+												<div class="product-img">
+													<img src="public/img/product09.png" alt="">
+												</div>
+												<div class="product-body">
+													<p class="product-category">Category</p>
+													<h3 class="product-name"><a href="#">product name goes here</a></h3>
+													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+												</div>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												</div>
+											</a>
+										</div>
+										<!-- /product -->
+
+										<!-- product -->
+										<div class="product">
+											<a href="product.php">
+												<div class="product-img">
+													<img src="public/img/product01.png" alt="">
+												</div>
+												<div class="product-body">
+													<p class="product-category">Category</p>
+													<h3 class="product-name"><a href="#">product name goes here</a></h3>
+													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+												</div>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												</div>
+											</a>
 										</div>
 										<!-- /product -->
 									</div>
