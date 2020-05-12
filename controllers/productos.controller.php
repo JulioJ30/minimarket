@@ -52,6 +52,39 @@
 
         }
 
+
+        //GET PRODUCTO
+        if($_GET["operacion"] == "getproducto"){
+
+
+            $data = $objProductosModelo->getProducto($_GET["idproducto"]);
+
+            echo json_encode($data);
+
+        }
+
+
+        //GET PRODUCTO IMAGENES
+        if($_GET["operacion"] == "getproductoimagenes"){
+
+
+            $data = $objProductosModelo->getProductoImagenes($_GET["idproducto"]);
+
+
+           
+            foreach($data as $fila){
+
+                $img = $fila->img == null ? "public/vacio.png" : $fila->img;
+
+                echo "<div class='product-preview'>";
+                echo "    <img src='{$img}' alt=''>";
+                echo "</div>";
+            }
+            
+           
+
+        }
+
     }
 
 
