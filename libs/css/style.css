@@ -2196,3 +2196,7 @@ textarea.input {
   z-index: 5;
   display: inline-block;
 }
+
+.slick-list{
+  height: 500px !important ;
+}

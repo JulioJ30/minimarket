@@ -41,59 +41,39 @@
 				<!-- row -->
 				<div class="row">
 					<!-- Product main img -->
-					<div class="col-md-5 col-md-push-2">
+					<div class="col-md-5 col-md-push-2" >
+
 						<div id="product-main-img">
-							<div class="product-preview">
-								<img src="public/img/product01.png" alt="">
-							</div>
+							
 
-							<div class="product-preview">
-								<img src="public/img/product03.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="public/img/product06.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="public/img/product08.png" alt="">
-							</div>
 						</div>
+
 					</div>
 					<!-- /Product main img -->
 
 					<!-- Product thumb imgs -->
-					<div class="col-md-2  col-md-pull-5">
+
+					<div class="col-md-2  col-md-pull-5" >
+
 						<div id="product-imgs">
-							<div class="product-preview">
-								<img src="public/img/product01.png" alt="">
-							</div>
+							
+							
 
-							<div class="product-preview">
-								<img src="public/img/product03.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="public/img/product06.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="public/img/product08.png" alt="">
-							</div>
 						</div>
+
 					</div>
 					<!-- /Product thumb imgs -->
 
 					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
-							<h2 class="product-name">product name goes here</h2>
+							<h2 class="product-name" id="nombreproducto"></h2>
 							
 							<div>
-								<h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3>
+								<h3 class="product-price" id="precio1"></h3>
 								<span class="product-available">In Stock</span>
 							</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<p id="descripcionproducto"></p>
 
 						
 
@@ -101,7 +81,7 @@
 								<div class="qty-label">
 									Qty
 									<div class="input-number">
-										<input type="number">
+										<input type="number" value="0">
 										<span class="qty-up">+</span>
 										<span class="qty-down">-</span>
 									</div>
@@ -112,9 +92,9 @@
 							
 
 							<ul class="product-links">
-								<li>Category:</li>
-								<li><a href="#">Headphones</a></li>
-								<li><a href="#">Accessories</a></li>
+								<li>Categoria:</li>
+								<li><a href="#" id="nombrecategoria"></a></li>
+								<!-- <li><a href="#">Accessories</a></li> -->
 							</ul>
 
 
@@ -279,10 +259,77 @@
 		<script src="libs/js/jquery.zoom.min.js"></script>
 		<script src="libs/js/main.js"></script>
 
+
 		<!-- SCRIPTS GLOBALES -->
 		<?php
 			require_once 'views/scripts.php';
 		?>
+
+		<!-- SCRIPT PROPIOS -->
+
+		<script>
+			var idproducto = '<?php $idproducto = isset($_GET["id"]) ? $_GET["id"] : 0 ; echo $idproducto;?>';
+
+
+			$(document).ready(function(){
+				getProducto();
+				getProductoImagenes();
+
+
+			});
+
+			function getProducto(){
+
+				var datos = {
+					'operacion'	 : 'getproducto',
+					'idproducto' : idproducto
+				}
+
+				$.ajax({
+					url :'controllers/productos.controller.php',
+					type:'get',
+					data:datos,
+					success:function(e){
+						var js = JSON.parse(e);
+						console.log(js);
+
+						$("#nombreproducto").text(js.nombre_procucto);
+						$("#descripcionproducto").text(js.descripcion_producto);
+						$("#nombrecategoria").text(js.nombre_categoria);
+
+						if(js.precio1 != js.precio2){
+							$("#precio1").html(`S/. ${js.precio1} <del class='product-old-price'>S/. ${js.precio2}</del>`);
+						}else{
+							$("#precio1").text(`S/. ${js.precio1}`);
+						}
+
+					}
+				});
+			}
+
+			function getProductoImagenes(){
+
+				var datos = {
+					'operacion'	 : 'getproductoimagenes',
+					'idproducto' : idproducto
+				}
+
+				$.ajax({
+					url :'controllers/productos.controller.php',
+					type:'get',
+					data:datos,
+					success:function(e){
+						$("#product-main-img").html(e);
+						$("#product-imgs").html(e);
+						ArmarZoom();
+					}
+				});
+			}
+
+
+		</script>
+
+
 
 	</body>
 </html>

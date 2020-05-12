@@ -31,6 +31,42 @@
             }
         }
 
+        // GET PRODUCTOS
+        function getProducto($idproducto){
+            try{
+
+                $comando = $this->pdo->prepare("call sp_productos_obtener(?)");
+                $comando->execute(
+                    array(
+                        $idproducto
+                    )
+                );
+
+                return $comando->fetch(PDO::FETCH_OBJ);
+
+            }catch(Exception $e){
+                die($e->getMessage());
+            }
+        }
+
+        //LISTAR IMAGENES DE LOS PRODUCTOS
+        function getProductoImagenes($idproducto){
+            try{
+
+                $comando = $this->pdo->prepare("call sp_get_imagenesproductos(?)");
+                $comando->execute(
+                    array(
+                        $idproducto
+                    )
+                );
+
+                return $comando->fetchAll(PDO::FETCH_OBJ);
+
+            }catch(Exception $e){
+                die($e->getMessage());
+            }
+        }
+
     }
 
 
