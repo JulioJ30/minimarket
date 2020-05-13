@@ -201,17 +201,10 @@
 		?>
 		<!-- /FOOTER -->
 
-		<!-- jQuery Plugins -->
-		<script src="libs/js/jquery.min.js"></script>
-		<script src="libs/js/bootstrap.min.js"></script>
-		<script src="libs/js/slick.min.js"></script>
-		<script src="libs/js/nouislider.min.js"></script>
-		<script src="libs/js/jquery.zoom.min.js"></script>
-		<script src="libs/js/main.js"></script>
-
-		<!-- SCRIPTS GLOBALES -->
-		<?php
-			require_once 'views/scripts.php';
+		<!-- FOOTER -->
+        <?php
+			//SCRIPTS
+			require_once 'views/scriptstodos.php';
 		?>
 
 		<!-- SCRIPTS PROPIOS -->
@@ -221,17 +214,22 @@
 
 			$(document).ready(function(){
 
+				
+
 				ListarProductosxFamilia();
 				ListarCategoriasFamilia();
 				ListarMarcasFamilia();
 
 				setTimeout(()=>{
 
-					if(idfamilia != 0){
+				if(idfamilia != 0){
 					$("#familia"+idfamilia).addClass("active");
 				}else{
 					$("#familiahome").addClass("active");
 				}
+
+				//CARGA
+				$(".loader").fadeOut("slow");
 
 				},1000);
 
@@ -303,12 +301,12 @@
 				})
 			}
 
-
-			
-		
-
 		</script>
 
+		<!-- SCRIPTS GLOBALES -->
+		<?php
+			require_once 'views/scripts.php';
+		?>
 
 
 	</body>

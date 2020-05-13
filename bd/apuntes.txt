@@ -1,0 +1,37 @@
+========================== Index administrable ==============================================
+1. --> oferta del dia fecha : del / al (tabla banner) : id, ruta imagen , estado, 
+
+2. --> Productos sugeridos : 
+     carga de nuevos productos  que productos quiero mostrar en esta seccion, desde la tabla producto agregar colmunas
+
+3. --> productos mas vendidos por mes , si no hay productos no se meustra, crear una tabla meses atras , top maximo , 
+
+========================================================================================
+4. - Datos de empresa  colocarlo en el footer
+========================================================================================
+5. - revisar la busqueda
+========================================================================================
+6 -  Cuando diga no controla stok que coloque en stok 
+-  Cuando siga que si controla stock mostrar el stock
+
+7. -  Colocar  boton volver 
+8.  hacer simualcion de compra sin loguerase 
+9.  Seguridad
+
+
+
+================= Orden de los avances ======================================================
+1.- Pantalla principal  / 
+2.- Productos sugeridos
+
+3.- Carrito
+
+4.- Top 
+
+
+
+tabla
+
+datos  de prueba
+
+script del select 

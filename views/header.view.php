@@ -36,7 +36,11 @@
                 <div class="header-ctn">
                     <!-- Wishlist -->
                     <?php
+
+                        $data = 0;
+
                         if(!isset($_SESSION["loginminimarket"])){
+                            $data = 0;
                             echo "
                                 <div>
                                     <a href='#' id='btnLoginModal'>
@@ -52,6 +56,8 @@
                                 </div>
                             ";
                         }else{
+                            $data = 1;
+
                             echo "
                                 <div>
                                     <a href='#' id='btnMicuenta'>
@@ -66,58 +72,27 @@
                                     </a>
                                 </div>
                             ";
+
+                        }
+
                             // CARRITO
-                            
+                            // $cantidadcar = isset($_SESSION['cantidadcarrito']) ? $_SESSION['cantidadcarrito'] : 0;
                             echo "
                                 <div class='dropdown'>
                                     <a class='dropdown-toggle' data-toggle='dropdown' aria-expanded='true' href='#'>
                                         <i class='fa fa-shopping-cart'></i>
-                                        <span>Your Cart</span>
-                                        <div class='qty'>3</div>
+                                        <span>Carrito</span>
+                                        <div class='qty' id='cantidadcarrito'></div>
                                     </a>
-                                    <div class='cart-dropdown'>
-                                        <div class='cart-list'>
-                                            <div class='product-widget'>
-                                                <div class='product-img'>
-                                                    <img src='public/img/product01.png' alt=''>
-                                                </div>
-                                                <div class='product-body'>
-                                                    <h3 class='product-name'><a href='#'>product name goes here</a></h3>
-                                                    <h4 class='product-price'><span class='qty'>1x</span>$980.00</h4>
-                                                </div>
-                                                <button class='delete'><i class='fas fa-trash'></i></button>
-                                            </div>
-            
-                                            <div class='product-widget'>
-                                                <div class='product-img'>
-                                                    <img src='public/img/product02.png' alt=''>
-                                                </div>
-                                                <div class='product-body'>
-                                                    <h3 class='product-name'><a href='#'>product name goes here</a></h3>
-                                                    <h4 class='product-price'><span class='qty'>3x</span>$980.00</h4>
-                                                </div>
-                                                <button class='delete'><i class='fas fa-trash'></i></button>
-                                            </div>
-                                        </div>
-                                        <div class='cart-summary'>
-                                            <small>3 Item(s) selected</small>
-                                            <h5>SUBTOTAL: $2940.00</h5>
-                                        </div>
-                                        <div class='cart-btns'>
-                                            <a href='carrito.php'>View Cart</a>
-                                            <a href='checkout.php'>Checkout  <i class='fa fa-arrow-circle-right'></i></a>
-                                        </div>
+                                    <div class='cart-dropdown' id='contenidocarrito' data-sesion='{$data}'>
+                                        
+
                                     </div>
                                 </div>
                             ";
 
-                            //
 
-
-
-                        }
                     ?>
-                    
 
                     <!-- /Wishlist -->
 

@@ -1,5 +1,9 @@
 <?php
 	session_start();
+	if(!isset($_SESSION["loginminimarket"])){
+		header("location: index.php");
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -224,18 +228,24 @@
 		?>
 		<!-- /FOOTER -->
 
-		<!-- jQuery Plugins -->
-		<script src="libs/js/jquery.min.js"></script>
-		<script src="libs/js/bootstrap.min.js"></script>
-		<script src="libs/js/slick.min.js"></script>
-		<script src="libs/js/nouislider.min.js"></script>
-		<script src="libs/js/jquery.zoom.min.js"></script>
-		<script src="libs/js/main.js"></script>
+		<?php
+			//SCRIPTS
+			require_once 'views/scriptstodos.php';
+		?>
 
 		<!-- SCRIPTS GLOBALES -->
 		<?php
 			require_once 'views/scripts.php';
 		?>
+
+		<!-- PROPIOS -->
+
+		<script>
+			$(document).ready(function(){
+				$(".loader").fadeOut("slow");
+			})
+
+		</script>
 
 	</body>
 </html>

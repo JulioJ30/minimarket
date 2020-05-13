@@ -40,16 +40,16 @@
 				<!-- <h2>Carousel Example</h2> -->
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 					<!-- Indicators -->
-					<ol class="carousel-indicators">
-						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<ol class="carousel-indicators" id="licarrusel">
+						<!-- <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 						<li data-target="#myCarousel" data-slide-to="1"></li>
-						<li data-target="#myCarousel" data-slide-to="2"></li>
+						<li data-target="#myCarousel" data-slide-to="2"></li> -->
 					</ol>
 
 					<!-- Wrapper for slides -->
-					<div class="carousel-inner">
+					<div class="carousel-inner" id="divcarrusel">
 
-						<div class="item active">
+						<!-- <div class="item active">
 							<img src="public/carrusel/la.jpg" alt="Los Angeles" style="width:100%;">
 							<div class="carousel-caption">
 							<h3 style="color:white">Los Angeles</h3>
@@ -71,7 +71,7 @@
 							<h3 style="color:white">New York</h3>
 							<p>We love the Big Apple!</p>
 							</div>
-						</div>
+						</div> -->
 				
 					</div>
 
@@ -102,7 +102,7 @@
 					<!-- section title -->
 					<div class="col-md-12">
 						<div class="section-title">
-							<h3 class="title">New Products</h3>
+							<h3 class="title">Productos Sugeridos</h3>
 							
 						</div>
 					</div>
@@ -114,7 +114,7 @@
 							<div class="products-tabs">
 								<!-- tab -->
 								<div id="tab1" class="tab-pane active">
-									<div class="products-slick" data-nav="#slick-nav-1">
+									<div class="products-slick" data-nav="#slick-nav-1" id="productossugeridos">
 										<!-- product -->
 										<div class="product">
 
@@ -142,88 +142,6 @@
 										</div>
 										<!-- /product -->
 
-										<!-- product -->
-										<div class="product">
-											<a href="product.php">
-												<div class="product-img">
-													<img src="public/img/product02.png" alt="">
-													<!-- <div class="product-label">
-														<span class="new">NEW</span>
-													</div> -->
-												</div>
-												<div class="product-body">
-													<p class="product-category">Category</p>
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												</div>
-												<div class="add-to-cart">
-													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-												</div>
-											</a>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-
-											<a href="product.php">
-												<div class="product-img">
-													<img src="public/img/product03.png" alt="">
-													<!-- <div class="product-label">
-														<span class="sale">-30%</span>
-													</div> -->
-												</div>
-												<div class="product-body">
-													<p class="product-category">Category</p>
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												</div>
-												<div class="add-to-cart">
-													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-												</div>
-											</a>
-
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-											<a href="product.php">
-												<div class="product-img">
-													<img src="public/img/product04.png" alt="">
-												</div>
-												<div class="product-body">
-													<p class="product-category">Category</p>
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												</div>
-												<div class="add-to-cart">
-													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-												</div>
-											</a>
-										</div>
-										<!-- /product -->
-
-										<!-- product -->
-										<div class="product">
-
-											<a href="product.php">
-												<div class="product-img">
-													<img src="public/img/product05.png" alt="">
-												</div>
-												<div class="product-body">
-													<p class="product-category">Category</p>
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-													
-												</div>
-												<div class="add-to-cart">
-													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-												</div>
-											</a>
-
-										</div>
-										<!-- /product -->
 									</div>
 									<div id="slick-nav-1" class="products-slick-nav"></div>
 								</div>
@@ -547,13 +465,10 @@
 		<!-- /FOOTER -->
 
 
-		<!-- jQuery Plugins -->
-		<script src="libs/js/jquery.min.js"></script>
-		<script src="libs/js/bootstrap.min.js"></script>
-		<script src="libs/js/slick.min.js"></script>
-		<script src="libs/js/nouislider.min.js"></script>
-		<script src="libs/js/jquery.zoom.min.js"></script>
-		<script src="libs/js/main.js"></script>
+		<?php
+			//SCRIPTS
+			require_once 'views/scriptstodos.php';
+		?>
 		
 		<!-- SCRIPTS GLOBALES -->
 		<?php
@@ -572,8 +487,48 @@
 					}
 				});
 
+				//LISTAR PRODUCTOS SUGERIDOS
+				getSugeridos();
+				//CARRUSEL
+				getCarrusel();
+				//CARGA
+				$(".loader").fadeOut("slow");
+				
 			});
+
+
+			function getSugeridos(){
+				
+				$.ajax({
+					url:'controllers/productos.controller.php?operacion=listarsugeridos',
+					type:'GET',
+					success:function(e){
+						$("#productossugeridos").html(e);
+						Main();
+					}
+				});
+
+			}
+
+			function getCarrusel(){
+				$.ajax({
+					url:'controllers/banner.controller.php?operacion=getbanner',
+					type:'GET',
+					success:function(e){
+						//$("#productossugeridos").html(e);
+						//Main();
+						var js = JSON.parse(e);
+						$("#licarrusel").html(js.li);
+						$("#divcarrusel").html(js.contenido);
+
+						// console.log(js);
+					}
+				});
+			}
+
 		</script>
+
+
 
 	</body>
 </html>

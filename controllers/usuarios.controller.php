@@ -1,20 +1,54 @@
 <?php
+    require_once '../model/entidad/carrito.entidad.php';
+    require_once '../model/modelo/usuarios.modelo.php';
+    require_once '../model/modelo/carrito.modelo.php';
 
+    $objUsuariosM = new UsuariosModelo();
+    $objCarritoM = new CarritoModelo();
 
     // METODOS POST
     if(isset($_POST["operacion"])){
         
         //LOGIN 
         if($_POST["operacion"] == "login"){
-            session_start();
+
 
             $usuario = $_POST["usuario"];
-            $clave = $_POST["usuario"];
+            //METODO DE ENCRIPTACION
+            $clave   = sha1("##2".$_POST["clave"]."##3");
+
+            $data = $objUsuariosM->Login($usuario,$clave);
 
 
-            $_SESSION["loginminimarket"]    = true;
 
-            echo json_encode(array("success"=>true));
+            if($data != false){
+
+                $data = json_encode($data);
+
+                session_start();
+                $_SESSION["loginminimarket"]    = true;
+                $_SESSION["cod_usuminimarket"] = json_decode($data)->{"cod_usu"};
+
+                //SI ANTES TENIAMOS UN REGISTRO EN EL TEMPORAL LO PASAMOS A NUESTRA CUENTA
+                if(isset($_SESSION["tmpcarrito"])){
+
+                    // var_dump($_SESSION["tmpcarrito"]);
+
+                    // RECORREMOS Y REGISTRAMOS
+                    foreach($_SESSION["tmpcarrito"] as $fila){
+                        $objCarritoM->RegistrarTMP($fila->cod_producto,$_SESSION["cod_usuminimarket"],$fila->cantidad_detalle,$fila->precio1);
+                    }
+
+                }
+
+
+
+                echo json_encode(array("success"=>true));
+
+            }else{
+                echo json_encode(array("success"=>false));
+            }
+            
         }
 
 

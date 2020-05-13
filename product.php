@@ -41,59 +41,39 @@
 				<!-- row -->
 				<div class="row">
 					<!-- Product main img -->
-					<div class="col-md-5 col-md-push-2">
+					<div class="col-md-5 col-md-push-2" >
+
 						<div id="product-main-img">
-							<div class="product-preview">
-								<img src="public/img/product01.png" alt="">
-							</div>
+							
 
-							<div class="product-preview">
-								<img src="public/img/product03.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="public/img/product06.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="public/img/product08.png" alt="">
-							</div>
 						</div>
+
 					</div>
 					<!-- /Product main img -->
 
 					<!-- Product thumb imgs -->
-					<div class="col-md-2  col-md-pull-5">
+
+					<div class="col-md-2  col-md-pull-5" >
+
 						<div id="product-imgs">
-							<div class="product-preview">
-								<img src="public/img/product01.png" alt="">
-							</div>
+							
+							
 
-							<div class="product-preview">
-								<img src="public/img/product03.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="public/img/product06.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="public/img/product08.png" alt="">
-							</div>
 						</div>
+
 					</div>
 					<!-- /Product thumb imgs -->
 
 					<!-- Product details -->
 					<div class="col-md-5">
 						<div class="product-details">
-							<h2 class="product-name">product name goes here</h2>
+							<h2 class="product-name" id="nombreproducto"></h2>
 							
 							<div>
-								<h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3>
+								<h3 class="product-price" id="precio1"></h3>
 								<span class="product-available">In Stock</span>
 							</div>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<p id="descripcionproducto"></p>
 
 						
 
@@ -101,21 +81,26 @@
 								<div class="qty-label">
 									Qty
 									<div class="input-number">
-										<input type="number">
+										<input type="number" value="0" min="0"id="txtCantidadProducto">
 										<span class="qty-up">+</span>
 										<span class="qty-down">-</span>
 									</div>
 								</div>
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+								<button class="add-to-cart-btn" id="btnAgregarCarrito"><i class="fa fa-shopping-cart"></i> add to cart</button>
 							</div>
+
 
 							
 
 							<ul class="product-links">
-								<li>Category:</li>
-								<li><a href="#">Headphones</a></li>
-								<li><a href="#">Accessories</a></li>
+								<li>Categoria:</li>
+								<li><a href="#" id="nombrecategoria"></a></li>
+								<!-- <li><a href="#">Accessories</a></li> -->
 							</ul>
+
+							<div class="form-group" style="margin-top: 20px">
+								<button class="btn btn-primary" id="btnAtras"> <i class="fas fa-arrow-left"></i> Atras</button>
+							</div>
 
 
 						</div>
@@ -130,139 +115,7 @@
 		</div>
 		<!-- /SECTION -->
 
-		<!-- Section -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-
-					<div class="col-md-12">
-						<div class="section-title text-center">
-							<h3 class="title">Related Products</h3>
-						</div>
-					</div>
-
-					<!-- product -->
-					<div class="col-md-3 col-xs-6">
-						<div class="product">
-							<div class="product-img">
-								<img src="public/img/product01.png" alt="">
-								
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								<!-- <div class="product-rating">
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div> -->
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-						</div>
-					</div>
-					<!-- /product -->
-
-					<!-- product -->
-					<div class="col-md-3 col-xs-6">
-						<div class="product">
-							<div class="product-img">
-								<img src="public/img/product02.png" alt="">
-							
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								<!-- <div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div> -->
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-						</div>
-					</div>
-					<!-- /product -->
-
-					<div class="clearfix visible-sm visible-xs"></div>
-
-					<!-- product -->
-					<div class="col-md-3 col-xs-6">
-						<div class="product">
-							<div class="product-img">
-								<img src="public/img/product03.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								<!-- <div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div> -->
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-						</div>
-					</div>
-					<!-- /product -->
-
-					<!-- product -->
-					<div class="col-md-3 col-xs-6">
-						<div class="product">
-							<div class="product-img">
-								<img src="public/img/product04.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								<!-- <div class="product-rating">
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div> -->
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-						</div>
-					</div>
-					<!-- /product -->
-
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /Section -->
+		
 
 		<?php
 			//MODAL
@@ -271,18 +124,147 @@
             require_once 'views/footer.view.php';
         ?>
 
-		<!-- jQuery Plugins -->
-		<script src="libs/js/jquery.min.js"></script>
-		<script src="libs/js/bootstrap.min.js"></script>
-		<script src="libs/js/slick.min.js"></script>
-		<script src="libs/js/nouislider.min.js"></script>
-		<script src="libs/js/jquery.zoom.min.js"></script>
-		<script src="libs/js/main.js"></script>
+		<?php
+			//SCRIPTS
+			require_once 'views/scriptstodos.php';
+		?>
+
 
 		<!-- SCRIPTS GLOBALES -->
 		<?php
 			require_once 'views/scripts.php';
 		?>
+
+		<!-- SCRIPT PROPIOS -->
+
+		<script>
+
+
+			var idproducto = '<?php $idproducto = isset($_GET["id"]) ? $_GET["id"] : 0 ; echo $idproducto;?>';
+			var  producto = {};
+
+			$(document).ready(function(){
+				getProducto();
+				getProductoImagenes();
+				//CARGA
+				$(".loader").fadeOut("slow");
+
+
+				//ATRAS
+				$("#btnAtras").click(function(){
+					location.href = "store.php?id="+producto.cod_familia;
+				});
+
+
+				//AGREGAMOS AL CARRITO
+				$("#btnAgregarCarrito").click(function(){
+					var cantidad = $("#txtCantidadProducto").val();
+
+					//console.log(cantidad,idproducto);
+
+					if(cantidad > 0){
+
+						var datos = {
+						'operacion'				: 'agregarcarrito',
+						'idproducto'			: producto.cod_producto,
+						'cantidad'				: cantidad,
+						'nombre_producto'		: producto.nombre_procucto,
+						'descripcion_producto'	: producto.descripcion_producto,
+						'nombre_categoria'		: producto.nombre_categoria,
+						'ruta_imagen_catalogo'	: producto.ruta_imagen_catalogo,
+						'precio1'				: producto.precio1
+
+						}
+
+						
+
+						$.ajax({
+							url:'controllers/carrito.controller.php',
+							type:'get',
+							data:datos,
+							success:function(e){
+								// console.log(e);
+								Swal.fire({
+									title: "Registrado Correctamente",
+									html: 'MiniMarket',
+									icon : "success",
+									timer: 1500,
+								});
+								//REFRESCAMOS
+								$("#txtCantidadProducto").val(0);
+								getCarrito();
+							}
+						})
+
+
+					}else{
+						Swal.fire("Seleccione una cantidad mayor a 0","MiniMarket","info");
+					}
+
+					
+
+				});
+
+
+			});
+
+			function getProducto(){
+
+				var datos = {
+					'operacion'	 : 'getproducto',
+					'idproducto' : idproducto
+				}
+
+				$.ajax({
+					url :'controllers/productos.controller.php',
+					type:'get',
+					data:datos,
+					success:function(e){
+						var js = JSON.parse(e);
+						//GUARDAMOS PRODUCTO EN VARIABLE
+						producto = js;
+						console.log(js);
+
+						$("#nombreproducto").text(js.nombre_procucto);
+						$("#descripcionproducto").text(js.descripcion_producto);
+						$("#nombrecategoria").text(js.nombre_categoria);
+
+					
+
+
+						if(js.precio1 != js.precio2){
+							$("#precio1").html(`S/. ${js.precio1} <del class='product-old-price'>S/. ${js.precio2}</del>`);
+						}else{
+							$("#precio1").text(`S/. ${js.precio1}`);
+						}
+
+					}
+				});
+			}
+
+			function getProductoImagenes(){
+
+				var datos = {
+					'operacion'	 : 'getproductoimagenes',
+					'idproducto' : idproducto
+				}
+
+				$.ajax({
+					url :'controllers/productos.controller.php',
+					type:'get',
+					data:datos,
+					success:function(e){
+						$("#product-main-img").html(e);
+						$("#product-imgs").html(e);
+						Main();
+					}
+				});
+			}
+
+
+		</script>
+
+
 
 	</body>
 </html>
