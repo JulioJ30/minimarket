@@ -312,14 +312,16 @@ CREATE TABLE `temp_detalle_venta_carrito` (
   `sub_total_detalle` decimal(9,6) DEFAULT NULL,
   `total_detalle` decimal(9,6) DEFAULT NULL,
   PRIMARY KEY (`cod_tmp_venta_carrito`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `temp_detalle_venta_carrito` */
 
 insert  into `temp_detalle_venta_carrito`(`cod_tmp_venta_carrito`,`cod_producto`,`cod_usu`,`cantidad_detalle`,`sub_total_detalle`,`total_detalle`) values 
 (6,11,1,5.000000,0.990000,NULL),
-(9,1,1,1.000000,7.990000,NULL),
-(10,3,1,1.000000,7.990000,NULL);
+(10,3,1,1.000000,7.990000,NULL),
+(11,1,1,4.000000,7.990000,NULL),
+(12,9,1,1.000000,0.990000,NULL),
+(13,5,1,1.000000,7.990000,NULL);
 
 /*Table structure for table `unidad_medida` */
 

@@ -130,6 +130,7 @@
 		?>
 
 
+
 		<!-- SCRIPTS GLOBALES -->
 		<?php
 			require_once 'views/scripts.php';
