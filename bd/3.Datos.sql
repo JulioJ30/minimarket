@@ -37,3 +37,14 @@ LEFT JOIN familia T5 ON T5.cod_familia = T4.cod_familia
 LEFT JOIN marca T6 ON T6.cod_marca = T3.cod_marca
 WHERE T1.`cod_usu` = 1
 ;
+
+SELECT * FROM direcciones_usuarios
+DELETE FROM metodo_pago
+
+ALTER TABLE metodo_pago AUTO_INCREMENT = 1
+
+INSERT INTO `metodo_pago` (`nombre_metodo_pago`,`descripcion_metodo_pago`,`numero_cta1_metodo_pago`,`numero_cta2_metodo_pago`,`ruta_imagen_metodo_pago`) VALUES ('Efectivo', 'Efectivo',0,0,'public/img/metodo_pago/efectivo.jpg');
+INSERT INTO `metodo_pago` (`nombre_metodo_pago`,`descripcion_metodo_pago`,`numero_cta1_metodo_pago`,`numero_cta2_metodo_pago`,`ruta_imagen_metodo_pago`) VALUES ('Lukita', 'Lukita BBV',0,0,'public/img/metodo_pago/lukita.jpg');
+INSERT INTO `metodo_pago` (`nombre_metodo_pago`,`descripcion_metodo_pago`,`numero_cta1_metodo_pago`,`numero_cta2_metodo_pago`,`ruta_imagen_metodo_pago`) VALUES ('Plin', 'Plin Interbanck',0,0,'public/img/metodo_pago/plin.png');
+INSERT INTO `metodo_pago` (`nombre_metodo_pago`,`descripcion_metodo_pago`,`numero_cta1_metodo_pago`,`numero_cta2_metodo_pago`,`ruta_imagen_metodo_pago`) VALUES ('Yape', 'Yape Bcp',0,0,'public/img/metodo_pago/yape.jpg');
+

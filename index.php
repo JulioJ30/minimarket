@@ -36,7 +36,7 @@
 		<!-- SECTION -->
 		<div class="section" >
 				
-			<div class="container">
+			<div class="container-fluid">
 				<!-- <h2>Carousel Example</h2> -->
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 					<!-- Indicators -->
@@ -48,30 +48,6 @@
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" id="divcarrusel">
-
-						<!-- <div class="item active">
-							<img src="public/carrusel/la.jpg" alt="Los Angeles" style="width:100%;">
-							<div class="carousel-caption">
-							<h3 style="color:white">Los Angeles</h3>
-							<p>LA is always so much fun!</p>
-							</div>
-						</div>
-
-						<div class="item">
-							<img src="public/carrusel/chicago.jpg" alt="Chicago" style="width:100%;">
-							<div class="carousel-caption">
-							<h3 style="color:white">Chicago</h3>
-							<p>Thank you, Chicago!</p>
-							</div>
-						</div>
-					
-						<div class="item">
-							<img src="public/carrusel/ny.jpg" alt="New York" style="width:100%;">
-							<div class="carousel-caption">
-							<h3 style="color:white">New York</h3>
-							<p>We love the Big Apple!</p>
-							</div>
-						</div> -->
 				
 					</div>
 
@@ -484,15 +460,20 @@
 					type:'GET',
 					success:function(e){
 						$("#listafamilias").html(e);
+
+
+						//LISTAR PRODUCTOS SUGERIDOS
+						getSugeridos();
+						//CARRUSEL
+						getCarrusel();
+
+						//CARGA
+						$(".loader").fadeOut("slow");
+
 					}
 				});
 
-				//LISTAR PRODUCTOS SUGERIDOS
-				getSugeridos();
-				//CARRUSEL
-				getCarrusel();
-				//CARGA
-				$(".loader").fadeOut("slow");
+				
 				
 			});
 

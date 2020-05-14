@@ -18,13 +18,13 @@
             <!-- SEARCH BAR -->
             <div class="col-md-6">
                 <div class="header-search">
-                    <form>
-                        <select class="input-select" id="cboFamilias" style="width: 150px">
+                    <form action="store.php" method="get">
+                        <select class="input-select" id="cboFamilias" name="id" style="width: 150px">
                             <!-- <option value="0">All Categories</option>
                             <option value="1">Category 01</option>
                             <option value="1">Category 02</option> -->
                         </select>
-                        <input class="input" placeholder="Search here">
+                        <input class="input" placeholder="Producto" name="prod">
                         <button class="search-btn">Buscar</button>
                     </form>
                 </div>

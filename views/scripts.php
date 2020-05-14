@@ -31,15 +31,19 @@
         });
 
         // CHECKOUT
-        $("#contenidocarrito").on('click','#btnCheckout',function(){
-            var sesion = $("#contenidocarrito").data("sesion");
+        // $("#contenidocarrito").on('click','#btnCheckout',function(){
+        //     // var sesion = $("#contenidocarrito").data("sesion");
 
-            if(sesion == 1){
-                location.href = 'checkout.php';
-            }else{
-                Swal.fire("Favor inicio sesion primero","Minimarket","info");
-            }
-        });
+        //     // if(sesion == 1){
+        //     //     location.href = 'checkout.php';
+        //     // }else{
+        //     //     Swal.fire("Favor inicio sesion primero","Minimarket","info");
+        //     // }
+
+        //     location.href = 'checkout.php';
+
+
+        // });
 
         //delete
         //ELIMINAR ITEM DEL CARRITO
@@ -147,7 +151,39 @@
                 let js = JSON.parse(e);
                 // console.log(js);
                 if(js.success){
-                    location.reload();      
+
+                    // console.log(js);
+                    if(js.cantidad > 0){
+
+                        Swal.fire({
+                            title: 'Tienes productos en el carrito!!!',
+                            text: "MiniMarket",
+                            icon: 'info',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Seguir Comprando',
+                            cancelButtonText : "Limpiar Carrito"
+                            }).then((result) => {
+                                if (!result.value) {
+                                    $.ajax({
+                                        url:'controllers/carrito.controller.php?operacion=limpiarcarrito',
+                                        type:'get',
+                                        // data:datos,
+                                        success:function(e){
+                                            location.reload();      
+                                        }
+                                    });
+                                }else{
+                                    location.reload();      
+                                }
+                            })
+
+
+                    }else{  
+                        location.reload();      
+                    }
+
                 }else{
                     Swal.fire("Credenciales incorrectas","MiniMarket","warning");
                 }

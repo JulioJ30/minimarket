@@ -19,7 +19,12 @@
             $product = isset($_GET["product"]) ? $_GET["product"] : null;
 
 
-            $idfamilia = $idfamilia == 0 ? null : $idfamilia;
+            $idfamilia      = $idfamilia == 0 ? null : $idfamilia;
+            $idcategoria    = $idcategoria != "" ? $idcategoria : null;
+            $idmarca        = $idmarca != "" ? $idmarca : null;
+            $precio1        = $precio1 != "" ? $precio1 : null;
+            $precio2        = $precio2 != "" ? $precio2 : null;
+            $product        = $product != "" ? $product : null;
 
 
             $data = $objProductosModelo->ListarporFamilia($idfamilia,$idcategoria,$idmarca,$precio1,$precio2,$product);
@@ -42,7 +47,7 @@
                 echo "              <h4 class='product-price'> S/.{$fila->precio1} <del class='product-old-price'> S/.{$fila->precio2}</del></h4>";
                 echo "          </div>";
                 echo "          <div class='add-to-cart'>";
-                echo "              <button class='add-to-cart-btn' data-id='{$fila->cod_producto}' data-nombre='{$fila->nombre_procucto}' data-descripcion='{$fila->descripcion_producto}'  data-categoria='{$fila->nombre_categoria}' data-imagen='{$imagen}' data-precio='{$fila->precio1}'  ><i class='fa fa-shopping-cart'></i> add to cart</button>";
+                echo "              <button class='add-to-cart-btn' data-id='{$fila->cod_producto}' data-nombre='{$fila->nombre_procucto}' data-descripcion='{$fila->descripcion_producto}'  data-categoria='{$fila->nombre_categoria}' data-imagen='{$imagen}' data-precio='{$fila->precio1}'  ><i class='fa fa-shopping-cart'></i> agregar al carrito</button>";
                 echo "          </div>";
                 echo "      </a>";
                 echo "  </div>";
@@ -107,7 +112,7 @@
                 echo "              <h4 class='product-price'> S/.{$fila->precio1} <del class='product-old-price'> S/.{$fila->precio2}</del></h4>";
                 echo "          </div>";
                 echo "          <div class='add-to-cart'>";
-                echo "              <button  class='add-to-cart-btn' data-id='{$fila->cod_producto}' data-nombre='{$fila->nombre_procucto}' data-descripcion='{$fila->descripcion_producto}'  data-categoria='{$fila->nombre_categoria}' data-imagen='{$imagen}' data-precio='{$fila->precio1}'  ><i class='fa fa-shopping-cart'></i> add to cart</button>";
+                echo "              <button  class='add-to-cart-btn' data-id='{$fila->cod_producto}' data-nombre='{$fila->nombre_procucto}' data-descripcion='{$fila->descripcion_producto}'  data-categoria='{$fila->nombre_categoria}' data-imagen='{$imagen}' data-precio='{$fila->precio1}'  ><i class='fa fa-shopping-cart'></i> agregar al carrito</button>";
                 echo "          </div>";
                 echo "      </a>";
                 echo "  </div>";

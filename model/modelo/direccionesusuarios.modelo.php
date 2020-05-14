@@ -2,7 +2,7 @@
 
     require_once '../core/model.master.php';
 
-    class CategoriasModelo extends ModelMaster{
+    class DireccionesUsuariosModelo extends ModelMaster{
 
         private $pdo;
 
@@ -11,13 +11,13 @@
             $this->pdo = parent::getConexion();
         }
 
-        function ListarCategoriasCant($idfamilia,$product){
+        function getDirecciones($idusuario){
             try{
 
-                $comando = $this->pdo->prepare("call SP_LISTA_CATEGORIA_FAMILIA_CANT (?,?)");
+                $comando = $this->pdo->prepare("call sp_direcciones_usuarios_listar (?) ");
                 $comando->execute(
                     array(
-                        $idfamilia,$product
+                        $idusuario
                     )
                 );
 

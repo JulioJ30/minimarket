@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	if(!isset($_SESSION["loginminimarket"])){
-		header("location: index.php");
-	}
+	// if(!isset($_SESSION["loginminimarket"])){
+	// 	header("location: index.php");
+	// }
 
 ?>
 <!DOCTYPE html>
@@ -45,169 +45,86 @@
 				<!-- row -->
 				<div class="row">
 
-					<div class="col-md-7">
+					<div class="col-md-8">
 						<!-- Billing Details -->
 						<div class="billing-details">
 							<div class="section-title">
-								<h3 class="title">Billing address</h3>
+								<h3 class="title">Carrito</h3>
 							</div>
+							
 							<div class="form-group">
-								<input class="input" type="text" name="first-name" placeholder="First Name">
+								<a class="btn btn-primary" href='store.php?id=1'><i class="fas fa-arrow-left"></i> Seguir comprado </a>
+								<button class="btn btn-warning" id="btnActualizarCarrito"><i class="fas fa-sync-alt"></i> Actualizar carrito </button>
+								<button class="btn btn-danger" id="btnLimpiarCarrito"> <i class="fas fa-trash"></i> Limpiar carrito </button>
+
 							</div>
+
+
 							<div class="form-group">
-								<input class="input" type="text" name="last-name" placeholder="Last Name">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Producto</th>
+											<th>Precio</th>
+											<th>Cantidad</th>
+											<th>SubTotal</th>
+										</tr>
+									</thead>
+									<tbody id="cuerpotabla">
+										
+									</tbody>
+								</table>
 							</div>
-							<div class="form-group">
-								<input class="input" type="email" name="email" placeholder="Email">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="address" placeholder="Address">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="city" placeholder="City">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="country" placeholder="Country">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-							</div>
-							<div class="form-group">
-								<input class="input" type="tel" name="tel" placeholder="Telephone">
-							</div>
-							<div class="form-group">
-								<div class="input-checkbox">
-									<input type="checkbox" id="create-account">
-									<label for="create-account">
-										<span></span>
-										Create Account?
-									</label>
-									<div class="caption">
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-										<input class="input" type="password" name="password" placeholder="Enter Your Password">
-									</div>
-								</div>
-							</div>
+
+
 						</div>
 						<!-- /Billing Details -->
 
-						<!-- Shiping Details -->
-						<div class="shiping-details">
-							<div class="section-title">
-								<h3 class="title">Shiping address</h3>
-							</div>
-							<div class="input-checkbox">
-								<input type="checkbox" id="shiping-address">
-								<label for="shiping-address">
-									<span></span>
-									Ship to a diffrent address?
-								</label>
-								<div class="caption">
-									<div class="form-group">
-										<input class="input" type="text" name="first-name" placeholder="First Name">
-									</div>
-									<div class="form-group">
-										<input class="input" type="text" name="last-name" placeholder="Last Name">
-									</div>
-									<div class="form-group">
-										<input class="input" type="email" name="email" placeholder="Email">
-									</div>
-									<div class="form-group">
-										<input class="input" type="text" name="address" placeholder="Address">
-									</div>
-									<div class="form-group">
-										<input class="input" type="text" name="city" placeholder="City">
-									</div>
-									<div class="form-group">
-										<input class="input" type="text" name="country" placeholder="Country">
-									</div>
-									<div class="form-group">
-										<input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-									</div>
-									<div class="form-group">
-										<input class="input" type="tel" name="tel" placeholder="Telephone">
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- /Shiping Details -->
-
-						<!-- Order notes -->
-						<div class="order-notes">
-							<textarea class="input" placeholder="Order Notes"></textarea>
-						</div>
-						<!-- /Order notes -->
+						
+						
 					</div>
 
 					<!-- Order Details -->
-					<div class="col-md-5 order-details">
+					<div class="col-md-4 order-details" >
 						<div class="section-title text-center">
-							<h3 class="title">Your Order</h3>
+							<h3 class="title">Total del Carrito</h3>
 						</div>
 						<div class="order-summary">
 							<div class="order-col">
-								<div><strong>PRODUCT</strong></div>
-								<div><strong>TOTAL</strong></div>
+								<!-- <div><strong>Su</strong></div> -->
+								<!-- <div><strong>TOTAL</strong></div> -->
 							</div>
 							<div class="order-products">
 								<div class="order-col">
-									<div>1x Product Name Goes Here</div>
-									<div>$980.00</div>
+									<div>SUBTOTAL</div>
+									<div id="subtotalcarrito">0</div>
 								</div>
 								<div class="order-col">
-									<div>2x Product Name Goes Here</div>
-									<div>$980.00</div>
+									<div>ENVIO</div>
+									<div id="enviocarrito">0</div>
 								</div>
 							</div>
-							<div class="order-col">
-								<div>Shiping</div>
+							<!-- <div class="order-col">
+								<div>TOTAL</div>
 								<div><strong>FREE</strong></div>
-							</div>
+							</div> -->
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">$2940.00</strong></div>
+								<div><strong class="order-total" id="totalcarrito"></strong></div>
 							</div>
 						</div>
 						<div class="payment-method">
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-1">
-								<label for="payment-1">
-									<span></span>
-									Direct Bank Transfer
-								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
-							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-2">
-								<label for="payment-2">
-									<span></span>
-									Cheque Payment
-								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
-							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-3">
-								<label for="payment-3">
-									<span></span>
-									Paypal System
-								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
-							</div>
+							<label for="">Mis direcciones</label>
+							<select name="" id="cboDirecciones" class="form-control">
+
+							</select>
+							<label for="">Metodo de pago</label>
+							<select name="" id="cboMetodosPago" class="form-control">
+
+							</select>
 						</div>
-						<div class="input-checkbox">
-							<input type="checkbox" id="terms">
-							<label for="terms">
-								<span></span>
-								I've read and accept the <a href="#">terms & conditions</a>
-							</label>
-						</div>
-						<a href="#" class="primary-btn order-submit">Place order</a>
+				
+						<button class="primary-btn order-submit btn-block" id="btnComprar" data-sesion="<?php echo isset($_SESSION["cod_usuminimarket"]) ? 1 : 0 ;?>" >Comprar</button>
 					</div>
 					<!-- /Order Details -->
 				</div>
@@ -241,9 +158,239 @@
 		<!-- PROPIOS -->
 
 		<script>
-			$(document).ready(function(){
+
+			window.addEventListener('load',async ()=>{
+				//CARRITO
+				var carrito = await getCarritoCompleto();
+				$("#cuerpotabla").html(carrito.resultado);
+				$("#totalcarrito").html(carrito.total);
+				$("#enviocarrito").html(carrito.envio);
+				$("#subtotalcarrito").html(carrito.subtotal);
+
+				//METODOS DE PAGO
+				var metodos = await getMetodosPago();
+				$("#cboMetodosPago").html(metodos);
+				//DIRECCIONES
+				var direcciones = await getDirecciones();
+				$("#cboDirecciones").html(direcciones);
+
 				$(".loader").fadeOut("slow");
-			})
+
+
+
+				// EVENTOS
+				
+					//ACTUALIZAR CARRITO
+					$("#btnActualizarCarrito").click(async function(){
+						getCarrito();
+
+						carrito = await getCarritoCompleto();
+						$("#cuerpotabla").html(carrito.resultado);
+						$("#totalcarrito").html(carrito.total);
+						$("#enviocarrito").html(carrito.envio);
+						$("#subtotalcarrito").html(carrito.subtotal);
+					});
+
+					//LIMPIAR CARRITO
+					$("#btnLimpiarCarrito").click(async function(){
+						var data = await LimpiarCarrito();
+						getCarrito();
+						carrito = await getCarritoCompleto();
+						$("#cuerpotabla").html(carrito.resultado);
+						$("#totalcarrito").html(carrito.total);
+						$("#enviocarrito").html(carrito.envio);
+						$("#subtotalcarrito").html(carrito.subtotal);
+					});
+
+
+					//CAMBIAR CANTIDAD
+					$("#cuerpotabla").on('change','.cantidadcarrito', async function(){
+						// $(this).attr("disabled");
+						var id = $(this).data("id");
+						var cantidad = $(this).val();
+
+						var data = ModificarCantidad(id,cantidad);
+						console.log(data);
+						// $(".loader").show("slow");
+						carrito = await getCarritoCompleto();
+						$("#cuerpotabla").html(carrito.resultado);
+						$("#totalcarrito").html(carrito.total);
+						$("#enviocarrito").html(carrito.envio);
+						$("#subtotalcarrito").html(carrito.subtotal);
+						// $(".loader").fadeOut("slow");
+
+
+					});
+
+					//ELIMINAR ITEM CARRITO
+					$("#cuerpotabla").on('click','.eliminarcarrito', async function(){
+						// $(this).attr("disabled");
+						var id = $(this).data("id");
+						// console.log(id);
+						// var cantidad = $(this).val();
+
+						var data = EliminarItemCarrito(id);
+						
+						//ACTUALIZAMOS EN EL HEADER
+						getCarrito();
+						
+						var car = await getCarritoCompleto();
+						$("#cuerpotabla").html(car.resultado);
+						$("#totalcarrito").html(car.total);
+						$("#enviocarrito").html(car.envio);
+						$("#subtotalcarrito").html(car.subtotal);
+						// // $(".loader").fadeOut("slow");
+
+
+					});
+
+					//COMPRAR
+					$("#btnComprar").click(async function(){
+						var sesion = $(this).data("sesion");
+						if(sesion == 1){
+
+							// console.log($("#totalcarrito").text());
+							if(carrito.total > 0){
+								
+								var compra = await Comprar();
+
+								
+
+								carrito = await getCarritoCompleto();
+								$("#cuerpotabla").html(carrito.resultado);
+								$("#totalcarrito").html(carrito.total);
+								$("#enviocarrito").html(carrito.envio);
+								$("#subtotalcarrito").html(carrito.subtotal);
+								getCarrito();
+
+								Swal.fire("Compra realizada","MiniMarket","success");
+
+							}else{
+								console.log(carrito.total);
+								Swal.fire("Por favor agregue productos al carrito primero","MiniMarket","info");
+							}
+
+						}else{
+							Swal.fire("Por favor registrese o inicie sesión para poder realizar compra","MiniMarket","info");
+						}
+					});
+
+
+
+			});
+
+		
+			//OBTNER CARRITO
+			async function getCarritoCompleto(){
+				let rpt;
+				try{	
+					rpt = await $.ajax({
+						url:'controllers/carrito.controller.php?operacion=getcarritocompleto',
+						type:'get'
+					});
+
+					return JSON.parse(rpt);
+
+				}catch(e){
+					console.log(e);
+				}
+			}
+
+			//LISTAR METODOS DE PAGO
+			async function getMetodosPago(){
+				let rpt;
+				try{	
+					rpt = await $.ajax({
+						url:'controllers/metodospago.controller.php?operacion=getmetodos',
+						type:'get'
+					});
+
+					return rpt;
+
+				}catch(e){
+					console.log(e);
+				}
+			}
+
+			//LISTAR DIRECCIONES DE USUARIOS
+			async function getDirecciones(){
+				let rpt;
+				try{	
+					rpt = await $.ajax({
+						url:'controllers/direccionesusuarios.controller.php?operacion=getdirecciones',
+						type:'get'
+					});
+
+					return rpt;
+
+				}catch(e){
+					console.log(e);
+				}
+			}
+
+			//LIMPIAR CARRITO
+			async function LimpiarCarrito(){
+				let rpt;
+				rpt = await $.ajax({
+					url:'controllers/carrito.controller.php?operacion=limpiarcarrito',
+					type:'get'
+				});
+
+				return rpt;
+			}
+
+			//MODIFICAR CANTIDAD
+			async function ModificarCantidad(id,cantidad){
+				var datos = {
+					'operacion' : 'modificarcantidad',
+					'idcarrito'	: id,
+					'cantidad'  : cantidad
+				}
+				var rpt;
+				rpt = await $.ajax({
+					url:'controllers/carrito.controller.php',
+					type:'get',
+					data:datos
+				});
+					
+				return rpt;
+				
+			}
+
+			//ELIMINAR ITEM CARRITO
+			async function EliminarItemCarrito(id){
+				var datos = {
+					'operacion' : 'eliminaritem',
+					'id'	: id
+				}
+				var rpt;
+				rpt = await $.ajax({
+					url:'controllers/carrito.controller.php',
+					type:'get',
+					data:datos
+				});
+					
+				return rpt;
+				
+			}
+
+			async function Comprar(){
+				var datos = {
+					'operacion' : 'registrar',
+					'iddireccion'	: $("#cboDirecciones").val(),
+					'idmetodopago'		: $("#cboMetodosPago").val()
+				}
+				var rpt;
+				rpt = await $.ajax({
+					url:'controllers/venta.controller.php',
+					type:'get',
+					data:datos
+				});
+					
+				return rpt;
+			}
+
+
 
 		</script>
 

@@ -28,6 +28,23 @@
             }
         }
 
+        function CantidadCarrito($idusuario){
+            try{
+
+                $comando = $this->pdo->prepare("call sp_usuarios_carrito(?)");
+                $comando->execute(
+                    array(
+                        $idusuario
+                    )
+                );
+
+                return $comando->fetch(PDO::FETCH_OBJ);
+
+            }catch(Exception $e){
+                die($e->getMessage());
+            }
+        }
+
     }
 
 

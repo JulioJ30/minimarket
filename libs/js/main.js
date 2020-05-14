@@ -206,7 +206,7 @@ function Main() {
 			infinite: true,
 			speed: 300,
 			dots: false,
-			arrows: true,
+			arrows: false,
 			appendArrows: $nav ? $nav : false,
 			responsive: [{
 	        breakpoint: 991,
@@ -236,7 +236,7 @@ function Main() {
 			autoplay: true,
 			speed: 300,
 			dots: false,
-			arrows: true,
+			arrows: false,
 			appendArrows: $nav ? $nav : false,
 		});
 	});
@@ -249,7 +249,7 @@ function Main() {
 		infinite: true,
 		speed: 300,
 		dots: false,
-		arrows: true,
+		arrows: false,
 		fade: true,
 		asNavFor: '#product-imgs',
 	  });
@@ -258,7 +258,7 @@ function Main() {
 	  $('#product-imgs').slick({
 		slidesToShow: 3,
 		slidesToScroll: 1,
-		arrows: true,
+		arrows: false,
 		centerMode: true,
 		focusOnSelect: true,
 			centerPadding: 0,
@@ -346,5 +346,10 @@ function Main() {
 			handle ? priceInputMax.value = value : priceInputMin.value = value
 		});
 	}
+
+
+	//
+	// $(".slick-arrow").html("<i class='fas fa-user'></i>");
+
 
 }

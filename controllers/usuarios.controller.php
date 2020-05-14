@@ -29,6 +29,11 @@
                 $_SESSION["loginminimarket"]    = true;
                 $_SESSION["cod_usuminimarket"] = json_decode($data)->{"cod_usu"};
 
+                $cantidad = $objUsuariosM->CantidadCarrito($_SESSION["cod_usuminimarket"]);
+
+                
+
+
                 //SI ANTES TENIAMOS UN REGISTRO EN EL TEMPORAL LO PASAMOS A NUESTRA CUENTA
                 if(isset($_SESSION["tmpcarrito"])){
 
@@ -42,8 +47,7 @@
                 }
 
 
-
-                echo json_encode(array("success"=>true));
+                echo json_encode(array("success"=>true,"cantidad"=>$cantidad->{"cantidad"}));
 
             }else{
                 echo json_encode(array("success"=>false));

@@ -39,7 +39,7 @@
             return $comando->fetchAll(PDO::FETCH_OBJ);
         }
 
-        //ELIMINAR TEMPORAL
+        //ELIMINAR ITEM TEMPORAL
         function Eliminar($idcarrito){
 
 
@@ -52,8 +52,27 @@
 
         }
 
+        //VACIAR CARRITO TEMPORAL
+        function VaciarCarrito($idusuario){
+            
+            $comando = $this->pdo->prepare("call sp_carrito_vaciar (?)");
+            $comando->execute(
+                array(
+                    $idusuario
+                )
+            );
+        }
         
-        
+        //CAMBIAR CANTIDAD
+        function CambiarCantidad($idcarrito,$cantidad){
+            $comando = $this->pdo->prepare("call sp_carrito_modificar (?,?)");
+            $comando->execute(
+                array(
+                    $idcarrito,$cantidad
+                )
+            );
+        }
+
 
 
         //REGISTRAMOS EN LA SESSION

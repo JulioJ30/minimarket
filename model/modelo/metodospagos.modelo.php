@@ -2,7 +2,7 @@
 
     require_once '../core/model.master.php';
 
-    class CategoriasModelo extends ModelMaster{
+    class MetodosPagosModelo extends ModelMaster{
 
         private $pdo;
 
@@ -11,15 +11,11 @@
             $this->pdo = parent::getConexion();
         }
 
-        function ListarCategoriasCant($idfamilia,$product){
+        function getMetodos(){
             try{
 
-                $comando = $this->pdo->prepare("call SP_LISTA_CATEGORIA_FAMILIA_CANT (?,?)");
-                $comando->execute(
-                    array(
-                        $idfamilia,$product
-                    )
-                );
+                $comando = $this->pdo->prepare("call sp_metodopago_listar ");
+                $comando->execute();
 
                 return $comando->fetchAll(PDO::FETCH_OBJ);
 

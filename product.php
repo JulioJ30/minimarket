@@ -86,7 +86,7 @@
 										<span class="qty-down">-</span>
 									</div>
 								</div>
-								<button class="add-to-cart-btn" id="btnAgregarCarrito"><i class="fa fa-shopping-cart"></i> add to cart</button>
+								<button class="add-to-cart-btn" id="btnAgregarCarrito"><i class="fa fa-shopping-cart"></i> Agregar al carrito</button>
 							</div>
 
 
@@ -99,7 +99,7 @@
 							</ul>
 
 							<div class="form-group" style="margin-top: 20px">
-								<button class="btn btn-primary" id="btnAtras"> <i class="fas fa-arrow-left"></i> Atras</button>
+								<button class="btn btn-primary" id="btnAtras"> <i class="fas fa-arrow-left"></i> Seguir Comprando</button>
 							</div>
 
 
@@ -224,14 +224,11 @@
 						var js = JSON.parse(e);
 						//GUARDAMOS PRODUCTO EN VARIABLE
 						producto = js;
-						console.log(js);
+						// console.log(js);
 
 						$("#nombreproducto").text(js.nombre_procucto);
 						$("#descripcionproducto").text(js.descripcion_producto);
 						$("#nombrecategoria").text(js.nombre_categoria);
-
-					
-
 
 						if(js.precio1 != js.precio2){
 							$("#precio1").html(`S/. ${js.precio1} <del class='product-old-price'>S/. ${js.precio2}</del>`);

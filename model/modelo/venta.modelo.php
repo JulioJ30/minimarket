@@ -2,7 +2,7 @@
 
     require_once '../core/model.master.php';
 
-    class CategoriasModelo extends ModelMaster{
+    class VentasModelo extends ModelMaster{
 
         private $pdo;
 
@@ -11,17 +11,17 @@
             $this->pdo = parent::getConexion();
         }
 
-        function ListarCategoriasCant($idfamilia,$product){
+        function Registrar($iddireccion,$idmetodopago){
             try{
 
-                $comando = $this->pdo->prepare("call SP_LISTA_CATEGORIA_FAMILIA_CANT (?,?)");
+                $comando = $this->pdo->prepare("call sp_venta_carrito_registrar(?,?)");
                 $comando->execute(
                     array(
-                        $idfamilia,$product
+                        $iddireccion,$idmetodopago
                     )
                 );
 
-                return $comando->fetchAll(PDO::FETCH_OBJ);
+                // return $comando->fetch(PDO::FETCH_OBJ);
 
             }catch(Exception $e){
                 die($e->getMessage());

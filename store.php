@@ -42,71 +42,27 @@
 				<div class="row">
 					<!-- ASIDE -->
 					<div id="aside" class="col-md-3">
-						<!-- aside Widget -->
+
+						<!-- FILTRO -->
 						<div class="aside">
-							<h3 class="aside-title">Categories</h3>
-							<div class="checkbox-filter" id="contenedorcategorias">
-
-								<!-- <div class="input-checkbox">
-									<input type="checkbox" id="category-1">
-									<label for="category-1">
-										<span></span>
-										Laptops
-										<small>(120)</small>
-									</label>
-								</div> -->
-<!-- 
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-2">
-									<label for="category-2">
-										<span></span>
-										Smartphones
-										<small>(740)</small>
-									</label>
-								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-3">
-									<label for="category-3">
-										<span></span>
-										Cameras
-										<small>(1450)</small>
-									</label>
-								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-4">
-									<label for="category-4">
-										<span></span>
-										Accessories
-										<small>(578)</small>
-									</label>
-								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-5">
-									<label for="category-5">
-										<span></span>
-										Laptops
-										<small>(120)</small>
-									</label>
-								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-6">
-									<label for="category-6">
-										<span></span>
-										Smartphones
-										<small>(740)</small>
-									</label>
-								</div> -->
+							<h3 class="aside-title">Busqueda</h3>
+							<div class="form-group">
+								<button class="btn btn-block btn-primary" id="btnBusquedaProducto"><i class="fas fa-search"></i></button>
 							</div>
 						</div>
-						<!-- /aside Widget -->
+						<!-- /CATEGORIAS -->
 
-						<!-- aside Widget -->
+						<!-- CATEGORIAS -->
 						<div class="aside">
-							<h3 class="aside-title">Price</h3>
+							<h3 class="aside-title">Categorias</h3>
+							<div class="checkbox-filter" id="contenedorcategorias">
+							</div>
+						</div>
+						<!-- /CATEGORIAS -->
+
+						<!-- PRECIOS -->
+						<div class="aside">
+							<h3 class="aside-title">Precios</h3>
 							<div class="price-filter">
 								<div id="price-slider"></div>
 								<div class="input-number price-min">
@@ -122,16 +78,16 @@
 								</div>
 							</div>
 						</div>
-						<!-- /aside Widget -->
+						<!-- /PRECIOS -->
 
-						<!-- aside Widget -->
+						<!-- MARCAS -->
 						<div class="aside">
 							<h3 class="aside-title">Marcas</h3>
 							<div class="checkbox-filter" id="contenedormarcas">
 								
 							</div>
 						</div>
-						<!-- /aside Widget -->
+						<!-- /MARCAS -->
 
 						
 					</div>
@@ -211,10 +167,11 @@
 		<script>
 			//LISTAR POR FAMILIA
 			var idfamilia = "<?php echo isset($_GET["id"]) ? $_GET["id"] : 0;  ?>";
+			var producto = "<?php echo isset($_GET["prod"]) ? $_GET["prod"] : "";  ?>";
 
 			$(document).ready(function(){
 
-				
+
 
 				ListarProductosxFamilia();
 				ListarCategoriasFamilia();
@@ -231,7 +188,42 @@
 				//CARGA
 				$(".loader").fadeOut("slow");
 
+				//Main
+				Main();
+
 				},1000);
+
+				//BUSQUEDA
+				$("#btnBusquedaProducto").click(function(){
+					// console.log($(".categor"));
+					var categorias 	= $(".categoriasfiltro");
+					var marcas 		= $(".marcasfiltro");
+
+					var acategorias = [];
+					var amarcas = [];
+
+
+					//CATEGORIAS
+					for(var i = 0; i < categorias.length; i++){
+
+						if(categorias[i].checked){
+							acategorias.push(categorias[i].dataset.id);
+						}
+
+					}
+
+					//MARCAS
+					for(var i = 0; i < marcas.length; i++){
+
+						if(marcas[i].checked){
+							amarcas.push(categorias[i].dataset.id);
+						}
+					}
+					// location.href =window.location.href + "&pruebita=123";
+					// console.log(acategorias,amarcas);
+				});
+
+				
 
 				
 
@@ -242,7 +234,8 @@
 
 				var datos = {
 					'operacion' : 'listarxfamilia',
-					'idfamilia'	: idfamilia
+					'idfamilia'	: idfamilia,
+					'product'	: producto
 				}
 
 
@@ -264,7 +257,8 @@
 				
 				var datos = {
 					'operacion' : 'listarcategoriascant',
-					'idfamilia'	: idfamilia
+					'idfamilia'	: idfamilia,
+					'product'	: producto
 				}
 
 
@@ -286,7 +280,8 @@
 				
 				var datos = {
 					'operacion' : 'listarxfamilia',
-					'idfamilia'	: idfamilia
+					'idfamilia'	: idfamilia,
+					'product'	: producto
 				}
 
 

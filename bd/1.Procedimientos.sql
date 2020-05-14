@@ -42,8 +42,10 @@ USE bd_market;
 				SET @sql = CONCAT(@sql, " and fa.cod_familia = ", _idfamilia );
 			END IF;
 			
-			-- CATEGORIAs
-			
+			-- PRODIUCTO
+			IF _product IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and pro.nombre_procucto like '","%", _product ,"%","'");
+			END IF;
 		
 		-- PREPARAMOS 
 		PREPARE stmt FROM @sql;
@@ -143,7 +145,8 @@ USE bd_market;
 	DELIMITER $$
 	CREATE OR REPLACE PROCEDURE SP_LISTA_CATEGORIA_FAMILIA_CANT
 	(
-		IN 	_idfamilia	INT
+		IN 	_idfamilia	INT,
+		IN 	_product	VARCHAR(50)
 	)BEGIN
 			
 		SET @sql = "
@@ -162,9 +165,15 @@ USE bd_market;
 		WHERE cat.estado_categoria = 0 ";
 		
 		-- FILTROS
-			
+		
+		-- ID FAMILIA
 		IF _idfamilia IS NOT NULL THEN
 			SET  @sql = CONCAT(@sql, " and fa.cod_familia = " ,_idfamilia);
+		END IF;
+		
+		-- PRODUCTO
+		IF _product IS NOT NULL THEN
+			SET @sql = CONCAT(@sql, " and pro.nombre_procucto like '","%", _product ,"%","'");
 		END IF;
 		
 		-- AGRUPAMOS
@@ -186,7 +195,8 @@ USE bd_market;
 	DELIMITER $$
 	CREATE OR REPLACE PROCEDURE sp_marcasfamilia_listar
 	(
-		IN 	_idfamilia	INT
+		IN 	_idfamilia	INT,
+		IN 	_product	VARCHAR(50)
 	)BEGIN
 		SET @sql = "
 		SELECT 
@@ -209,6 +219,11 @@ USE bd_market;
 			IF _idfamilia IS NOT NULL THEN 
 				SET @sql = CONCAT(@sql , " and fa.cod_familia = ", _idfamilia);
 			END IF;
+			
+			-- PRODUCTO
+			IF _product IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and pro.nombre_procucto like '","%", _product ,"%","'");
+			END IF;
 		
 			-- AGRUPAMOS
 			SET @sql = CONCAT(@sql, " GROUP BY mar.`cod_marca`,mar.`nombre_marca`,mar.descri_marca" );
@@ -220,7 +235,7 @@ USE bd_market;
 		EXECUTE stmt;
 		
 	END $$
-
+SELECT * FROM temp_detalle_venta_carrito
 ##########
 # BANNER #
 ##########
@@ -259,6 +274,15 @@ USE bd_market;
 			
 		END $$
 	
+	-- VERIFICAR CARRITO
+		DELIMITER $$
+		CREATE OR REPLACE PROCEDURE sp_usuarios_carrito
+		(	
+			IN 	_idusuario	 INT
+		)BEGIN
+		
+			SELECT COUNT(*) cantidad FROM temp_detalle_venta_carrito WHERE cod_usu = _idusuario;
+		END $$
 		
 		
 ###########
@@ -283,13 +307,14 @@ USE bd_market;
 		IF v_duplicado > 0 THEN 
 			--  ACTUALIZAMOS SI YA EXISTE
 			UPDATE temp_detalle_venta_carrito SET
-			cantidad_detalle = cantidad_detalle + V_cantidad_detalle
+			cantidad_detalle = cantidad_detalle + V_cantidad_detalle,
+			total_detalle = (cantidad_detalle) * sub_total_detalle
 			WHERE cod_producto = v_cod_producto AND cod_usu = v_cod_usu;
 		ELSE
 		
 			-- REGISTRAMOS
 			INSERT INTO temp_detalle_venta_carrito (cod_producto,cod_usu,cantidad_detalle,sub_total_detalle,total_detalle) VALUES
-				(v_cod_producto,v_cod_usu,v_cantidad_detalle,v_subtotal,NULL);
+				(v_cod_producto,v_cod_usu,v_cantidad_detalle,v_subtotal,v_cantidad_detalle*v_subtotal);
 		
 		END IF;	
 		
@@ -340,6 +365,110 @@ USE bd_market;
 	END $$
 	
 	
-	SELECT * FROM  temp_detalle_venta_carrito
+	-- LIMPIAR CARRITO
+	DELIMITER $$
+	CREATE OR REPLACE PROCEDURE sp_carrito_vaciar
+	(
+		IN 	_idusuario	INT
+	)BEGIN
 	
-	SELECT * FROM usuario
+		DELETE FROM temp_detalle_venta_carrito WHERE cod_usu = _idusuario;
+	END $$
+
+
+	-- MODIFICAR CANTDAD
+	DELIMITER $$
+	CREATE OR REPLACE PROCEDURE sp_carrito_modificar
+	(
+		-- in 	_idusuario	int,
+		-- in 	_idproducto	int,
+		IN 	_idcarrito	INT,
+		IN 	_cantidad	DECIMAL(9,6)
+	)BEGIN
+	
+		-- select * from temp_detalle_venta_carrito
+		UPDATE temp_detalle_venta_carrito SET
+		cantidad_detalle = _cantidad,
+		total_detalle = cantidad_detalle * sub_total_detalle
+		WHERE cod_tmp_venta_carrito = _idcarrito;
+		
+	END $$
+
+########################
+# DIRECCIONES USUARIOS #
+########################
+
+	DELIMITER $$
+	CREATE OR REPLACE PROCEDURE sp_direcciones_usuarios_listar
+	(
+		IN 	_idusuario	INT
+	)BEGIN
+		SELECT * FROM direcciones_usuarios WHERE  cod_usu = _idusuario;
+	END $$
+		
+	CALL sp_direcciones_usuarios_listar(1)
+
+################
+# METODOS PAGO #
+################
+	
+	-- LISTA METODOS DE PAGO
+	
+	DELIMITER $$
+	CREATE OR REPLACE PROCEDURE sp_metodopago_listar()
+	BEGIN
+		SELECT * FROM metodo_pago;
+	END $$	
+	
+
+#################
+# VENTA CARRITO #
+#################
+
+	DELIMITER $$
+	CREATE OR REPLACE PROCEDURE sp_venta_carrito_registrar
+	(
+		IN 	_iddireccionusuario	INT,
+		IN 	_idmetodopago		INT
+	)BEGIN
+		DECLARE v_idusuario INT;
+		DECLARE v_idventa INT;
+		
+		-- OBTENEMOS ID DE USURIO
+		SELECT cod_usu INTO v_idusuario FROM direcciones_usuarios  WHERE cod_direcc_usu = _iddireccionusuario;
+		
+		-- REGISTRAMOS VENTA
+		INSERT INTO venta_carrito (cod_direcc_usu,cod_metodo_pago,fecha_creacion,fecha_entrega,cod_comprobante,monto_total_bruto_venta,monto_total_neto_venta,monto_igv_venta,estado_venta) VALUES
+		(_iddireccionusuario,_idmetodopago,CURDATE(),NULL,1,0,0,0,1);
+		
+		-- OBTENEMOS ID	DE VENTA
+		SELECT LAST_INSERT_ID() INTO v_idventa;
+		
+		-- DESCONTAMOS STOCK
+		UPDATE producto pro
+		INNER JOIN temp_detalle_venta_carrito tmp ON tmp.cod_producto = pro.cod_producto 
+		SET 
+			pro.stock_producto = pro.stock_producto - tmp.cantidad_detalle
+			WHERE 
+			pro.tipo_stock_producto = 'C' AND 
+			tmp.cod_usu = v_idusuario;
+		
+		-- REGISTRAMOS DETALLE VENTA 
+		
+		INSERT INTO detalle_venta_carrito(cod_venta_carrito,cod_producto,cantidad_detalle,importe_detalle)
+		SELECT v_idventa,cod_producto,cantidad_detalle,total_detalle FROM temp_detalle_venta_carrito 
+		WHERE cod_usu = v_idusuario;
+		
+		-- ELIMINAMOS TEMPORAL
+		DELETE FROM temp_detalle_venta_carrito WHERE cod_usu = v_idusuario;
+		
+	END $$
+
+CALL sp_venta_carrito_registrar(1,1)
+
+SELECT * FROM venta_carrito
+SELECT * FROM detalle_venta_carrito
+SELECT * FROM temp_detalle_venta_carrito
+SELECT * FROM producto
+
+
