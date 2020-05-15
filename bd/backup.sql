@@ -122,12 +122,12 @@ insert  into `detalle_categoria`(`cod_detalle_categoria`,`cod_categoria`,`cod_ma
 DROP TABLE IF EXISTS `detalle_venta_carrito`;
 
 CREATE TABLE `detalle_venta_carrito` (
-  `co_detalle` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_detalle` int(11) NOT NULL AUTO_INCREMENT,
   `cod_venta_carrito` int(11) NOT NULL,
   `cod_producto` int(11) NOT NULL,
   `cantidad_detalle` decimal(9,6) NOT NULL,
-  `importe_detalle` decimal(9,6) DEFAULT NULL,
-  PRIMARY KEY (`co_detalle`),
+  `importe_detalle` decimal(9,6) NOT NULL,
+  PRIMARY KEY (`cod_detalle`),
   KEY `fk_cod_venta_carrito` (`cod_venta_carrito`),
   KEY `fk_cod_producto` (`cod_producto`),
   CONSTRAINT `fk_cod_producto` FOREIGN KEY (`cod_producto`) REFERENCES `producto` (`cod_producto`),
@@ -136,12 +136,12 @@ CREATE TABLE `detalle_venta_carrito` (
 
 /*Data for the table `detalle_venta_carrito` */
 
-insert  into `detalle_venta_carrito`(`co_detalle`,`cod_venta_carrito`,`cod_producto`,`cantidad_detalle`,`importe_detalle`) values 
-(1,2,1,3.000000,23.970000),
-(2,2,15,1.000000,0.990000),
-(3,2,3,1.000000,7.990000),
-(4,4,1,3.000000,23.970000),
-(5,5,9,4.000000,3.960000);
+insert  into `detalle_venta_carrito`(`cod_detalle`,`cod_venta_carrito`,`cod_producto`,`cantidad_detalle`,`importe_detalle`) values 
+(1,6,1,1.000000,7.990000),
+(2,9,1,1.000000,7.990000),
+(3,10,3,1.000000,7.990000),
+(4,11,3,1.000000,7.990000),
+(5,12,3,1.000000,7.990000);
 
 /*Table structure for table `direcciones_usuarios` */
 
@@ -150,20 +150,83 @@ DROP TABLE IF EXISTS `direcciones_usuarios`;
 CREATE TABLE `direcciones_usuarios` (
   `cod_direcc_usu` int(11) NOT NULL AUTO_INCREMENT,
   `cod_usu` int(11) NOT NULL,
-  `direccion` varchar(300) NOT NULL,
   `referencia` varchar(300) NOT NULL,
   `latitud` varchar(300) DEFAULT NULL,
   `longitud` varchar(300) DEFAULT NULL,
+  `nombre_direccion` varchar(250) DEFAULT NULL,
+  `cod_distrito` int(11) DEFAULT NULL,
+  `direccion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`cod_direcc_usu`),
   KEY `cod_usu` (`cod_usu`),
-  CONSTRAINT `direcciones_usuarios_ibfk_1` FOREIGN KEY (`cod_usu`) REFERENCES `usuario` (`cod_usu`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Tabla de direccion por usuario';
+  KEY `cod_distrito` (`cod_distrito`),
+  CONSTRAINT `direcciones_usuarios_ibfk_1` FOREIGN KEY (`cod_usu`) REFERENCES `usuario` (`cod_usu`),
+  CONSTRAINT `direcciones_usuarios_ibfk_2` FOREIGN KEY (`cod_distrito`) REFERENCES `distrito` (`cod_distrito`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Tabla de direccion por usuario';
 
 /*Data for the table `direcciones_usuarios` */
 
-insert  into `direcciones_usuarios`(`cod_direcc_usu`,`cod_usu`,`direccion`,`referencia`,`latitud`,`longitud`) values 
-(1,1,'calle 123','mi casa','2','3'),
-(2,1,'calle 321','casa de mi mamá','5','6');
+insert  into `direcciones_usuarios`(`cod_direcc_usu`,`cod_usu`,`referencia`,`latitud`,`longitud`,`nombre_direccion`,`cod_distrito`,`direccion`) values 
+(3,7,'Frente al estadio',NULL,NULL,'Mi casa',40,'Surquillo calle 123'),
+(4,7,'asdasda',NULL,NULL,'casa de mi mamá',3,'Direccion de ate 132'),
+(5,8,'a una cuadara del unicahi',NULL,NULL,'casa 1',9,'av america 1234'),
+(6,8,'frente al hospital',NULL,NULL,'casa 2',5,'calle los pinos 345');
+
+/*Table structure for table `distrito` */
+
+DROP TABLE IF EXISTS `distrito`;
+
+CREATE TABLE `distrito` (
+  `cod_distrito` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Codigo de Distrito',
+  `nombre_distrito` varchar(50) NOT NULL COMMENT 'Nombre de distrito',
+  `descrip_distrito` varchar(100) NOT NULL COMMENT 'Descripcion de distrito',
+  PRIMARY KEY (`cod_distrito`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 COMMENT='Tabla de Distrito';
+
+/*Data for the table `distrito` */
+
+insert  into `distrito`(`cod_distrito`,`nombre_distrito`,`descrip_distrito`) values 
+(1,'LIMA','LIMA'),
+(2,'ANCON','ANCON'),
+(3,'ATE','ATE'),
+(4,'BARRANCO','BARRANCO'),
+(5,'CARABAYLLO','CARABAYLLO'),
+(6,'CHACLACAYO','CHACLACAYO'),
+(7,'CHORRILLOS','CHORRILLOS'),
+(8,'CIENEGUILLA','CIENEGUILLA'),
+(9,'COMAS','COMAS'),
+(10,'EL AGUSTINO','EL AGUSTINO'),
+(11,'INDEPENDENCIA','INDEPENDENCIA'),
+(12,'JESUS MARIA','JESUS MARIA'),
+(13,'LA MOLINA','LA MOLINA'),
+(14,'LA VICTORIA','LA VICTORIA'),
+(15,'LINCE','LINCE'),
+(16,'LOS OLIVOS','LOS OLIVOS'),
+(17,'LURIGANCHO','LURIGANCHO'),
+(18,'LURIN','LURIN'),
+(19,'MAGDALENA DEL MAR','MAGDALENA DEL MAR'),
+(20,'MAGDALENA VIEJA','MAGDALENA VIEJA'),
+(21,'MIRAFLORES','MIRAFLORES'),
+(22,'PACHACAMAC','PACHACAMAC'),
+(23,'PUCUSANA','PUCUSANA'),
+(24,'PUENTE PIEDRA','PUENTE PIEDRA'),
+(25,'PUNTA HERMOSA','PUNTA HERMOSA'),
+(26,'PUNTA NEGRA','PUNTA NEGRA'),
+(27,'RIMAC','RIMAC'),
+(28,'SAN BARTOLO','SAN BARTOLO'),
+(29,'SAN BORJA','SAN BORJA'),
+(30,'SAN ISIDRO','SAN ISIDRO'),
+(31,'SAN JUAN DE LURIGANCHO','SAN JUAN DE LURIGANCHO'),
+(32,'SAN JUAN DE MIRAFLORES','SAN JUAN DE MIRAFLORES'),
+(33,'SAN LUIS','SAN LUIS'),
+(34,'SAN MARTIN DE PORRES','SAN MARTIN DE PORRES'),
+(35,'SAN MIGUEL','SAN MIGUEL'),
+(36,'SANTA ANITA','SANTA ANITA'),
+(37,'SANTA MARIA DEL MAR','SANTA MARIA DEL MAR'),
+(38,'SANTA ROSA','SANTA ROSA'),
+(39,'SANTIAGO DE SURCO','SANTIAGO DE SURCO'),
+(40,'SURQUILLO','SURQUILLO'),
+(41,'VILLA EL SALVADOR','VILLA EL SALVADOR'),
+(42,'VILLA MARIA DEL TRIUNFO','VILLA MARIA DEL TRIUNFO');
 
 /*Table structure for table `empaque` */
 
@@ -305,9 +368,9 @@ CREATE TABLE `producto` (
 /*Data for the table `producto` */
 
 insert  into `producto`(`cod_producto`,`cod_empaque`,`cod_Detalle_categoria`,`fecha_venc_producto`,`nombre_procucto`,`descripcion_producto`,`precio_producto`,`stock_producto`,`tipo_stock_producto`,`obervacion_producto`,`precio_especial_producto`,`sku_producto`,`estado_producto`,`ruta_imagen_catalogo`,`cod_um`,`psugerido`) values 
-(1,1,1,'2020-06-30','Yogurt de  2 litros','sabor a fresa',7.990000,14.000000,'C','Yogurt',7.990000,'1223222222',0,'https://plazavea.vteximg.com.br/arquivos/ids/169455-450-450/79036.jpg?v=635769971188800000',1,'0'),
+(1,1,1,'2020-06-30','Yogurt de  2 litros','sabor a fresa',7.990000,12.000000,'C','Yogurt',7.990000,'1223222222',0,'https://plazavea.vteximg.com.br/arquivos/ids/169455-450-450/79036.jpg?v=635769971188800000',1,'0'),
 (2,1,2,'2020-06-30','Yogurt de  2 litros','sabor a fresa',7.990000,20.000000,'C','Yogurt',7.990000,'1223222222',0,NULL,1,'0'),
-(3,4,3,'2020-06-30','Queso Edam','sin sal',7.990000,19.000000,'C','Queso',7.990000,'1223254645442',0,'https://wongfood.vteximg.com.br/arquivos/ids/306461-750-750/467156-1.jpg?v=636982022545270000',3,'0'),
+(3,4,3,'2020-06-30','Queso Edam','sin sal',7.990000,16.000000,'C','Queso',7.990000,'1223254645442',0,'https://wongfood.vteximg.com.br/arquivos/ids/306461-750-750/467156-1.jpg?v=636982022545270000',3,'0'),
 (4,4,4,'2020-06-30','Queso Edam','con sal',7.990000,20.000000,'C','Queso',7.990000,'122320000822',0,NULL,3,'0'),
 (5,1,5,'2020-06-30','Agua Mineral de 5mm ml','Con gas',7.990000,20.000000,'C','Agua Mineral Con Gas',7.990000,'1223222222',0,NULL,1,'0'),
 (6,3,6,'2020-06-30','Agua Mineral de 5mm ml','sin gas',7.990000,20.000000,'C','Agua mineral Sin Gas',7.990000,'1223254645442',0,NULL,1,'1'),
@@ -333,9 +396,12 @@ CREATE TABLE `temp_detalle_venta_carrito` (
   `sub_total_detalle` decimal(9,6) DEFAULT NULL,
   `total_detalle` decimal(9,6) DEFAULT NULL,
   PRIMARY KEY (`cod_tmp_venta_carrito`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `temp_detalle_venta_carrito` */
+
+insert  into `temp_detalle_venta_carrito`(`cod_tmp_venta_carrito`,`cod_producto`,`cod_usu`,`cantidad_detalle`,`sub_total_detalle`,`total_detalle`) values 
+(6,5,8,1.000000,7.990000,7.990000);
 
 /*Table structure for table `unidad_medida` */
 
@@ -366,19 +432,18 @@ CREATE TABLE `usuario` (
   `apell_usu` varchar(100) NOT NULL COMMENT 'apellido de usuario',
   `nombr_usu` varchar(100) NOT NULL COMMENT 'nombre de usuario',
   `telef_usu` int(11) DEFAULT NULL COMMENT 'telefono 	',
-  `nome_usu` varchar(50) NOT NULL COMMENT 'login usuario',
   `pass_usu` varchar(50) NOT NULL COMMENT 'pass de usuario',
   `tipo_usu` char(1) NOT NULL COMMENT 'tipo de usuario A/C',
   `estad_usu` int(1) NOT NULL COMMENT 'estado de usuario',
+  `correo_usu` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`cod_usu`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='Tabla de usuario';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Tabla de usuario';
 
 /*Data for the table `usuario` */
 
-insert  into `usuario`(`cod_usu`,`apell_usu`,`nombr_usu`,`telef_usu`,`nome_usu`,`pass_usu`,`tipo_usu`,`estad_usu`) values 
-(1,'Vasquez Tasayco','Wilmer',2147483647,'wvasquez','c2247d2019a778036f659526f545e09f75dcc8b8','C',0),
-(2,'Torres Sandoval','Jaime',454545,'jaime','j122345','C',0),
-(3,'Magallanes Vega','Juan Carlos',565757,'jmagallanes','carlos2','C',0);
+insert  into `usuario`(`cod_usu`,`apell_usu`,`nombr_usu`,`telef_usu`,`pass_usu`,`tipo_usu`,`estad_usu`,`correo_usu`) values 
+(7,'Amoretti Almeyda','Julio Jheison',933946745,'c2247d2019a778036f659526f545e09f75dcc8b8','U',1,'julio302318@gmail.com'),
+(8,'vasquez tasayco','wilmer',955982239,'d3e011d8be394d531d4a81fed4ef8fc9a99157e6','U',1,'wvasquez.tasayco@gmail.com');
 
 /*Table structure for table `venta_carrito` */
 
@@ -402,14 +467,18 @@ CREATE TABLE `venta_carrito` (
   CONSTRAINT `venta_carrito_ibfk_1` FOREIGN KEY (`cod_direcc_usu`) REFERENCES `direcciones_usuarios` (`cod_direcc_usu`),
   CONSTRAINT `venta_carrito_ibfk_2` FOREIGN KEY (`cod_metodo_pago`) REFERENCES `metodo_pago` (`cod_metodo_pago`),
   CONSTRAINT `venta_carrito_ibfk_3` FOREIGN KEY (`cod_comprobante`) REFERENCES `comprobante` (`cod_comprobante`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Tabla principal de ventas';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COMMENT='Tabla principal de ventas';
 
 /*Data for the table `venta_carrito` */
 
 insert  into `venta_carrito`(`cod_venta_carrito`,`cod_direcc_usu`,`cod_metodo_pago`,`fecha_creacion`,`fecha_entrega`,`cod_comprobante`,`monto_total_bruto_venta`,`monto_total_neto_venta`,`monto_igv_venta`,`estado_venta`) values 
-(2,1,1,'2020-05-14',NULL,1,0.000000,0.000000,0.000000,'1'),
-(4,2,4,'2020-05-14',NULL,1,0.000000,0.000000,0.000000,'1'),
-(5,1,1,'2020-05-14',NULL,1,0.000000,0.000000,0.000000,'1');
+(6,4,1,'2020-05-15',NULL,1,0.000000,0.000000,0.000000,'1'),
+(7,4,1,'2020-05-15',NULL,1,0.000000,0.000000,0.000000,'1'),
+(8,4,1,'2020-05-15',NULL,1,0.000000,0.000000,0.000000,'1'),
+(9,4,1,'2020-05-15',NULL,1,0.000000,0.000000,0.000000,'1'),
+(10,4,1,'2020-05-15',NULL,1,0.000000,0.000000,0.000000,'1'),
+(11,4,1,'2020-05-15',NULL,1,0.000000,0.000000,0.000000,'1'),
+(12,4,1,'2020-05-15',NULL,1,0.000000,0.000000,0.000000,'1');
 
 /* Procedure structure for procedure `sp_carrito_elimimar` */
 
@@ -516,6 +585,40 @@ begin
 	end */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `sp_direcciones_usuarios_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_direcciones_usuarios_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_direcciones_usuarios_registrar`(
+		in 	_idusuario		int,
+		in 	_iddistrito		int,
+		in 	_direccion		varchar(250),
+		IN 	_nombredireccion	VARCHAR(250),
+		in 	_referencia		varchar(300),
+		in 	_latitud		varchar(300),
+		IN 	_longitud		VARCHAR(300)
+	)
+begin
+	
+		insert into direcciones_usuarios (cod_usu,cod_distrito,direccion,nombre_direccion,referencia,latitud,longitud) values
+			(_idusuario,_iddistrito,_direccion,_nombredireccion,_referencia,_latitud,_longitud);
+	end */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_distritos_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_distritos_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_distritos_listar`()
+begin
+		SELECT cod_distrito,nombre_distrito FROM distrito;
+	end */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `sp_get_banner` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_get_banner` */;
@@ -594,38 +697,6 @@ DELIMITER $$
 begin
 		SELECT * FROM metodo_pago;
 	end */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_usuarios_carrito` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_usuarios_carrito` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuarios_carrito`(	
-			in 	_idusuario	 int
-		)
-begin
-		
-			select count(*) cantidad from temp_detalle_venta_carrito where cod_usu = _idusuario;
-		end */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_usuarios_login` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_usuarios_login` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuarios_login`(
-			in 	_nome_usu	varchar(50),
-			IN 	_pass_usu	VARCHAR(50)
-		)
-begin
-			
-			select cod_usu,apell_usu,nombr_usu,telef_usu,tipo_usu from usuario  where nome_usu = _nome_usu and pass_usu = _pass_usu and estad_usu = 0;
-			
-		end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `SP_LISTAPRODUCTOS_CATEGORIA` */
@@ -848,6 +919,58 @@ BEGIN
 		EXECUTE stmt;
 		
 	END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_usuarios_carrito` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_usuarios_carrito` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuarios_carrito`(	
+			in 	_idusuario	 int
+		)
+begin
+		
+			select count(*) cantidad from temp_detalle_venta_carrito where cod_usu = _idusuario;
+		end */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_usuarios_login` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_usuarios_login` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuarios_login`(
+			IN 	_nome_usu	VARCHAR(50),
+			IN 	_pass_usu	VARCHAR(50)
+		)
+BEGIN
+			
+			SELECT cod_usu,apell_usu,nombr_usu,telef_usu,tipo_usu FROM usuario  WHERE correo_usu = _nome_usu AND pass_usu = _pass_usu AND estad_usu = 1;
+			
+		END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `sp_usuarios_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `sp_usuarios_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuarios_registrar`(
+			in 	_apellidos 	varchar(100),
+			in 	_nombres	varchar(100),
+			in 	_telefono 	int,
+			in 	_correo		varchar(50),
+			in 	_clave		varchar(50)
+		)
+begin
+		
+			insert into usuario (apell_usu,nombr_usu,telef_usu,correo_usu,pass_usu,tipo_usu,estad_usu) values
+				(_apellidos,_nombres,_telefono,_correo,_clave,'U','1');
+		end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `sp_productosugerido_listar` */
