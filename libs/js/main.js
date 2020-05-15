@@ -332,11 +332,11 @@ function Main() {
 	var priceSlider = document.getElementById('price-slider');
 	if (priceSlider) {
 		noUiSlider.create(priceSlider, {
-			start: [1, 999],
+			start: [0, 999],
 			connect: true,
 			step: 1,
 			range: {
-				'min': 1,
+				'min': 0,
 				'max': 999
 			}
 		});

@@ -11,13 +11,13 @@
             $this->pdo = parent::getConexion();
         }
 
-        function ListarxFamilia($idfamilia,$product){
+        function ListarxFamilia($idfamilia,$idcategoria,$idmarca,$precio1,$precio2,$product){
             try{
 
-                $comando = $this->pdo->prepare("call sp_marcasfamilia_listar(?,?)");
+                $comando = $this->pdo->prepare("call sp_marcasfamilia_listar(?,?,?,?,?,?)");
                 $comando->execute(
                     array(
-                        $idfamilia,$product
+                        $idfamilia,$idcategoria,$idmarca,$precio1,$precio2,$product
                     )
                 );
 

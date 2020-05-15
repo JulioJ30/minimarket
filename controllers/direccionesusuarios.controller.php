@@ -17,21 +17,24 @@
             $cod = isset($_SESSION["cod_usuminimarket"]) ? $_SESSION["cod_usuminimarket"] : 0;
             $data =$objDireccionesUsuariosM->getDirecciones($cod);
 
+            $direccion = "";
+            $direccionprincipal = "";
+            $cont = 0;
+            $nombredireccioncompleta = "";
+
             foreach($data as $fila){
-                // echo "<option value='{$fila->cod_direcc_usu}'>{$fila->referencia}</option>";
-                echo "<input type='radio' class='direcregistrar' name='direc' data-id='{$fila->cod_direcc_usu}'> {$fila->nombre_direccion} <br>";
+                
+                if($cont == 0){
+                    $direccionprincipal = "<input type='radio' class='direcregistrar' name='direc' data-id='{$fila->cod_direcc_usu}' data-direc='{$fila->direccion}' checked>  {$fila->nombre_direccion}    <br>";
+                    $nombredireccioncompleta = $fila->direccion;
+                }else{
+                    $direccion .= "<input type='radio' class='direcregistrar' name='direc' data-id='{$fila->cod_direcc_usu}' data-direc='{$fila->direccion}' > {$fila->nombre_direccion} <br>";
+                }
 
-
-                // echo "<div class='input-group'>";
-                // echo "<div class='input-group-prepend'>";
-                // echo "<div class='input-group-text'>";
-                // echo "<input type='radio' name='direc' data-id='{$fila->cod_direcc_usu}'>";
-                // echo "                        </div>";
-                // echo "</div>";
-                //     // <input type="text" class="form-control" aria-label="Text input with radio button">
-                //     echo "<label for=''>{$fila->nombre_direccion}</label>";
-                //     echo "</div>";
+                $cont++;
             }
+
+            echo json_encode(array("principal"=>$direccionprincipal,"normal"=>$direccion,"nombredireccioncompleta"=>$nombredireccioncompleta));
 
         }
 

@@ -107,8 +107,8 @@
                             $cart_list .= "  <h5>SUBTOTAL: S/. {$subttotal}</h5>";
                             $cart_list .= "</div>";
                             $cart_list .= "<div class='cart-btns'>";
-                            $cart_list .= "  <a href='checkout.php'>Ver Carrito</a>";
-                            $cart_list .= "  <a href='checkout.php' >Comprar<i class='fa fa-arrow-circle-right'></i></a>";
+                            $cart_list .= "  <a href='checkout.php' style='width: 100%'>Ver Carrito</a>";
+                            // $cart_list .= "  <a href='checkout.php' >Comprar<i class='fa fa-arrow-circle-right'></i></a>";
                             $cart_list .= "</div>";
 
                         }
@@ -123,6 +123,8 @@
                         $cont = 0;
                         $subttotal = 0;
                         $envio = 0;
+                        $igv =0 ;
+
                         if(isset($_SESSION["tmpcarrito"])){
 
                             foreach($_SESSION["tmpcarrito"] as $fila){
@@ -183,8 +185,11 @@
 
 
                         }
+                        $igv = $subttotal * 0.018;
+
+                        echo json_encode(array("resultado" => $cart_list,"subtotal"=>round( $subttotal - $igv,2),"envio"=>"GRATUITO","igv"=> round($igv,2) ,"total"=>round( ($subttotal)+$envio,2)));
                         
-                        echo json_encode(array("resultado" => $cart_list,"subtotal"=>$subttotal,"envio"=>"GRATUITO","total"=>$subttotal+$envio));
+                        // echo json_encode(array("resultado" => $cart_list,"subtotal"=>$subttotal,"envio"=>"GRATUITO","total"=>$subttotal+$envio));
 
                     }
 
@@ -261,11 +266,12 @@
                             $cart_list .= "  <h5>SUBTOTAL: S/. {$subttotal}</h5>";
                             $cart_list .= "</div>";
                             $cart_list .= "<div class='cart-btns'>";
-                            $cart_list .= "  <a href='checkout.php'>Ver Carrito</a>";
-                            $cart_list .= "  <a href='#' id='btnCheckout'>Comprar<i class='fa fa-arrow-circle-right'></i></a>";
+                            $cart_list .= "  <a href='checkout.php' style='width: 100%'>Ver Carrito</a>";
+                            // $cart_list .= "  <a href='checkout.php' id='btnCheckout'>Comprar<i class='fa fa-arrow-circle-right'></i></a>";
                             $cart_list .= "</div>";
 
-                        
+                           
+                                
 
                         echo json_encode(array("contenido"=>$cart_list,"cantidad"=>$cont));
                     }
@@ -279,6 +285,7 @@
                         $cont = 0;
                         $subttotal = 0;
                         $envio = 0;
+                        $igv = 0;
 
                             foreach($data as $fila){
 
@@ -299,7 +306,7 @@
                                 $cart_list .=  "     <h3 class='product-name'><a href='#'>{$fila->nombre_procucto}</a></h3>";
                                 // echo  "     <h4 class='product-price'><span class='qty'>{$fila->cantidad_detalle} x</span>S/. {$fila->precio1}</h4>";
                                 $cart_list .=  " </div>";
-                                $cart_list .= " <a class='eliminarcarrito' href='#' data-id='{$fila->cod_tmp_venta_carrito}'><i class='far fa-window-close'></i><</a>";
+                                $cart_list .= " <a class='eliminarcarrito' href='#' data-id='{$fila->cod_tmp_venta_carrito}'><i class='far fa-window-close'></i></a>";
 
                                 $cart_list .=  "</div> ";
 
@@ -335,7 +342,10 @@
                                     // echo "</tr>";
                             }
 
-                            echo json_encode(array("resultado" => $cart_list,"subtotal"=>$subttotal,"envio"=>"GRATUITO","total"=>$subttotal+$envio));
+                            $igv = $subttotal * 0.018;
+
+                            echo json_encode(array("resultado" => $cart_list,"subtotal"=>round( $subttotal - $igv,2),"envio"=>"GRATUITO","igv"=>round($igv,2) ,"total"=>round($subttotal+$envio,2)));
+
                           
                         
 

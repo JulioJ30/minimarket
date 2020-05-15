@@ -8,16 +8,24 @@
 
         if($_GET["operacion"] == "listarcategoriascant"){
 
-            $idfamilia = isset($_GET["idfamilia"]) ? $_GET["idfamilia"] : null;
+            $idfamilia = isset($_GET["idfamilia"]) ? $_GET["idfamilia"] : null ;
+            $idcategoria = isset($_GET["idcategoria"]) ? $_GET["idcategoria"] : null;
+            $idmarca = isset($_GET["idmarca"]) ? $_GET["idmarca"] : null;
+            $precio1 = isset($_GET["precio1"]) ? $_GET["precio1"] : null;
+            $precio2 = isset($_GET["precio2"]) ? $_GET["precio2"] : null;
             $product = isset($_GET["product"]) ? $_GET["product"] : null;
 
 
-            $idfamilia      = $idfamilia != 0 ? $_GET["idfamilia"] : null;
+            $idfamilia      = $idfamilia == 0 ? null : $idfamilia;
+            $idcategoria    = $idcategoria != "" ? $idcategoria : null;
+            $idmarca        = $idmarca != "" ? $idmarca : null;
+            $precio1        = $precio1 != "" ? $precio1 : null;
+            $precio2        = $precio2 != "" ? $precio2 : null;
             $product        = $product != "" ? $product : null;
 
 
 
-            $datos = $objCategoriasM->ListarCategoriasCant($idfamilia,$product);
+            $datos = $objCategoriasM->ListarCategoriasCant($idfamilia,$idcategoria,$idmarca,$precio1,$precio2,$product);
 
             //echo json_encode($datos);
             foreach($datos as $fila){

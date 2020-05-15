@@ -45,11 +45,11 @@
 				<!-- row -->
 				<div class="row">
 
-					<div class="col-md-8">
+					<div class="col-md-8" style="margin-top: 20px">
 						<!-- Billing Details -->
 						<div class="billing-details">
 							<div class="section-title">
-								<h3 class="title">Detalle Compra</h3>
+								<h3 class="title">Detalle de la Compra</h3>
 							</div>
 							
 							<div class="form-group">
@@ -85,7 +85,7 @@
 					</div>
 
 					<!-- Order Details -->
-					<div class="col-md-4 order-details" >
+					<div class="col-md-4 order-details" style="margin-top: 20px" >
 						<div class="section-title text-center">
 							<h3 class="title">Total del Carrito</h3>
 						</div>
@@ -98,6 +98,10 @@
 								<div class="order-col">
 									<div>SUBTOTAL</div>
 									<div id="subtotalcarrito">0</div>
+								</div>
+								<div class="order-col">
+									<div>IGV</div>
+									<div id="igvcarrito">0</div>
 								</div>
 								<div class="order-col">
 									<div>ENVIO</div>
@@ -115,17 +119,102 @@
 						</div>
 						<div class="payment-method">
 							<!-- METODOS PAGO -->
-							<label for="">Metodo de pago</label>
-							<select name="" id="cboMetodosPago" class="form-control"></select>
-							<!-- DIRECCIONES  -->
-							<label for=""  style="width: 100%;margin-top:10px ">
-								<a data-toggle="collapse" href="#cboDirecciones"  href="">Mis Direcciones</a>
+							<label class="font-weight-bold">Metodo de pago</label>
+							<div id="cboMetodosPago" style="text-align: center" class="mb-5">
+							</div>
+							<!-- DIRECCIONS -->
+							<!-- <label for=""  style="width: 100%;margin-top:10px ">
+								<a data-toggle="collapse" href="#cboDirecciones" class='font-weight-bold'  href="">Mis Direcciones</a>
 								<a href="direccion.php" style="float: right"> <i class="fas fa-plus"></i> </a>
 							</label>
-							<div class="collapse" id="cboDirecciones" style="padding: 2px">
-								
+							<div id="cboDireccionesPrincipal">
+
+							</div>
+							<div class="collapse" id="cboDirecciones" style="padding: 2px" ></div> -->
+
+							<!-- HORARIOS -->
+							<div class="panel panel-default mt-5">
+								<div class="panel-heading" role="tab" id="headingOne">
+									<h4 class="panel-title">
+										<a role="button" data-toggle="collapse" href="#cboDirecciones2" >
+											Enviar a:
+										</a>
+										
+										<a href="direccion.php" style="float: right"> <i class="fas fa-plus"></i> </a>
+									</h4>
+									<!-- asdasdasdsadsad -->
+									<!-- <br> -->
+									<h6 id="nombredireccioncompleta"></h6>
+								</div>
+								<div id="" class="panel-collapse  " role="tabpanel" >
+
+									<div class="panel-body" >
+										<div id="cboDireccionesPrincipal">
+
+										</div>
+										<div id="cboDirecciones2" class="collapse">
+
+										</div>
+									</div>
+								</div>
 							</div>
 
+							<!-- HORARIOS -->
+							<div class="panel panel-default mt-5">
+								<div class="panel-heading" role="tab" id="headingOne">
+									<h4 class="panel-title">
+										<a role="button" data-toggle="collapse" href="#contenidohorarios" >
+											Horarios
+										</a>
+									</h4>
+								</div>
+								<div id="contenidohorarios" class="panel-collapse collapse " role="tabpanel" >
+									<div class="panel-body" id="contenidohorarios2">
+									</div>
+								</div>
+							</div>
+
+							<!-- COMPROBANTE -->
+							<div class="panel panel-default mt-5">
+								<div class="panel-heading" role="tab" id="headingOne">
+									<h4 class="panel-title">
+										<a role="button" data-toggle="collapse" href="#contenidocomprobantes" >
+											Comprobantes
+										</a>
+									</h4>
+								</div>
+								<div id="contenidocomprobantes" class="panel-collapse collapse " role="tabpanel" >
+									<div class="panel-body" id="contenidocomprobantes2">
+									</div>
+								</div>
+							</div>
+							<div class="collapse" id="contenidoruc">
+
+								<!-- <a href="direccion.php"  class="font-weight-bold" style="float:right">Actualizar</a> -->
+
+								<div class="card">
+									<div class="card-body">
+										<div class="form-group">
+											<label for="">RUC</label>
+											<input type="text" name="" id="txtruc" class="form-control" value='<?php echo isset($_SESSION["ruc_usuminimarket"]) ? $_SESSION["ruc_usuminimarket"] : ""; ?>' >
+										</div>
+
+										<div class="form-group">
+											<label for="">Razon Social</label>
+											<input type="text" name="" id="txtrazonsocial" class="form-control" value='<?php echo isset($_SESSION["razonsocial_usuminimarket"]) ? $_SESSION["razonsocial_usuminimarket"] : ""; ?>' >
+										</div>
+
+										<div class="form-group">
+											<label for="">Dirección Fiscal</label>
+											<input type="text" name="" id="txtdireccionfiscal" class="form-control" value='<?php echo isset($_SESSION["direccionfiscal_usuminimarket"]) ? $_SESSION["direccionfiscal_usuminimarket"] : ""; ?>' >
+										</div>
+									</div>
+								</div>
+
+								
+								
+							</div>
+							
 							
 
 							
@@ -165,7 +254,7 @@
 		<!-- PROPIOS -->
 
 		<script>
-
+			var REQUERIDO = false;
 			window.addEventListener('load',async ()=>{
 				//CARRITO
 				var carrito = await getCarritoCompleto();
@@ -173,13 +262,25 @@
 				$("#totalcarrito").html(carrito.total);
 				$("#enviocarrito").html(carrito.envio);
 				$("#subtotalcarrito").html(carrito.subtotal);
+				$("#igvcarrito").html(carrito.igv);
+
+				//HORARIOS
+				var horario = await getHorarios();
+				$("#contenidohorarios2").html(horario);
+
+				//COMPROBANTES
+				var comprobantes = await getComprobantes();
+				$("#contenidocomprobantes2").html(comprobantes);
+
 
 				//METODOS DE PAGO
 				var metodos = await getMetodosPago();
 				$("#cboMetodosPago").html(metodos);
 				//DIRECCIONES
 				var direcciones = await getDirecciones();
-				$("#cboDirecciones").html(direcciones);
+				$("#cboDirecciones2").html(direcciones.normal);
+				$("#cboDireccionesPrincipal").html(direcciones.principal);
+				$("#nombredireccioncompleta").text(direcciones.nombredireccioncompleta);
 
 				$(".loader").fadeOut("slow");
 
@@ -196,6 +297,7 @@
 						$("#totalcarrito").html(carrito.total);
 						$("#enviocarrito").html(carrito.envio);
 						$("#subtotalcarrito").html(carrito.subtotal);
+						$("#igvcarrito").html(carrito.igv);
 					});
 
 					//LIMPIAR CARRITO
@@ -207,6 +309,7 @@
 						$("#totalcarrito").html(carrito.total);
 						$("#enviocarrito").html(carrito.envio);
 						$("#subtotalcarrito").html(carrito.subtotal);
+						$("#igvcarrito").html(carrito.igv);
 					});
 
 
@@ -224,6 +327,7 @@
 						$("#totalcarrito").html(carrito.total);
 						$("#enviocarrito").html(carrito.envio);
 						$("#subtotalcarrito").html(carrito.subtotal);
+						$("#igvcarrito").html(carrito.igv);
 						// $(".loader").fadeOut("slow");
 
 
@@ -246,6 +350,7 @@
 						$("#totalcarrito").html(car.total);
 						$("#enviocarrito").html(car.envio);
 						$("#subtotalcarrito").html(car.subtotal);
+						$("#igvcarrito").html(carrito.igv);
 						// // $(".loader").fadeOut("slow");
 
 
@@ -261,32 +366,81 @@
 								
 								var direcciones = $(".direcregistrar");
 								var iddireccion = 0;
+
+								var horarios =  $(".horarioregistrar");
+								var idhorario = 0;
+
+								var comprobantes = $(".comprobantesregistrar");
+								var idcomprobante = 0;
+
+								var metodospago = $(".radiometodos");
+								var idmetodopago = 0;
+
+								// console.log(metodospago);
+									
+								//OBTENEMOS LA DIRECCION
 								for(var i =0; i < direcciones.length; i++){
 									if(direcciones[i].checked){
 										iddireccion = direcciones[i].dataset.id;
 									}
 								}
 
-								if(iddireccion != 0){
+								//OBTENEMOS EL METODO DE PAGO
+								for(var i =0; i < metodospago.length; i++){
+									if(metodospago[i].checked){
+										idmetodopago = metodospago[i].dataset.id;
+									}
+								}
 
-									var compra = await Comprar(iddireccion);
 
-									carrito = await getCarritoCompleto();
-									$("#cuerpotabla").html(carrito.resultado);
-									$("#totalcarrito").html(carrito.total);
-									$("#enviocarrito").html(carrito.envio);
-									$("#subtotalcarrito").html(carrito.subtotal);
-									getCarrito();
+								//OBTENEMOS EL HORARIOS
+								for(var i =0; i < horarios.length; i++){
+									if(horarios[i].checked){
+										idhorario = horarios[i].dataset.id;
+									}
+								}
 
-									Swal.fire("Compra realizada","MiniMarket","success");
+								//OBTENEMOS EL COMPROBANTE
+								for(var i =0; i < comprobantes.length; i++){
+									if(comprobantes[i].checked){
+										idcomprobante = comprobantes[i].dataset.id;
+									}
+								}
+
+								if(iddireccion != 0 && idhorario != 0){
+
+									if(REQUERIDO && $("#txtruc").val().trim() != "" && $("#txtrazonsocial").val().trim()  != "" && $("#txtdireccionfiscal").val().trim()  != ""){
+										
+										var compra = await Comprar(iddireccion,idmetodopago,idhorario,idcomprobante);
+
+										carrito = await getCarritoCompleto();
+										$("#cuerpotabla").html(carrito.resultado);
+										$("#totalcarrito").html(carrito.total);
+										$("#enviocarrito").html(carrito.envio);
+										$("#subtotalcarrito").html(carrito.subtotal);
+										$("#igvcarrito").html(carrito.igv);
+										getCarrito();
+										//ACTUALIZAMOS DATOS
+										ActualizarRuc();
+
+										Swal.fire("Compra realizada","MiniMarket","success");
+
+
+									}else{
+										Swal.fire("Este Tipo de comprobante necesita datos de empresa, por favor actualize sus datos","MiniMarket","info");
+
+									}
+
+
+									
 
 								}else{
-									Swal.fire("Por favor seleccione una dirección","MiniMarket","warning");
+									Swal.fire("Por favor seleccione una dirección y un horario","MiniMarket","warning");
 								}
 
 
 							}else{
-								console.log(carrito.total);
+								// console.log(carrito.total);
 								Swal.fire("Por favor agregue productos al carrito primero","MiniMarket","info");
 							}
 
@@ -295,7 +449,28 @@
 						}
 					});
 
+					// MOSTRAR RUC
+					$("#contenidocomprobantes").on('change','.comprobantesregistrar',function(){
+						// console.log($(this));
+						if($(this)[0].checked){
+							
+							var req = $(this)[0].dataset.req;
+							if(req == "SI"){
+								REQUERIDO = true;
+								$("#contenidoruc").collapse("show");
+							}else{
+								REQUERIDO = false;
+								$("#contenidoruc").collapse("hide");
+							}
 
+						}
+							// console.log($(this).data("req"));
+					});
+
+					$(".direcregistrar").click(function(){
+						$("#nombredireccioncompleta").text($(this).data("direc"));
+							// console.log($(this).data("direc"));
+					});
 
 			});
 
@@ -341,7 +516,7 @@
 						type:'get'
 					});
 
-					return rpt;
+					return JSON.parse(rpt);
 
 				}catch(e){
 					console.log(e);
@@ -394,33 +569,78 @@
 				
 			}
 
-			async function Comprar(iddireccion){
+			//COMPRAR
+			async function Comprar(iddireccion,idmetodopago,idcodigohorario,idcomprobante){
 
 
 				var rpt;
-			
-			
 
-					var datos = {
-						'operacion' : 'registrar',
-						'iddireccion'	:iddireccion,
-						'idmetodopago'		: $("#cboMetodosPago").val()
-					}
-					// var rpt;
-					rpt = await $.ajax({
-						url:'controllers/venta.controller.php',
-						type:'get',
-						data:datos
-					});
-
-				
-
-				
+				var datos = {
+					'operacion' 			: 	'registrar',
+					'iddireccion'			:	iddireccion,
+					'idmetodopago'			:	idmetodopago,
+					'idcodigohorario'		:	idcodigohorario,
+					'idcomprobante'			:	idcomprobante
+				}
+				// var rpt;
+				rpt = await $.ajax({
+					url:'controllers/venta.controller.php',
+					type:'get',
+					data:datos
+				});	
 					
 				return rpt;
 			}
 
+			//GET HORARIOS
+			async function getHorarios(){
 
+				var rpt;
+
+				rpt = await $.ajax({
+					url:'controllers/horarios.controller.php',
+					type:'get',
+					data:'operacion=getHorarios'
+				});
+
+				return rpt;
+			}
+
+			//GET COMPROBANTES
+			async function getComprobantes(){
+
+				var rpt;
+
+				rpt = await $.ajax({
+					url:'controllers/comprobantes.controller.php',
+					type:'get',
+					data:'operacion=getComprobantes'
+				});
+
+				return rpt;
+			}
+
+			//ACTUALIZAR RUC
+			function ActualizarRuc(){
+				var datos = {
+					'operacion' 		: 'modificarruc',
+					'ruc' 				: $("#txtruc").val().trim(),
+					'razonsocial' 		: $("#txtrazonsocial").val().trim(),
+					'direccionfiscal' 	: $("#txtdireccionfiscal").val().trim()
+				}
+
+
+				$.ajax({
+					url:'controllers/usuarios.controller.php',
+					data: datos,
+					type:'POST',
+					success:function(e){
+						// alert("registrado");
+						// Swal.fire("Datos modificados","MiniMarket","success");
+						// frmActualizarDatos.reset();
+					}
+				});
+			}
 
 		</script>
 

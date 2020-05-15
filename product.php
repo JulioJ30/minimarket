@@ -8,7 +8,13 @@
 		<?php
 			require_once 'views/head.php';
 		?>
+		<style>
+			.add-to-cart{
+  /* background:rgba(0,0,0,0.7) !important; */
+  background:white !important;
 
+}
+		</style>
     </head>
 	<body>
 		<!-- HEADER -->

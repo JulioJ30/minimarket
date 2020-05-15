@@ -1,9 +1,10 @@
 <?php
 
     require_once '../core/model.master.php';
+    
 
-    class CategoriasModelo extends ModelMaster{
-
+    class HorariosModelo extends ModelMaster{
+        
         private $pdo;
 
         function __construct()
@@ -11,13 +12,13 @@
             $this->pdo = parent::getConexion();
         }
 
-        function ListarCategoriasCant($idfamilia,$idcategoria,$idmarca,$precio1,$precio2,$product){
+        function Listar($idempresa){
             try{
 
-                $comando = $this->pdo->prepare("call SP_LISTA_CATEGORIA_FAMILIA_CANT (?,?,?,?,?,?)");
+                $comando = $this->pdo->prepare("call sp_horarios_listar(?)");
                 $comando->execute(
                     array(
-                        $idfamilia,$idcategoria,$idmarca,$precio1,$precio2,$product
+                        $idempresa
                     )
                 );
 

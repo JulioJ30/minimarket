@@ -41,6 +41,31 @@
 
 				<div class="row">
 					<div class="col-lg-6">
+
+						<h3>Actualizar Datos</h3>
+						<hr>
+						<form id="frmActualizarDatos" class="row">
+
+							<div class="form-group col-lg-12">
+								<label for="">Ruc</label>
+								<input type="text" class="form-control" id="txtRucModificar" required autofocus value='<?php echo isset($_SESSION["ruc_usuminimarket"]) ? $_SESSION["ruc_usuminimarket"] : ""; ?>'>
+							</div>
+							<div class="form-group col-lg-12">
+								<label for="">Razón Social</label>
+								<input type="text" class="form-control" id="txtRazonSocialModificar" required  value='<?php echo isset($_SESSION["razonsocial_usuminimarket"]) ? $_SESSION["razonsocial_usuminimarket"] : ""; ?>'>
+							</div>
+							<div class="form-group col-lg-6">
+								<label for="">Dirección Fiscal</label>
+								<input type="text" class="form-control" id="txtDireccionFiscalModificar" required value='<?php echo isset($_SESSION["direccionfiscal_usuminimarket"]) ? $_SESSION["direccionfiscal_usuminimarket"] : ""; ?>' >
+							</div>
+							<div class="form-group col-lg-6">
+								<label for="">&nbsp;</label>
+								<!-- <input type="text" class="form-control" id="txtNombreDireccion" required autofocus> -->
+								<button class="btn btn-block btn-danger" type="submit" id="btnActualizar">Actualizar</button>	
+							</div>
+						</form>
+
+
 						<h3>Registro de Direcciones</h3>
 						<hr>
 						<form class="row" id="fmrRegistroDirecciones">
@@ -113,8 +138,8 @@
 		<!-- PRPIOS -->
 		<script>
 
-			let fmrRegistroDirecciones = document.getElementById("fmrRegistroDirecciones");
-
+			let fmrRegistroDirecciones 	= document.getElementById("fmrRegistroDirecciones");
+			let frmActualizarDatos 		= document.getElementById("frmActualizarDatos");
 
 			window.addEventListener('load',async ()=>{
 
@@ -124,17 +149,12 @@
 					e.preventDefault();
 				});
 
+				frmActualizarDatos.addEventListener('submit',(e)=>{
+					ActualizarRuc();
+					e.preventDefault();
+				});
+
 				await ListarDirecciones();
-
-
-
-				//REGISTRAR DIRECCION
-				// $("#btnRegistrarDireccion").click(function(){
-
-
-					
-
-				// });
 
 				$(".loader").fadeOut("slow");
 
@@ -190,6 +210,27 @@
 				
 			}
 
+			//ACTUALIZAR RUC
+			function ActualizarRuc(){
+				var datos = {
+					'operacion' 		: 'modificarruc',
+					'ruc' 				: $("#txtRucModificar").val().trim(),
+					'razonsocial' 		: $("#txtRazonSocialModificar").val().trim(),
+					'direccionfiscal' 	: $("#txtDireccionFiscalModificar").val().trim()
+				}
+
+
+				$.ajax({
+					url:'controllers/usuarios.controller.php',
+					data: datos,
+					type:'POST',
+					success:function(e){
+						// alert("registrado");
+						Swal.fire("Datos modificados","MiniMarket","success");
+						// frmActualizarDatos.reset();
+					}
+				});
+			}
 
 		</script>
 

@@ -10,6 +10,10 @@
         private $pass_usu;
         private $tipo_usu;
         private $estad_usu;
+        private $ruc;
+        private $razonsocial;
+        private $direccionfiscal;
+        
 
 
         public function __GET($campo){

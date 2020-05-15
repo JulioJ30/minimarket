@@ -26,8 +26,16 @@
                 $data = json_encode($data);
 
                 session_start();
-                $_SESSION["loginminimarket"]    = true;
-                $_SESSION["cod_usuminimarket"] = json_decode($data)->{"cod_usu"};
+
+                // VARIABLES DE SESION
+                $_SESSION["loginminimarket"]                = true;
+                $_SESSION["cod_usuminimarket"]              = json_decode($data)->{"cod_usu"};
+                $_SESSION["nombre_usuminimarket"]           = json_decode($data)->{"nombr_usu"};
+                $_SESSION["ruc_usuminimarket"]              = json_decode($data)->{"ruc"};
+                $_SESSION["razonsocial_usuminimarket"]      = json_decode($data)->{"razonsocial"};
+                $_SESSION["direccionfiscal_usuminimarket"]  = json_decode($data)->{"direccionfiscal"};
+
+
 
                 $cantidad = $objUsuariosM->CantidadCarrito($_SESSION["cod_usuminimarket"]);
 
@@ -67,6 +75,27 @@
             $objUsuariosM->Registrar($objUsuariosE);
 
 
+        }
+
+        //MODIFICAR RUC
+        if($_POST["operacion"] == "modificarruc"){
+
+            session_start();
+
+            // ACTUALIZAMOS
+            $_SESSION["ruc_usuminimarket"]              = $_POST["ruc"];
+            $_SESSION["razonsocial_usuminimarket"]      = $_POST["razonsocial"];
+            $_SESSION["direccionfiscal_usuminimarket"]  = $_POST["direccionfiscal"];
+
+
+            $objUsuariosE->__SET("cod_usu"          ,$_SESSION["cod_usuminimarket"]);
+            $objUsuariosE->__SET("ruc"              ,$_POST["ruc"]);
+            $objUsuariosE->__SET("razonsocial"      ,$_POST["razonsocial"]);
+            $objUsuariosE->__SET("direccionfiscal"  ,$_POST["direccionfiscal"]);
+
+            
+
+            $objUsuariosM->ModificarRuc($objUsuariosE);
         }
 
     }

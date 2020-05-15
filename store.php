@@ -66,13 +66,13 @@
 							<div class="price-filter">
 								<div id="price-slider"></div>
 								<div class="input-number price-min">
-									<input id="price-min" type="number">
+									<input id="price-min" type="number" readonly>
 									<span class="qty-up">+</span>
 									<span class="qty-down">-</span>
 								</div>
 								<span>-</span>
 								<div class="input-number price-max">
-									<input id="price-max" type="number">
+									<input id="price-max" type="number" readonly>
 									<span class="qty-up">+</span>
 									<span class="qty-down">-</span>
 								</div>
@@ -98,21 +98,7 @@
 						<!-- store top filter -->
 						<div class="store-filter clearfix">
 							<div class="store-sort">
-								<!-- <label>
-									Sort By:
-									<select class="input-select">
-										<option value="0">Popular</option>
-										<option value="1">Position</option>
-									</select>
-								</label>
-
-								<label>
-									Show:
-									<select class="input-select">
-										<option value="0">20</option>
-										<option value="1">50</option>
-									</select>
-								</label> -->
+	
 							</div>
 							
 						</div>
@@ -126,7 +112,7 @@
 						<!-- /store products -->
 
 						<!-- store bottom filter -->
-						<div class="store-filter clearfix">
+						<!-- <div class="store-filter clearfix">
 							<span class="store-qty">Showing 20-100 products</span>
 							<ul class="store-pagination">
 								<li class="active">1</li>
@@ -135,7 +121,7 @@
 								<li><a href="#">4</a></li>
 								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
 							</ul>
-						</div>
+						</div> -->
 						<!-- /store bottom filter -->
 					</div>
 					<!-- /STORE -->
@@ -171,11 +157,9 @@
 
 			$(document).ready(function(){
 
-
-
-				ListarProductosxFamilia();
-				ListarCategoriasFamilia();
-				ListarMarcasFamilia();
+				ListarProductosxFamilia("","","","");
+				ListarCategoriasFamilia("","","","");
+				ListarMarcasFamilia("","","","");
 
 				setTimeout(()=>{
 
@@ -216,11 +200,16 @@
 					for(var i = 0; i < marcas.length; i++){
 
 						if(marcas[i].checked){
-							amarcas.push(categorias[i].dataset.id);
+							amarcas.push(marcas[i].dataset.id);
 						}
 					}
 					// location.href =window.location.href + "&pruebita=123";
-					// console.log(acategorias,amarcas);
+					// console.log(acategorias.toString() ,amarcas.toString());
+
+
+					ListarProductosxFamilia(acategorias.toString() ,amarcas.toString(),$("#price-min").val().trim(),$("#price-max").val().trim());
+					ListarCategoriasFamilia(acategorias.toString() ,amarcas.toString(),$("#price-min").val().trim(),$("#price-max").val().trim());
+					ListarMarcasFamilia(acategorias.toString() ,amarcas.toString(),$("#price-min").val().trim(),$("#price-max").val().trim());
 				});
 
 				
@@ -230,12 +219,16 @@
 			});
 
 			//LISTA PRODUCTOS POR FAMILIA
-			function ListarProductosxFamilia(){
+			function ListarProductosxFamilia(categorias,marcas,precio1,precio2){
 
 				var datos = {
-					'operacion' : 'listarxfamilia',
-					'idfamilia'	: idfamilia,
-					'product'	: producto
+					'operacion' 	: 'listarxfamilia',
+					'idfamilia'		: idfamilia,
+					'product'		: producto,
+					'idcategoria'	: categorias,
+					'idmarca'		: marcas,
+					'precio1' 		: precio1,
+					'precio2' 		: precio2,
 				}
 
 
@@ -252,13 +245,17 @@
 			}
 
 			//LISTA CATEGORIAS POR FAMILIA
-			function ListarCategoriasFamilia(){
+			function ListarCategoriasFamilia(categorias,marcas,precio1,precio2){
 				//contenedorcategorias
 				
 				var datos = {
 					'operacion' : 'listarcategoriascant',
-					'idfamilia'	: idfamilia,
-					'product'	: producto
+					'idfamilia'		: idfamilia,
+					'product'		: producto,
+					'idcategoria'	: categorias,
+					'idmarca'		: marcas,
+					'precio1' 		: precio1,
+					'precio2' 		: precio2,
 				}
 
 
@@ -275,13 +272,18 @@
 
 
 			//LISTA MARCAS POR FAMILIA
-			function ListarMarcasFamilia(){
+			function ListarMarcasFamilia(categorias,marcas,precio1,precio2){
 				//contenedorcategorias
 				
 				var datos = {
 					'operacion' : 'listarxfamilia',
-					'idfamilia'	: idfamilia,
-					'product'	: producto
+					'idfamilia'		: idfamilia,
+					'product'		: producto,
+					'idcategoria'	: categorias,
+					'idmarca'		: marcas,
+					'precio1' 		: precio1,
+					'precio2' 		: precio2,
+					
 				}
 
 

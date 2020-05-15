@@ -67,6 +67,28 @@
             }
         }
 
+        //MODIFICAR USUARIO
+        function ModificarRuc(Usuarios $usuarios){
+            
+
+            try{
+
+                $comando = $this->pdo->prepare("call sp_usuarios_modificarruc(?,?,?,?)");
+                $comando->execute(
+                    array(
+                       $usuarios->__GET('cod_usu'),
+                       $usuarios->__GET('ruc'),
+                       $usuarios->__GET('razonsocial'),
+                       $usuarios->__GET('direccionfiscal')
+                    )
+                );
+
+            }catch(Exception $e){
+                die($e->getMessage());
+            }
+
+        }
+
     }
 
 

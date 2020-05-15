@@ -9,43 +9,48 @@ USE bd_market;
 	CREATE OR REPLACE PROCEDURE sp_productosfamilia_listar
 	(
 		IN 	_idfamilia	INT,
-		IN 	_idcategoria	INT,
-		IN 	_idmarca	INT,	
+		IN 	_idcategoria	VARCHAR(255),
+		IN 	_idmarca	VARCHAR(255),	
 		IN  	_precio1	DECIMAL(9,6),
 		IN  	_precio2	DECIMAL(9,6),
 		IN 	_product	VARCHAR(50)
 	)BEGIN
 
-		SET @sql = "
-		SELECT 
-			pro.`cod_producto`,
-			pro.`nombre_procucto`,
-			pro.`descripcion_producto`,
-			if(pro.precio_especial_producto > 0 and pro.precio_especial_producto <  pro.precio_producto ,pro.precio_especial_producto,pro.precio_producto)precio1,
-			IF(pro.precio_especial_producto >  pro.precio_producto ,pro.precio_especial_producto,pro.precio_producto)precio2,
-			cat.`cod_categoria`,
-			cat.`nombre_categoria`,
-			pro.ruta_imagen_catalogo
-		FROM producto pro
-		inner join detalle_categoria dtc on
-		dtc.cod_Detalle_categoria = pro.cod_Detalle_categoria
-		INNER JOIN categoria cat ON
-		cat.cod_categoria = dtc.cod_categoria
-		INNER JOIN familia fa ON
-		fa.`cod_familia` = cat.`cod_familia` 
-		where pro.`estado_producto` = 0";
+		SET @sql = "select * from v_productos where estado_producto = 0";
 		
 		-- FILTROS
 		
 			-- FAMILIAS
 			IF _idfamilia IS NOT NULL THEN
-				SET @sql = CONCAT(@sql, " and fa.cod_familia = ", _idfamilia );
+				SET @sql = CONCAT(@sql, " and cod_familia = ", _idfamilia );
 			END IF;
 			
 			-- PRODIUCTO
 			IF _product IS NOT NULL THEN
-				SET @sql = CONCAT(@sql, " and pro.nombre_procucto like '","%", _product ,"%","'");
+				SET @sql = CONCAT(@sql, " and nombre_procucto like '","%", _product ,"%","'");
 			END IF;
+		
+			-- MARCAS
+			IF _idmarca IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and cod_marca in(", _idmarca,")" );
+			END IF;
+			
+			-- CATEGORIAS
+			IF _idcategoria IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and cod_categoria  in(", _idcategoria,")" );
+			END IF;
+			
+			-- PRECIO MINIMO
+			IF _precio1 IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and precio1 >= ", _precio1);
+			END IF;
+			
+			-- PRECIO MAXIMO
+			IF _precio2 IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and precio1 <= ", _precio2);
+			END IF;
+		
+			 
 		
 		-- PREPARAMOS 
 		PREPARE stmt FROM @sql;
@@ -84,7 +89,6 @@ USE bd_market;
 		
 	END $$
 
-	SELECT * FROM categoria
 
 	-- PRODUCTOS SUGERIDOS
 	DELIMITER $$
@@ -146,38 +150,49 @@ USE bd_market;
 	CREATE OR REPLACE PROCEDURE SP_LISTA_CATEGORIA_FAMILIA_CANT
 	(
 		IN 	_idfamilia	INT,
+		IN 	_idcategoria	VARCHAR(255),
+		IN 	_idmarca	VARCHAR(255),	
+		IN  	_precio1	DECIMAL(9,6),
+		IN  	_precio2	DECIMAL(9,6),
 		IN 	_product	VARCHAR(50)
 	)BEGIN
 			
-		SET @sql = "
-		SELECT 
-			cat.`cod_categoria`,
-			cat.`nombre_categoria`,
-			cat.descrip_categoria,
-			COUNT(*) cantidad
-		FROM producto pro
-		INNER JOIN detalle_categoria dtc ON
-		dtc.cod_Detalle_categoria = pro.cod_Detalle_categoria
-		INNER JOIN categoria cat ON
-		cat.cod_categoria = dtc.cod_categoria
-		INNER JOIN familia fa ON
-		fa.`cod_familia` = cat.`cod_familia`
-		WHERE cat.estado_categoria = 0 ";
+		SET @sql = "SELECT cod_categoria,nombre_categoria,COUNT(*)cantidad FROM v_productos where estado_categoria = 0 ";
 		
 		-- FILTROS
 		
 		-- ID FAMILIA
 		IF _idfamilia IS NOT NULL THEN
-			SET  @sql = CONCAT(@sql, " and fa.cod_familia = " ,_idfamilia);
+			SET  @sql = CONCAT(@sql, " and cod_familia = " ,_idfamilia);
 		END IF;
 		
-		-- PRODUCTO
+		-- PRODIUCTO
 		IF _product IS NOT NULL THEN
-			SET @sql = CONCAT(@sql, " and pro.nombre_procucto like '","%", _product ,"%","'");
+			SET @sql = CONCAT(@sql, " and nombre_procucto like '","%", _product ,"%","'");
 		END IF;
+	
+		-- MARCAS
+		IF _idmarca IS NOT NULL THEN
+			SET @sql = CONCAT(@sql, " and cod_marca in(", _idmarca,")" );
+		END IF;
+		
+		-- CATEGORIAS
+		IF _idcategoria IS NOT NULL THEN
+			SET @sql = CONCAT(@sql, " and cod_categoria  in(", _idcategoria,")" );
+		END IF;
+		
+		-- PRECIO MINIMO
+		IF _precio1 IS NOT NULL THEN
+			SET @sql = CONCAT(@sql, " and precio1 >= ", _precio1);
+		END IF;
+		
+		-- PRECIO MAXIMO
+		IF _precio2 IS NOT NULL THEN
+			SET @sql = CONCAT(@sql, " and precio1 <= ", _precio2);
+		END IF;	
 		
 		-- AGRUPAMOS
-			SET @sql = CONCAT( @sql," GROUP BY cat.`cod_categoria`,cat.`nombre_categoria`, cat.descrip_categoria ");
+			SET @sql = CONCAT( @sql," GROUP BY `cod_categoria`,`nombre_categoria` ");
 		
 		-- PREPARAMOS
 		PREPARE stmt FROM @sql;
@@ -186,7 +201,7 @@ USE bd_market;
 		EXECUTE stmt;
 		
 	END $$
-
+		
 ##########
 # MARCAS #
 ##########
@@ -196,37 +211,49 @@ USE bd_market;
 	CREATE OR REPLACE PROCEDURE sp_marcasfamilia_listar
 	(
 		IN 	_idfamilia	INT,
+		IN 	_idcategoria	VARCHAR(255),
+		IN 	_idmarca	VARCHAR(255),	
+		IN  	_precio1	DECIMAL(9,6),
+		IN  	_precio2	DECIMAL(9,6),
 		IN 	_product	VARCHAR(50)
 	)BEGIN
-		SET @sql = "
-		SELECT 
-			mar.`cod_marca`,
-			mar.`nombre_marca`,
-			mar.descri_marca,
-			COUNT(*) cantidad
-		FROM producto pro
-		INNER JOIN detalle_categoria dtc ON
-		dtc.cod_Detalle_categoria = pro.cod_Detalle_categoria
-		INNER JOIN categoria cat ON
-		cat.cod_categoria = dtc.cod_categoria
-		INNER JOIN familia fa ON
-		fa.`cod_familia` = cat.`cod_familia`
-		INNER JOIN marca mar ON
-		mar.cod_marca = dtc.cod_marca
-		where mar.estado_marca = 0 ";
 		
-			-- FILTROS 
-			IF _idfamilia IS NOT NULL THEN 
-				SET @sql = CONCAT(@sql , " and fa.cod_familia = ", _idfamilia);
+		
+		SET @sql = "SELECT cod_marca,nombre_marca,COUNT(*)cantidad FROM v_productos where estado_marca = 0 ";
+		
+			-- FAMILIAS
+			IF _idfamilia IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and cod_familia = ", _idfamilia );
 			END IF;
 			
-			-- PRODUCTO
+			-- PRODIUCTO
 			IF _product IS NOT NULL THEN
-				SET @sql = CONCAT(@sql, " and pro.nombre_procucto like '","%", _product ,"%","'");
+				SET @sql = CONCAT(@sql, " and nombre_procucto like '","%", _product ,"%","'");
 			END IF;
 		
+			-- MARCAS
+			IF _idmarca IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and cod_marca in(", _idmarca,")" );
+			END IF;
+			
+			-- CATEGORIAS
+			IF _idcategoria IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and cod_categoria  in(", _idcategoria,")" );
+			END IF;
+			
+			-- PRECIO MINIMO
+			IF _precio1 IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and precio1 >= ", _precio1);
+			END IF;
+			
+			-- PRECIO MAXIMO
+			IF _precio2 IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and precio1 <= ", _precio2);
+			END IF;
+		
+		
 			-- AGRUPAMOS
-			SET @sql = CONCAT(@sql, " GROUP BY mar.`cod_marca`,mar.`nombre_marca`,mar.descri_marca" );
+			SET @sql = CONCAT(@sql, " GROUP BY cod_marca,nombre_marca" );
 		
 		-- PREPARAMOS
 			PREPARE stmt FROM @sql;
@@ -235,7 +262,7 @@ USE bd_market;
 		EXECUTE stmt;
 		
 	END $$
-SELECT * FROM temp_detalle_venta_carrito
+
 ##########
 # BANNER #
 ##########
@@ -269,8 +296,6 @@ SELECT * FROM temp_detalle_venta_carrito
 				(_apellidos,_nombres,_telefono,_correo,_clave,'U','1');
 		END $$
 		
-		SELECT * FROM usuario
-	
 		
 	-- LOGIN USUARIOS
 		DELIMITER $$
@@ -280,7 +305,7 @@ SELECT * FROM temp_detalle_venta_carrito
 			IN 	_pass_usu	VARCHAR(50)
 		)BEGIN
 			
-			SELECT cod_usu,apell_usu,nombr_usu,telef_usu,tipo_usu FROM usuario  WHERE correo_usu = _nome_usu AND pass_usu = _pass_usu AND estad_usu = 1;
+			SELECT cod_usu,apell_usu,nombr_usu,telef_usu,tipo_usu,ruc,razonsocial,direccionfiscal FROM usuario  WHERE correo_usu = _nome_usu AND pass_usu = _pass_usu AND estad_usu = 1;
 			
 		END $$
 	
@@ -293,6 +318,24 @@ SELECT * FROM temp_detalle_venta_carrito
 		
 			SELECT COUNT(*) cantidad FROM temp_detalle_venta_carrito WHERE cod_usu = _idusuario;
 		END $$
+	
+	-- MODIFICAR RUC - RAZON SOCIAL - DIRECCION FISCAL
+		DELIMITER $$
+		CREATE OR REPLACE PROCEDURE sp_usuarios_modificarruc
+		(
+			IN 	_idusuario		INT,
+			IN 	_ruc			VARCHAR(11),
+			IN 	_razonsocial		VARCHAR(255),
+			IN 	_direccionfiscal	VARCHAR(255)
+		)BEGIN
+		
+			UPDATE usuario SET
+			ruc = _ruc,
+			razonsocial = _razonsocial,
+			direccionfiscal = _direccionfiscal
+			WHERE cod_usu = _idusuario;
+		
+		END $$	
 		
 		
 ###########
@@ -374,7 +417,6 @@ SELECT * FROM temp_detalle_venta_carrito
 	
 	END $$
 	
-	
 	-- LIMPIAR CARRITO
 	DELIMITER $$
 	CREATE OR REPLACE PROCEDURE sp_carrito_vaciar
@@ -384,7 +426,6 @@ SELECT * FROM temp_detalle_venta_carrito
 	
 		DELETE FROM temp_detalle_venta_carrito WHERE cod_usu = _idusuario;
 	END $$
-
 
 	-- MODIFICAR CANTDAD
 	DELIMITER $$
@@ -416,8 +457,7 @@ SELECT * FROM temp_detalle_venta_carrito
 	)BEGIN
 		SELECT * FROM direcciones_usuarios WHERE  cod_usu = _idusuario;
 	END $$
-		
-		
+		CALL sp_direcciones_usuarios_listar(7)
 	-- REGISTRAR DIRECCIONES DE USUARIOS
 	DELIMITER $$
 	CREATE OR REPLACE PROCEDURE sp_direcciones_usuarios_registrar
@@ -435,8 +475,6 @@ SELECT * FROM temp_detalle_venta_carrito
 			(_idusuario,_iddistrito,_direccion,_nombredireccion,_referencia,_latitud,_longitud);
 	END $$
 	
-	SELECT * FROM temp_detalle_venta_carrito
-	
 #############
 # DISTRITOS #
 #############
@@ -446,8 +484,6 @@ SELECT * FROM temp_detalle_venta_carrito
 		SELECT cod_distrito,nombre_distrito FROM distrito;
 	END $$
 	
-	
-
 ################
 # METODOS PAGO #
 ################
@@ -469,7 +505,9 @@ SELECT * FROM temp_detalle_venta_carrito
 	CREATE OR REPLACE PROCEDURE sp_venta_carrito_registrar
 	(
 		IN 	_iddireccionusuario	INT,
-		IN 	_idmetodopago		INT
+		IN 	_idmetodopago		INT,
+		IN 	_idcodigohoraio		INT,
+		IN 	_idcomprobante		INT
 	)BEGIN
 		DECLARE v_idusuario INT;
 		DECLARE v_idventa INT;
@@ -478,8 +516,8 @@ SELECT * FROM temp_detalle_venta_carrito
 		SELECT cod_usu INTO v_idusuario FROM direcciones_usuarios  WHERE cod_direcc_usu = _iddireccionusuario;
 		
 		-- REGISTRAMOS VENTA
-		INSERT INTO venta_carrito (cod_direcc_usu,cod_metodo_pago,fecha_creacion,fecha_entrega,cod_comprobante,monto_total_bruto_venta,monto_total_neto_venta,monto_igv_venta,estado_venta) VALUES
-		(_iddireccionusuario,_idmetodopago,CURDATE(),NULL,1,0,0,0,1);
+		INSERT INTO venta_carrito (cod_direcc_usu,cod_metodo_pago,fecha_creacion,fecha_entrega,cod_comprobante,monto_total_bruto_venta,monto_total_neto_venta,monto_igv_venta,estado_venta,cod_horario) VALUES
+		(_iddireccionusuario,_idmetodopago,CURDATE(),NULL,_idcomprobante,0,0,0,1,_idcodigohoraio);
 		
 		-- OBTENEMOS ID	DE VENTA
 		SELECT LAST_INSERT_ID() INTO v_idventa;
@@ -504,6 +542,45 @@ SELECT * FROM temp_detalle_venta_carrito
 		
 	END $$
 
+	
+	SELECT * FROM venta_carrito
+	SELECT * FROM metodo_pago
+	
+		
+############
+# HORARIOS #
+############
+
+	-- LISTAR
+	DELIMITER $$
+	CREATE OR REPLACE PROCEDURE sp_horarios_listar
+	(
+		IN 	_idempresa 	INT
+	)BEGIN
+	
+		SELECT cod_horario,cod_tienda,nombre_horario,hora_ini,hora_fin FROM horario WHERE estado_horario = '1' AND cod_tienda = _idempresa;
+	END $$
+	
+################
+# COMPROBANTES #
+################
+
+	-- LISTAR
+	DELIMITER $$ 
+	CREATE OR REPLACE PROCEDURE sp_comprobantes_listar()	
+	BEGIN
+		SELECT cod_comprobante,tipo_comprobante,req_ruc	 FROM comprobante WHERE  estado_comprobante = '1' ORDER BY 1 ASC;
+	END $$
+	
+	
+	CALL sp_comprobantes_listar
 
 
+	DESCRIBE temp_detalle_venta_carrito
+	SELECT * FROM temp_detalle_venta_carrito
+	SELECT * FROM usuario
+	SELECT * FROM venta_carrito
+	DESCRIBE producto
+	ALTER TABLE producto MODIFY precio_producto DECIMAL(6,2)
+	
 

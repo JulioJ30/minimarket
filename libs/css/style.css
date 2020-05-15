@@ -2214,7 +2214,47 @@ textarea.input {
 }
 
 .add-to-cart{
-  /* background:rgba(0,0,0,0.7) !important; */
-  background:white !important;
+  background:rgba(0,0,0,0.7) !important;
+  /* background:white !important; */
 
+}
+
+.mt-5{
+  margin-top: 30px;
+}
+
+.mb-5{
+  margin-bottom: 30px;
+}
+
+.font-weight-bold{
+  font-weight: bold;
+}
+
+
+/* PARA METODOS DE PAGO */
+
+/* HIDE RADIO */
+.radiometodos { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+.radiometodos + img {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+.radiometodos:checked + img {
+  outline: 2px solid #f00;
+}
+
+
+/* IMAGENES */
+
+.product-img > img.productosimg {
+  height: 130px !important;
 }

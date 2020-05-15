@@ -38,7 +38,7 @@
                 echo "  <div class='product'>";
                 echo "      <a href='product.php?id={$fila->cod_producto}'>     ";                       
                 echo "          <div class='product-img'>";
-                echo "              <img src='{$imagen}' alt=''>";
+                echo "              <img src='{$imagen}' alt='' class='productosimg'>";
                 echo "          </div>";
                 echo "          <div class='product-body'>";
                 echo "              <p class='product-category'>{$fila->nombre_categoria}</p>";
@@ -103,7 +103,7 @@
                 echo "  <div class='product'>";
                 echo "      <a href='product.php?id={$fila->cod_producto}'>     ";                       
                 echo "          <div class='product-img'>";
-                echo "              <img src='{$imagen}' alt=''>";
+                echo "              <img src='{$imagen}' alt='' class='productosimg'>";
                 echo "          </div>";
                 echo "          <div class='product-body'>";
                 echo "              <p class='product-category'>{$fila->nombre_categoria}</p>";

@@ -1,9 +1,10 @@
 <?php
 
     require_once '../core/model.master.php';
+    
 
-    class CategoriasModelo extends ModelMaster{
-
+    class ComprobantesModelo extends ModelMaster{
+        
         private $pdo;
 
         function __construct()
@@ -11,14 +12,12 @@
             $this->pdo = parent::getConexion();
         }
 
-        function ListarCategoriasCant($idfamilia,$idcategoria,$idmarca,$precio1,$precio2,$product){
+        function Listar(){
             try{
 
-                $comando = $this->pdo->prepare("call SP_LISTA_CATEGORIA_FAMILIA_CANT (?,?,?,?,?,?)");
+                $comando = $this->pdo->prepare("call sp_comprobantes_listar");
                 $comando->execute(
-                    array(
-                        $idfamilia,$idcategoria,$idmarca,$precio1,$precio2,$product
-                    )
+                    
                 );
 
                 return $comando->fetchAll(PDO::FETCH_OBJ);
