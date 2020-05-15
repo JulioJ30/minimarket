@@ -47,7 +47,7 @@
                 echo "              <h4 class='product-price'> S/.{$fila->precio1} <del class='product-old-price'> S/.{$fila->precio2}</del></h4>";
                 echo "          </div>";
                 echo "          <div class='add-to-cart'>";
-                echo "              <button class='add-to-cart-btn' data-id='{$fila->cod_producto}' data-nombre='{$fila->nombre_procucto}' data-descripcion='{$fila->descripcion_producto}'  data-categoria='{$fila->nombre_categoria}' data-imagen='{$imagen}' data-precio='{$fila->precio1}'  ><i class='fa fa-shopping-cart'></i> agregar al carrito</button>";
+                echo "              <button class='add-to-cart-btn' data-id='{$fila->cod_producto}' data-nombre='{$fila->nombre_procucto}' data-descripcion='{$fila->descripcion_producto}'  data-categoria='{$fila->nombre_categoria}' data-imagen='{$imagen}' data-precio='{$fila->precio1}'  ><i class='fa fa-shopping-cart'></i> agregar</button>";
                 echo "          </div>";
                 echo "      </a>";
                 echo "  </div>";
@@ -112,7 +112,7 @@
                 echo "              <h4 class='product-price'> S/.{$fila->precio1} <del class='product-old-price'> S/.{$fila->precio2}</del></h4>";
                 echo "          </div>";
                 echo "          <div class='add-to-cart'>";
-                echo "              <button  class='add-to-cart-btn' data-id='{$fila->cod_producto}' data-nombre='{$fila->nombre_procucto}' data-descripcion='{$fila->descripcion_producto}'  data-categoria='{$fila->nombre_categoria}' data-imagen='{$imagen}' data-precio='{$fila->precio1}'  ><i class='fa fa-shopping-cart'></i> agregar al carrito</button>";
+                echo "              <button  class='add-to-cart-btn' data-id='{$fila->cod_producto}' data-nombre='{$fila->nombre_procucto}' data-descripcion='{$fila->descripcion_producto}'  data-categoria='{$fila->nombre_categoria}' data-imagen='{$imagen}' data-precio='{$fila->precio1}'  ><i class='fa fa-shopping-cart'></i> agregar</button>";
                 echo "          </div>";
                 echo "      </a>";
                 echo "  </div>";

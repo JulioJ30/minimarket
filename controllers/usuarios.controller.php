@@ -1,10 +1,12 @@
 <?php
     require_once '../model/entidad/carrito.entidad.php';
+    require_once '../model/entidad/usuarios.entidad.php';
     require_once '../model/modelo/usuarios.modelo.php';
     require_once '../model/modelo/carrito.modelo.php';
 
     $objUsuariosM = new UsuariosModelo();
     $objCarritoM = new CarritoModelo();
+    $objUsuariosE = new Usuarios();
 
     // METODOS POST
     if(isset($_POST["operacion"])){
@@ -18,8 +20,6 @@
             $clave   = sha1("##2".$_POST["clave"]."##3");
 
             $data = $objUsuariosM->Login($usuario,$clave);
-
-
 
             if($data != false){
 
@@ -55,6 +55,19 @@
             
         }
 
+        //REGISTRAR 
+        if($_POST["operacion"] == "registrar"){
+
+            $objUsuariosE->__SET("apell_usu"    ,$_POST["apellidos"]);
+            $objUsuariosE->__SET("nombr_usu"    ,$_POST["nombres"]);
+            $objUsuariosE->__SET("telef_usu"    ,$_POST["telefono"]);
+            $objUsuariosE->__SET("correo_usu"   ,$_POST["correo"]);
+            $objUsuariosE->__SET("pass_usu"     ,sha1("##2".$_POST["clave"]."##3"));
+
+            $objUsuariosM->Registrar($objUsuariosE);
+
+
+        }
 
     }
 

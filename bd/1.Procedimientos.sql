@@ -258,9 +258,19 @@ SELECT * FROM temp_detalle_venta_carrito
 		DELIMITER $$
 		CREATE OR REPLACE PROCEDURE sp_usuarios_registrar
 		(
-			
-		)
+			IN 	_apellidos 	VARCHAR(100),
+			IN 	_nombres	VARCHAR(100),
+			IN 	_telefono 	INT,
+			IN 	_correo		VARCHAR(50),
+			IN 	_clave		VARCHAR(50)
+		)BEGIN
 		
+			INSERT INTO usuario (apell_usu,nombr_usu,telef_usu,correo_usu,pass_usu,tipo_usu,estad_usu) VALUES
+				(_apellidos,_nombres,_telefono,_correo,_clave,'U','1');
+		END $$
+		
+		SELECT * FROM usuario
+	
 		
 	-- LOGIN USUARIOS
 		DELIMITER $$
@@ -270,7 +280,7 @@ SELECT * FROM temp_detalle_venta_carrito
 			IN 	_pass_usu	VARCHAR(50)
 		)BEGIN
 			
-			SELECT cod_usu,apell_usu,nombr_usu,telef_usu,tipo_usu FROM usuario  WHERE nome_usu = _nome_usu AND pass_usu = _pass_usu AND estad_usu = 0;
+			SELECT cod_usu,apell_usu,nombr_usu,telef_usu,tipo_usu FROM usuario  WHERE correo_usu = _nome_usu AND pass_usu = _pass_usu AND estad_usu = 1;
 			
 		END $$
 	
@@ -397,7 +407,8 @@ SELECT * FROM temp_detalle_venta_carrito
 ########################
 # DIRECCIONES USUARIOS #
 ########################
-
+	
+	-- LISTAR DIRECCIONES DE USUARIOS
 	DELIMITER $$
 	CREATE OR REPLACE PROCEDURE sp_direcciones_usuarios_listar
 	(
@@ -406,7 +417,36 @@ SELECT * FROM temp_detalle_venta_carrito
 		SELECT * FROM direcciones_usuarios WHERE  cod_usu = _idusuario;
 	END $$
 		
-	CALL sp_direcciones_usuarios_listar(1)
+		
+	-- REGISTRAR DIRECCIONES DE USUARIOS
+	DELIMITER $$
+	CREATE OR REPLACE PROCEDURE sp_direcciones_usuarios_registrar
+	(
+		IN 	_idusuario		INT,
+		IN 	_iddistrito		INT,
+		IN 	_direccion		VARCHAR(250),
+		IN 	_nombredireccion	VARCHAR(250),
+		IN 	_referencia		VARCHAR(300),
+		IN 	_latitud		VARCHAR(300),
+		IN 	_longitud		VARCHAR(300)
+	)BEGIN
+	
+		INSERT INTO direcciones_usuarios (cod_usu,cod_distrito,direccion,nombre_direccion,referencia,latitud,longitud) VALUES
+			(_idusuario,_iddistrito,_direccion,_nombredireccion,_referencia,_latitud,_longitud);
+	END $$
+	
+	SELECT * FROM temp_detalle_venta_carrito
+	
+#############
+# DISTRITOS #
+#############
+	DELIMITER $$
+	CREATE OR REPLACE PROCEDURE sp_distritos_listar()
+	BEGIN
+		SELECT cod_distrito,nombre_distrito FROM distrito;
+	END $$
+	
+	
 
 ################
 # METODOS PAGO #
@@ -464,11 +504,6 @@ SELECT * FROM temp_detalle_venta_carrito
 		
 	END $$
 
-CALL sp_venta_carrito_registrar(1,1)
 
-SELECT * FROM venta_carrito
-SELECT * FROM detalle_venta_carrito
-SELECT * FROM temp_detalle_venta_carrito
-SELECT * FROM producto
 
 

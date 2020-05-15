@@ -135,15 +135,18 @@
                                 $cart_list .= "<td>";
 
                                 $cart_list .=  "<div class='product-widget'>";
+
                                 $cart_list .=  " <div class='product-img'>";
                                 $cart_list .= "     <img src='{$fila->ruta_imagen_catalogo}' alt=''>";
                                 $cart_list .=  " </div>";
+
                                 $cart_list .=  " <div class='product-body'>";
 								$cart_list .=  		"<p class='product-category'>{$fila->nombre_categoria}</p>";
                                 $cart_list .=  "     <h3 class='product-name'><a href='#'>{$fila->nombre_producto}</a></h3>";
                                 // echo  "     <h4 class='product-price'><span class='qty'>{$fila->cantidad_detalle} x</span>S/. {$fila->precio1}</h4>";
                                 $cart_list .=  " </div>";
-                                $cart_list .= " <a class='eliminarcarrito' href='#' data-id='{$cont}'><i class='fas fa-trash'></i></a>";
+                                $cart_list .= " <a class='eliminarcarrito' href='#' data-id='{$cont}'><i class='far fa-window-close'></i></a>";
+
                                 $cart_list .=  "</div> ";
 
                                 $cart_list .= "</td>";
@@ -181,7 +184,7 @@
 
                         }
                         
-                        echo json_encode(array("resultado" => $cart_list,"subtotal"=>$subttotal,"envio"=>$envio,"total"=>$subttotal+$envio));
+                        echo json_encode(array("resultado" => $cart_list,"subtotal"=>$subttotal,"envio"=>"GRATUITO","total"=>$subttotal+$envio));
 
                     }
 
@@ -258,7 +261,7 @@
                             $cart_list .= "  <h5>SUBTOTAL: S/. {$subttotal}</h5>";
                             $cart_list .= "</div>";
                             $cart_list .= "<div class='cart-btns'>";
-                            $cart_list .= "  <a href='carrito.php'>Ver Carrito</a>";
+                            $cart_list .= "  <a href='checkout.php'>Ver Carrito</a>";
                             $cart_list .= "  <a href='#' id='btnCheckout'>Comprar<i class='fa fa-arrow-circle-right'></i></a>";
                             $cart_list .= "</div>";
 
@@ -290,12 +293,14 @@
                                 $cart_list .=  " <div class='product-img'>";
                                 $cart_list .= "     <img src='{$fila->ruta_imagen_catalogo}' alt=''>";
                                 $cart_list .=  " </div>";
+
                                 $cart_list .=  " <div class='product-body'>";
 								$cart_list .=  		"<p class='product-category'>{$fila->nombre_categoria}</p>";
                                 $cart_list .=  "     <h3 class='product-name'><a href='#'>{$fila->nombre_procucto}</a></h3>";
                                 // echo  "     <h4 class='product-price'><span class='qty'>{$fila->cantidad_detalle} x</span>S/. {$fila->precio1}</h4>";
                                 $cart_list .=  " </div>";
-                                $cart_list .= " <a class='eliminarcarrito' href='#' data-id='{$fila->cod_tmp_venta_carrito}'><i class='fas fa-trash'></i></a>";
+                                $cart_list .= " <a class='eliminarcarrito' href='#' data-id='{$fila->cod_tmp_venta_carrito}'><i class='far fa-window-close'></i><</a>";
+
                                 $cart_list .=  "</div> ";
 
                                 $cart_list .= "</td>";
@@ -330,7 +335,7 @@
                                     // echo "</tr>";
                             }
 
-                            echo json_encode(array("resultado" => $cart_list,"subtotal"=>$subttotal,"envio"=>$envio,"total"=>$subttotal+$envio));
+                            echo json_encode(array("resultado" => $cart_list,"subtotal"=>$subttotal,"envio"=>"GRATUITO","total"=>$subttotal+$envio));
                           
                         
 

@@ -3,8 +3,7 @@
 
 <!-- FOOTER -->
 <footer id="footer">
-			<!-- top footer -->
-			<div class="section">
+			
 
 			<!-- <div class="container">
 					<ul class="header-links pull-left">

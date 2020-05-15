@@ -10,12 +10,20 @@
         //LISTAMOS CARRITO
         getCarrito();
 
-        let frmLogin = document.getElementById("frmLogin");
+        let frmLogin        = document.getElementById("frmLogin");
+        let frmRegistro     = document.getElementById("frmRegistro");
 
+
+        //LOGEMOS
         frmLogin.addEventListener('submit',(e)=>{
             Login();
             e.preventDefault();
         });
+        //REGISTRAMOS
+        frmRegistro.addEventListener('submit',(e)=>{
+            RegistrarUsuario();
+            e.preventDefault();
+        })
 
 
 
@@ -207,6 +215,43 @@
     }
 
 
+    // REGISTRAR USUARIO
+    function RegistrarUsuario(){
+
+        var datos = {
+            'operacion' : 'registrar',
+            'apellidos' : $("#txtRegistroApellidos").val().trim(),
+            'nombres'   : $("#txtRegistroNombres").val().trim(),
+            'telefono'  : $("#txtRegistroTelefono").val().trim(),
+            'correo'    : $("#txtCorreoRegistro").val().trim(),
+            'clave'     : $("#txtClave1Registro").val().trim(),
+            'clave2'    : $("#txtClave2Registro").val().trim()
+        };
+
+        if(datos.clave != datos.clave2){
+            Swal.fire("Las claves no coinciden","MiniMarket","warning");
+            return;
+        }else{  
+            //REGISTRAMOS
+
+
+
+
+            $.ajax({
+                url:'controllers/usuarios.controller.php',
+                type:'POST',
+                data : datos,
+                success:function(e){
+                    Swal.fire("Usuario registrado, Inicie sesión","MiniMarket","success");
+                    $("#frmRegistro").modal("hide");
+                }
+            });
+
+        }
+
+
+
+    }
 
 
 </script>

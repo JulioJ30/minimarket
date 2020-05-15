@@ -11,6 +11,7 @@
             $this->pdo = parent::getConexion();
         }
 
+        //LOGIN
         function Login($usuario,$clave){
             try{
 
@@ -28,6 +29,7 @@
             }
         }
 
+        //CANTIDAD CARRITO POR USUARIO
         function CantidadCarrito($idusuario){
             try{
 
@@ -39,6 +41,26 @@
                 );
 
                 return $comando->fetch(PDO::FETCH_OBJ);
+
+            }catch(Exception $e){
+                die($e->getMessage());
+            }
+        }
+
+        //REGISTRAR USUARIO
+        function Registrar(Usuarios $usuarios){
+            try{
+
+                $comando = $this->pdo->prepare("call sp_usuarios_registrar(?,?,?,?,?)");
+                $comando->execute(
+                    array(
+                       $usuarios->__GET('apell_usu'),
+                       $usuarios->__GET('nombr_usu'),
+                       $usuarios->__GET('telef_usu'),
+                       $usuarios->__GET('correo_usu'),
+                       $usuarios->__GET('pass_usu')
+                    )
+                );
 
             }catch(Exception $e){
                 die($e->getMessage());

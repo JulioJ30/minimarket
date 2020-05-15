@@ -24,7 +24,7 @@
                             <option value="1">Category 01</option>
                             <option value="1">Category 02</option> -->
                         </select>
-                        <input class="input" placeholder="Producto" name="prod">
+                        <input class="input" placeholder="Buscar Producto" name="prod">
                         <button class="search-btn">Buscar</button>
                     </form>
                 </div>
@@ -60,15 +60,15 @@
 
                             echo "
                                 <div>
-                                    <a href='#' id='btnMicuenta'>
+                                    <a href='direccion.php' id='btnMicuenta'>
                                         <i class='fas fa-user'></i>
-                                        <span>Perfil</span>
+                                        <span>Mi Cuenta</span>
                                     </a>
                                 </div>
                                 <div>
                                     <a href='controllers/usuarios.controller.php?operacion=logoff' id='btnLogoff'>
                                         <i class='fas fa-sign-out-alt'></i>
-                                        <span>Log Off</span>
+                                        <span>Salir</span>
                                     </a>
                                 </div>
                             ";

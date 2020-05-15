@@ -2214,5 +2214,7 @@ textarea.input {
 }
 
 .add-to-cart{
-  background:rgba(0,0,0,0.7) !important;
+  /* background:rgba(0,0,0,0.7) !important; */
+  background:white !important;
+
 }

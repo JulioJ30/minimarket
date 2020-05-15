@@ -49,7 +49,7 @@
 						<!-- Billing Details -->
 						<div class="billing-details">
 							<div class="section-title">
-								<h3 class="title">Carrito</h3>
+								<h3 class="title">Detalle Compra</h3>
 							</div>
 							
 							<div class="form-group">
@@ -114,17 +114,24 @@
 							</div>
 						</div>
 						<div class="payment-method">
-							<label for="">Mis direcciones</label>
-							<select name="" id="cboDirecciones" class="form-control">
-
-							</select>
+							<!-- METODOS PAGO -->
 							<label for="">Metodo de pago</label>
-							<select name="" id="cboMetodosPago" class="form-control">
+							<select name="" id="cboMetodosPago" class="form-control"></select>
+							<!-- DIRECCIONES  -->
+							<label for=""  style="width: 100%;margin-top:10px ">
+								<a data-toggle="collapse" href="#cboDirecciones"  href="">Mis Direcciones</a>
+								<a href="direccion.php" style="float: right"> <i class="fas fa-plus"></i> </a>
+							</label>
+							<div class="collapse" id="cboDirecciones" style="padding: 2px">
+								
+							</div>
 
-							</select>
+							
+
+							
 						</div>
 				
-						<button class="primary-btn order-submit btn-block" id="btnComprar" data-sesion="<?php echo isset($_SESSION["cod_usuminimarket"]) ? 1 : 0 ;?>" >Comprar</button>
+						<button class="primary-btn order-submit btn-block" id="btnComprar" data-sesion="<?php echo isset($_SESSION["cod_usuminimarket"]) ? 1 : 0 ;?>" >Generar Compra</button>
 					</div>
 					<!-- /Order Details -->
 				</div>
@@ -252,18 +259,31 @@
 							// console.log($("#totalcarrito").text());
 							if(carrito.total > 0){
 								
-								var compra = await Comprar();
+								var direcciones = $(".direcregistrar");
+								var iddireccion = 0;
+								for(var i =0; i < direcciones.length; i++){
+									if(direcciones[i].checked){
+										iddireccion = direcciones[i].dataset.id;
+									}
+								}
 
-								
+								if(iddireccion != 0){
 
-								carrito = await getCarritoCompleto();
-								$("#cuerpotabla").html(carrito.resultado);
-								$("#totalcarrito").html(carrito.total);
-								$("#enviocarrito").html(carrito.envio);
-								$("#subtotalcarrito").html(carrito.subtotal);
-								getCarrito();
+									var compra = await Comprar(iddireccion);
 
-								Swal.fire("Compra realizada","MiniMarket","success");
+									carrito = await getCarritoCompleto();
+									$("#cuerpotabla").html(carrito.resultado);
+									$("#totalcarrito").html(carrito.total);
+									$("#enviocarrito").html(carrito.envio);
+									$("#subtotalcarrito").html(carrito.subtotal);
+									getCarrito();
+
+									Swal.fire("Compra realizada","MiniMarket","success");
+
+								}else{
+									Swal.fire("Por favor seleccione una dirección","MiniMarket","warning");
+								}
+
 
 							}else{
 								console.log(carrito.total);
@@ -374,18 +394,28 @@
 				
 			}
 
-			async function Comprar(){
-				var datos = {
-					'operacion' : 'registrar',
-					'iddireccion'	: $("#cboDirecciones").val(),
-					'idmetodopago'		: $("#cboMetodosPago").val()
-				}
+			async function Comprar(iddireccion){
+
+
 				var rpt;
-				rpt = await $.ajax({
-					url:'controllers/venta.controller.php',
-					type:'get',
-					data:datos
-				});
+			
+			
+
+					var datos = {
+						'operacion' : 'registrar',
+						'iddireccion'	:iddireccion,
+						'idmetodopago'		: $("#cboMetodosPago").val()
+					}
+					// var rpt;
+					rpt = await $.ajax({
+						url:'controllers/venta.controller.php',
+						type:'get',
+						data:datos
+					});
+
+				
+
+				
 					
 				return rpt;
 			}

@@ -54,44 +54,37 @@
 
                     <div class="form-group col-lg-12">
                         <label for="">Nombres:</label>
-                        <input type="password" class="form-control" id="txtRegistroNombres" required>
+                        <input type="text" class="form-control" id="txtRegistroNombres" required>
                     </div>
 
                     <div class="form-group col-lg-12">
-                        <label for="">Direccion:</label>
-                        <input type="password" class="form-control" id="txtRegistroNombres" required>
-                    </div>
-
-                    <div class="form-group col-lg-6">
-                        <label for="">Referencia:</label>
-                        <input type="password" class="form-control" id="txtRegistroNombres" required>
-                    </div>
-                    <div class="form-group col-lg-6">
                         <label for="">Telefono:</label>
-                        <input type="password" class="form-control" id="txtRegistroNombres" required>
+                        <input type="tel" class="form-control" id="txtRegistroTelefono" >
                     </div>
 
                     <div class="form-group col-lg-12">
-                        <label for="">Usuario:</label>
-                        <input type="password" class="form-control" id="txtRegistroNombres" required>
+                        <label for="">Correo:</label>
+                        <input type="email" class="form-control" id="txtCorreoRegistro" required>
                     </div>
                     <div class="form-group col-lg-6">
                         <label for="">Clave:</label>
-                        <input type="password" class="form-control" id="txtRegistroNombres" required>
+                        <input type="password" class="form-control" id="txtClave1Registro" required>
                     </div>
 
                     <div class="form-group col-lg-6">
                         <label for="">Confirmacion de Clave:</label>
-                        <input type="password" class="form-control" id="txtRegistroNombres" required>
+                        <input type="password" class="form-control" id="txtClave2Registro" required>
                     </div>
+
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary btn-block" id="btnRegistrarUsuario">Registrarme</button>
+                    </div>
+
 
             </form>
             
       </div>
-      <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-        <button type="button" class="btn btn-primary btn-block">Registrarme</button>
-      </div>
+      
     </div>
   </div>
 </div>

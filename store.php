@@ -47,7 +47,7 @@
 						<div class="aside">
 							<h3 class="aside-title">Busqueda</h3>
 							<div class="form-group">
-								<button class="btn btn-block btn-primary" id="btnBusquedaProducto"><i class="fas fa-search"></i></button>
+								<button class="btn btn-block btn-danger" id="btnBusquedaProducto"><i class="fas fa-search"></i></button>
 							</div>
 						</div>
 						<!-- /CATEGORIAS -->

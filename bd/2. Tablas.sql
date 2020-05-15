@@ -32,7 +32,8 @@ INSERT INTO `banner_home` (`descrip_banner`, `nombre_banner`, `ruta_banner`, `es
 ('0','banner 5','public/carrusel/b5.jpg','0'),
 ('0','banner 6','public/carrusel/b6.jpg','0');
 
- SELECT bh.`nombre_banner`, bh.`ruta_banner` FROM banner_home bh WHERE bh.`estado_banner`=0;
+
+ 
  
  
  
