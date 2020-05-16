@@ -9,7 +9,7 @@
 
         if($_GET["operacion"] == "registrar"){
 
-            $objVentaM->Registrar($_GET["iddireccion"],$_GET["idmetodopago"],$_GET["idcodigohorario"],$_GET["idcomprobante"]);
+            $objVentaM->Registrar($_GET["iddireccion"],$_GET["idmetodopago"],$_GET["idcodigohorario"],$_GET["idcomprobante"],$_GET["subtotal"],$_GET["total"],$_GET["igv"]);
             
         }
 

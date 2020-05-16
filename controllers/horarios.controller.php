@@ -11,7 +11,7 @@
             $datos = $objHorariosM->Listar(1);
 
             foreach($datos as $fila){
-                echo "<input type='radio' class='horarioregistrar' name='horario' data-id='{$fila->cod_horario}'>{$fila->nombre_horario} de {$fila->hora_ini} hasta {$fila->hora_fin} <br>";
+                echo "<input type='radio' class='horarioregistrar' name='horario' data-id='{$fila->cod_horario}' data-hora='{$fila->hora_ini}-{$fila->hora_fin}' >{$fila->nombre_horario} de {$fila->hora_ini} hasta {$fila->hora_fin} <br>";
             }
 
         }

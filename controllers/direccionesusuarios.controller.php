@@ -25,7 +25,7 @@
             foreach($data as $fila){
                 
                 if($cont == 0){
-                    $direccionprincipal = "<input type='radio' class='direcregistrar' name='direc' data-id='{$fila->cod_direcc_usu}' data-direc='{$fila->direccion}' checked>  {$fila->nombre_direccion}    <br>";
+                    $direccion .= "<input type='radio' class='direcregistrar' name='direc' data-id='{$fila->cod_direcc_usu}' data-direc='{$fila->direccion}' checked>  {$fila->nombre_direccion}    <br>";
                     $nombredireccioncompleta = $fila->direccion;
                 }else{
                     $direccion .= "<input type='radio' class='direcregistrar' name='direc' data-id='{$fila->cod_direcc_usu}' data-direc='{$fila->direccion}' > {$fila->nombre_direccion} <br>";
@@ -34,7 +34,7 @@
                 $cont++;
             }
 
-            echo json_encode(array("principal"=>$direccionprincipal,"normal"=>$direccion,"nombredireccioncompleta"=>$nombredireccioncompleta));
+            echo json_encode(array(/*"principal"=>$direccionprincipal,*/"normal"=>$direccion,"nombredireccioncompleta"=>$nombredireccioncompleta));
 
         }
 

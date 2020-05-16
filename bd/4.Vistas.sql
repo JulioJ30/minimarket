@@ -17,7 +17,9 @@ SELECT
 			mar.cod_marca,
 			mar.nombre_marca,
 			cat.estado_categoria,
-			mar.estado_marca
+			mar.estado_marca,
+			IF(pro.tipo_stock_producto = 'C',pro.stock_producto,1) stock
+			
 		FROM producto pro
 		INNER JOIN detalle_categoria dtc ON
 		dtc.cod_Detalle_categoria = pro.cod_Detalle_categoria
@@ -28,8 +30,8 @@ SELECT
 		INNER JOIN marca mar ON
 		mar.`cod_marca` = dtc.`cod_marca`;
 		
-		SELECT * FROM usuario
+		SELECT * FROM v_productos;
+		SELECT * FROM producto
 		
-		
-		SELECT * FROM categoria
+
 		

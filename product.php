@@ -77,7 +77,7 @@
 							
 							<div>
 								<h3 class="product-price" id="precio1"></h3>
-								<span class="product-available">In Stock</span>
+								<span class="product-available" id="tipostockproducto" >En Stock</span>
 							</div>
 							<p id="descripcionproducto"></p>
 
@@ -87,7 +87,7 @@
 								<div class="qty-label">
 									Qty
 									<div class="input-number">
-										<input type="number" value="0" min="0"id="txtCantidadProducto">
+										<input type="number" value="1" min="1"id="txtCantidadProducto">
 										<span class="qty-up">+</span>
 										<span class="qty-down">-</span>
 									</div>
@@ -105,7 +105,7 @@
 							</ul>
 
 							<div class="form-group" style="margin-top: 20px">
-								<button class="btn btn-primary" id="btnAtras"> <i class="fas fa-arrow-left"></i> Seguir Comprando</button>
+								<button class="btn btn-danger" id="btnAtras"> <i class="fas fa-arrow-left"></i> Seguir Comprando</button>
 							</div>
 
 
@@ -241,6 +241,16 @@
 						}else{
 							$("#precio1").text(`S/. ${js.precio1}`);
 						}
+
+						// TIPO DE PRODUCTO
+						// $("#tipostockproducto").val();
+						if(producto.tipo_stock_producto == "C"){
+							$("#tipostockproducto").html("En Stock " + producto.stock_producto);
+							$("#txtCantidadProducto").attr("max",producto.stock_producto);
+						}else{
+							$("#tipostockproducto").html("En Stock");
+						}
+
 
 					}
 				});

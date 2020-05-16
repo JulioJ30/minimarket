@@ -11,13 +11,13 @@
             $this->pdo = parent::getConexion();
         }
 
-        function Registrar($iddireccion,$idmetodopago,$idcodigohorario,$idcomprobante){
+        function Registrar($iddireccion,$idmetodopago,$idcodigohorario,$idcomprobante,$subtotal,$total,$igv){
             try{
 
-                $comando = $this->pdo->prepare("call sp_venta_carrito_registrar(?,?,?,?)");
+                $comando = $this->pdo->prepare("call sp_venta_carrito_registrar(?,?,?,?,?,?,?)");
                 $comando->execute(
                     array(
-                        $iddireccion,$idmetodopago,$idcodigohorario,$idcomprobante
+                        $iddireccion,$idmetodopago,$idcodigohorario,$idcomprobante,$subtotal,$total,$igv
                     )
                 );
 

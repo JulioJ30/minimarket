@@ -3,7 +3,7 @@ USE bd_market;
 #############
 # PRODUCTOS #
 #############
-	CALL sp_productosfamilia_listar(NULL,NULL,NULL,NULL,NULL,NULL)
+	
 	-- LISTAR PRODUCTOS POR FAMILIA
 	DELIMITER $$
 	CREATE OR REPLACE PROCEDURE sp_productosfamilia_listar
@@ -16,7 +16,7 @@ USE bd_market;
 		IN 	_product	VARCHAR(50)
 	)BEGIN
 
-		SET @sql = "select * from v_productos where estado_producto = 0";
+		SET @sql = "select * from v_productos where estado_producto = 0 and stock > 0 " ;
 		
 		-- FILTROS
 		
@@ -76,7 +76,9 @@ USE bd_market;
 			cat.`cod_categoria`,
 			cat.`nombre_categoria`,
 			pro.ruta_imagen_catalogo,
-			fa.`cod_familia`
+			fa.`cod_familia`,
+			pro.tipo_stock_producto,
+			pro.stock_producto
 		FROM producto pro
 		INNER JOIN detalle_categoria dtc ON
 		dtc.cod_Detalle_categoria = pro.cod_Detalle_categoria
@@ -88,7 +90,6 @@ USE bd_market;
 		AND pro.cod_producto = _idproducto;
 		
 	END $$
-
 
 	-- PRODUCTOS SUGERIDOS
 	DELIMITER $$
@@ -115,7 +116,6 @@ USE bd_market;
 	
 	END $$
 	
-
 
 	-- OBTNER IMAGENES DE LOS PRODUCTOS
 	DELIMITER $$
@@ -157,7 +157,7 @@ USE bd_market;
 		IN 	_product	VARCHAR(50)
 	)BEGIN
 			
-		SET @sql = "SELECT cod_categoria,nombre_categoria,COUNT(*)cantidad FROM v_productos where estado_categoria = 0 ";
+		SET @sql = "SELECT cod_categoria,nombre_categoria,COUNT(*)cantidad FROM v_productos where estado_categoria = 0 and stock > 0 ";
 		
 		-- FILTROS
 		
@@ -219,7 +219,7 @@ USE bd_market;
 	)BEGIN
 		
 		
-		SET @sql = "SELECT cod_marca,nombre_marca,COUNT(*)cantidad FROM v_productos where estado_marca = 0 ";
+		SET @sql = "SELECT cod_marca,nombre_marca,COUNT(*)cantidad FROM v_productos where estado_marca = 0 and stock > 0  ";
 		
 			-- FAMILIAS
 			IF _idfamilia IS NOT NULL THEN
@@ -507,7 +507,10 @@ USE bd_market;
 		IN 	_iddireccionusuario	INT,
 		IN 	_idmetodopago		INT,
 		IN 	_idcodigohoraio		INT,
-		IN 	_idcomprobante		INT
+		IN 	_idcomprobante		INT,
+		IN 	_subtotal		DECIMAL(6,2),
+		IN 	_total			DECIMAL(6,2),
+		IN 	_igv			DECIMAL(6,2)
 	)BEGIN
 		DECLARE v_idusuario INT;
 		DECLARE v_idventa INT;
@@ -517,7 +520,7 @@ USE bd_market;
 		
 		-- REGISTRAMOS VENTA
 		INSERT INTO venta_carrito (cod_direcc_usu,cod_metodo_pago,fecha_creacion,fecha_entrega,cod_comprobante,monto_total_bruto_venta,monto_total_neto_venta,monto_igv_venta,estado_venta,cod_horario) VALUES
-		(_iddireccionusuario,_idmetodopago,CURDATE(),NULL,_idcomprobante,0,0,0,1,_idcodigohoraio);
+		(_iddireccionusuario,_idmetodopago,CURDATE(),NULL,_idcomprobante,_subtotal,_total,_igv,1,_idcodigohoraio);
 		
 		-- OBTENEMOS ID	DE VENTA
 		SELECT LAST_INSERT_ID() INTO v_idventa;
@@ -544,7 +547,7 @@ USE bd_market;
 
 	
 	SELECT * FROM venta_carrito
-	SELECT * FROM metodo_pago
+
 	
 		
 ############
@@ -573,14 +576,6 @@ USE bd_market;
 	END $$
 	
 	
-	CALL sp_comprobantes_listar
 
-
-	DESCRIBE temp_detalle_venta_carrito
-	SELECT * FROM temp_detalle_venta_carrito
-	SELECT * FROM usuario
-	SELECT * FROM venta_carrito
-	DESCRIBE producto
-	ALTER TABLE producto MODIFY precio_producto DECIMAL(6,2)
 	
 

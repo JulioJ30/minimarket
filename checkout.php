@@ -64,6 +64,7 @@
 								<table class="table">
 									<thead>
 										<tr>
+											<th>&nbsp;</th>
 											<th>Producto</th>
 											<th>Precio</th>
 											<th>Cantidad</th>
@@ -132,11 +133,11 @@
 							</div>
 							<div class="collapse" id="cboDirecciones" style="padding: 2px" ></div> -->
 
-							<!-- HORARIOS -->
+						
 							<div class="panel panel-default mt-5">
 								<div class="panel-heading" role="tab" id="headingOne">
 									<h4 class="panel-title">
-										<a role="button" data-toggle="collapse" href="#cboDirecciones2" >
+										<a role="button" data-toggle="collapse" href="#cboDirecciones" id="nombredireccioncompleta" >
 											Enviar a:
 										</a>
 										
@@ -144,17 +145,12 @@
 									</h4>
 									<!-- asdasdasdsadsad -->
 									<!-- <br> -->
-									<h6 id="nombredireccioncompleta"></h6>
+									<!-- <h6 id="nombredireccioncompleta"></h6> -->
 								</div>
-								<div id="" class="panel-collapse  " role="tabpanel" >
+								<div id="cboDirecciones" class="panel-collapse collapse" role="tabpanel" >
 
-									<div class="panel-body" >
-										<div id="cboDireccionesPrincipal">
-
-										</div>
-										<div id="cboDirecciones2" class="collapse">
-
-										</div>
+									<div class="panel-body"  id="cboDirecciones2">
+										
 									</div>
 								</div>
 							</div>
@@ -163,8 +159,8 @@
 							<div class="panel panel-default mt-5">
 								<div class="panel-heading" role="tab" id="headingOne">
 									<h4 class="panel-title">
-										<a role="button" data-toggle="collapse" href="#contenidohorarios" >
-											Horarios
+										<a role="button" data-toggle="collapse" href="#contenidohorarios" id="textoHorario" >
+											Horarios de: 
 										</a>
 									</h4>
 								</div>
@@ -178,8 +174,8 @@
 							<div class="panel panel-default mt-5">
 								<div class="panel-heading" role="tab" id="headingOne">
 									<h4 class="panel-title">
-										<a role="button" data-toggle="collapse" href="#contenidocomprobantes" >
-											Comprobantes
+										<a role="button" data-toggle="collapse" href="#contenidocomprobantes" id="tipodocumentotexto" >
+											Tipo de Documento: BOLETA
 										</a>
 									</h4>
 								</div>
@@ -259,10 +255,10 @@
 				//CARRITO
 				var carrito = await getCarritoCompleto();
 				$("#cuerpotabla").html(carrito.resultado);
-				$("#totalcarrito").html(carrito.total);
+				$("#totalcarrito").html(`S/. ${carrito.total}`);
 				$("#enviocarrito").html(carrito.envio);
-				$("#subtotalcarrito").html(carrito.subtotal);
-				$("#igvcarrito").html(carrito.igv);
+				$("#subtotalcarrito").html(`S/. ${carrito.subtotal}`);
+				$("#igvcarrito").html(`S/. ${carrito.igv}`);
 
 				//HORARIOS
 				var horario = await getHorarios();
@@ -279,8 +275,8 @@
 				//DIRECCIONES
 				var direcciones = await getDirecciones();
 				$("#cboDirecciones2").html(direcciones.normal);
-				$("#cboDireccionesPrincipal").html(direcciones.principal);
-				$("#nombredireccioncompleta").text(direcciones.nombredireccioncompleta);
+				// $("#cboDireccionesPrincipal").html(direcciones.principal);
+				$("#nombredireccioncompleta").text("Enviar a: " + direcciones.nombredireccioncompleta);
 
 				$(".loader").fadeOut("slow");
 
@@ -294,10 +290,10 @@
 
 						carrito = await getCarritoCompleto();
 						$("#cuerpotabla").html(carrito.resultado);
-						$("#totalcarrito").html(carrito.total);
+						$("#totalcarrito").html(`S/. ${carrito.total}`);
 						$("#enviocarrito").html(carrito.envio);
-						$("#subtotalcarrito").html(carrito.subtotal);
-						$("#igvcarrito").html(carrito.igv);
+						$("#subtotalcarrito").html(`S/. ${carrito.subtotal}`);
+						$("#igvcarrito").html(`S/. ${carrito.igv}`);
 					});
 
 					//LIMPIAR CARRITO
@@ -306,10 +302,10 @@
 						getCarrito();
 						carrito = await getCarritoCompleto();
 						$("#cuerpotabla").html(carrito.resultado);
-						$("#totalcarrito").html(carrito.total);
+						$("#totalcarrito").html(`S/. ${carrito.total}`);
 						$("#enviocarrito").html(carrito.envio);
-						$("#subtotalcarrito").html(carrito.subtotal);
-						$("#igvcarrito").html(carrito.igv);
+						$("#subtotalcarrito").html(`S/. ${carrito.subtotal}`);
+						$("#igvcarrito").html(`S/. ${carrito.igv}`);
 					});
 
 
@@ -324,10 +320,10 @@
 						// $(".loader").show("slow");
 						carrito = await getCarritoCompleto();
 						$("#cuerpotabla").html(carrito.resultado);
-						$("#totalcarrito").html(carrito.total);
+						$("#totalcarrito").html(`S/. ${carrito.total}`);
 						$("#enviocarrito").html(carrito.envio);
-						$("#subtotalcarrito").html(carrito.subtotal);
-						$("#igvcarrito").html(carrito.igv);
+						$("#subtotalcarrito").html(`S/. ${carrito.subtotal}`);
+						$("#igvcarrito").html(`S/. ${carrito.igv}`);
 						// $(".loader").fadeOut("slow");
 
 
@@ -350,7 +346,7 @@
 						$("#totalcarrito").html(car.total);
 						$("#enviocarrito").html(car.envio);
 						$("#subtotalcarrito").html(car.subtotal);
-						$("#igvcarrito").html(carrito.igv);
+						$("#igvcarrito").html(`S/. ${carrito.igv}`);
 						// // $(".loader").fadeOut("slow");
 
 
@@ -362,7 +358,7 @@
 						if(sesion == 1){
 
 							// console.log($("#totalcarrito").text());
-							if(carrito.total > 0){
+							if (carrito.total > 0){
 								
 								var direcciones = $(".direcregistrar");
 								var iddireccion = 0;
@@ -409,26 +405,43 @@
 
 								if(iddireccion != 0 && idhorario != 0){
 
-									if(REQUERIDO && $("#txtruc").val().trim() != "" && $("#txtrazonsocial").val().trim()  != "" && $("#txtdireccionfiscal").val().trim()  != ""){
-										
-										var compra = await Comprar(iddireccion,idmetodopago,idhorario,idcomprobante);
+									if(REQUERIDO){
 
+										//REGISTRA
+										if($("#txtruc").val().trim() != "" && $("#txtrazonsocial").val().trim()  != "" && $("#txtdireccionfiscal").val().trim()  != ""){
+										
+											//REGISTRA
+											var compra = await Comprar(iddireccion,idmetodopago,idhorario,idcomprobante);
+											carrito = await getCarritoCompleto();
+											$("#cuerpotabla").html(carrito.resultado);
+											$("#totalcarrito").html(`S/. ${carrito.total}`);
+											$("#enviocarrito").html(carrito.envio);
+											$("#subtotalcarrito").html(`S/. ${carrito.subtotal}`);
+											$("#igvcarrito").html(`S/. ${carrito.igv}`);
+											getCarrito();
+											//ACTUALIZAMOS DATOS
+											ActualizarRuc();
+											Swal.fire("Compra realizada","MiniMarket","success");
+
+
+										}else{
+											Swal.fire("Este Tipo de comprobante necesita datos de empresa, por favor actualize sus datos","MiniMarket","info");
+										}
+
+									}else{
+
+										//REGISTRA
+										var compra = await Comprar(iddireccion,idmetodopago,idhorario,idcomprobante);
 										carrito = await getCarritoCompleto();
 										$("#cuerpotabla").html(carrito.resultado);
-										$("#totalcarrito").html(carrito.total);
+										$("#totalcarrito").html(`S/. ${carrito.total}`);
 										$("#enviocarrito").html(carrito.envio);
-										$("#subtotalcarrito").html(carrito.subtotal);
-										$("#igvcarrito").html(carrito.igv);
+										$("#subtotalcarrito").html(`S/. ${carrito.subtotal}`);
+										$("#igvcarrito").html(`S/. ${carrito.igv}`);
 										getCarrito();
 										//ACTUALIZAMOS DATOS
 										ActualizarRuc();
-
 										Swal.fire("Compra realizada","MiniMarket","success");
-
-
-									}else{
-										Swal.fire("Este Tipo de comprobante necesita datos de empresa, por favor actualize sus datos","MiniMarket","info");
-
 									}
 
 
@@ -440,7 +453,7 @@
 
 
 							}else{
-								// console.log(carrito.total);
+								
 								Swal.fire("Por favor agregue productos al carrito primero","MiniMarket","info");
 							}
 
@@ -467,10 +480,25 @@
 							// console.log($(this).data("req"));
 					});
 
+
+					//DIRECCION
 					$(".direcregistrar").click(function(){
-						$("#nombredireccioncompleta").text($(this).data("direc"));
-							// console.log($(this).data("direc"));
+						$("#nombredireccioncompleta").text("Enviar a: " + $(this).data("direc"));
 					});
+
+					//HORARIOS
+					$(".horarioregistrar").click(function(){
+						$("#textoHorario").text("Horarios de:  " + $(this).data("hora"));
+					});
+
+
+					//TIPO DE DOCUMENTO
+					$(".comprobantesregistrar").click(function(){
+						$("#tipodocumentotexto").text("Tipo de Documento:  " + $(this).data("tipo"));
+
+					});
+					
+					
 
 			});
 
@@ -572,7 +600,7 @@
 			//COMPRAR
 			async function Comprar(iddireccion,idmetodopago,idcodigohorario,idcomprobante){
 
-
+				
 				var rpt;
 
 				var datos = {
@@ -580,7 +608,10 @@
 					'iddireccion'			:	iddireccion,
 					'idmetodopago'			:	idmetodopago,
 					'idcodigohorario'		:	idcodigohorario,
-					'idcomprobante'			:	idcomprobante
+					'idcomprobante'			:	idcomprobante,
+					'subtotal'				:	parseFloat($("#subtotalcarrito").text().split("S/.")[1]),
+					'igv'					:	parseFloat($("#igvcarrito").text().split("S/.")[1]),
+					'total'					:	parseFloat($("#totalcarrito").text().split("S/.")[1]),
 				}
 				// var rpt;
 				rpt = await $.ajax({

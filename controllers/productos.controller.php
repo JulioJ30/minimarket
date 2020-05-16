@@ -30,30 +30,31 @@
             $data = $objProductosModelo->ListarporFamilia($idfamilia,$idcategoria,$idmarca,$precio1,$precio2,$product);
 
             // echo json_encode($data);
-            foreach($data as $fila){
+            // foreach($data as $fila){
 
-                $imagen = $fila->ruta_imagen_catalogo != null ? $fila->ruta_imagen_catalogo : 'public/vacio.png';
+            //     $imagen = $fila->ruta_imagen_catalogo != null ? $fila->ruta_imagen_catalogo : 'public/vacio.png';
 
-                echo "<div class='col-md-3 col-xs-6'>";
-                echo "  <div class='product'>";
-                echo "      <a href='product.php?id={$fila->cod_producto}'>     ";                       
-                echo "          <div class='product-img'>";
-                echo "              <img src='{$imagen}' alt='' class='productosimg'>";
-                echo "          </div>";
-                echo "          <div class='product-body'>";
-                echo "              <p class='product-category'>{$fila->nombre_categoria}</p>";
-                echo "              <h3 class='product-name'><a href='#'>{$fila->nombre_procucto}</a></h3>";
-                echo "              <h5 class='product-category'><a href='#'>{$fila->descripcion_producto}</a></h5>";
-                echo "              <h4 class='product-price'> S/.{$fila->precio1} <del class='product-old-price'> S/.{$fila->precio2}</del></h4>";
-                echo "          </div>";
-                echo "          <div class='add-to-cart'>";
-                echo "              <button class='add-to-cart-btn' data-id='{$fila->cod_producto}' data-nombre='{$fila->nombre_procucto}' data-descripcion='{$fila->descripcion_producto}'  data-categoria='{$fila->nombre_categoria}' data-imagen='{$imagen}' data-precio='{$fila->precio1}'  ><i class='fa fa-shopping-cart'></i> agregar</button>";
-                echo "          </div>";
-                echo "      </a>";
-                echo "  </div>";
-                echo "</div>";
-            }
+            //     echo "<div class='col-md-3 col-xs-6'>";
+            //     echo "  <div class='product'>";
+            //     echo "      <a href='product.php?id={$fila->cod_producto}'>     ";                       
+            //     echo "          <div class='product-img'>";
+            //     echo "              <img src='{$imagen}' alt='' class='productosimg'>";
+            //     echo "          </div>";
+            //     echo "          <div class='product-body product-body-listado' >";
+            //     echo "              <p class='product-category'>{$fila->nombre_categoria}</p>";
+            //     echo "              <h3 class='product-name'><a href='#'>{$fila->nombre_procucto}</a></h3>";
+            //     echo "              <h5 class='product-category'><a href='#'>{$fila->descripcion_producto}</a></h5>";
+            //     echo "              <h4 class='product-price'> S/.{$fila->precio1} <del class='product-old-price'> S/.{$fila->precio2}</del></h4>";
+            //     echo "          </div>";
+            //     echo "          <div class='add-to-cart'>";
+            //     echo "              <button class='add-to-cart-btn' data-id='{$fila->cod_producto}' data-nombre='{$fila->nombre_procucto}' data-descripcion='{$fila->descripcion_producto}'  data-categoria='{$fila->nombre_categoria}' data-imagen='{$imagen}' data-precio='{$fila->precio1}'  ><i class='fa fa-shopping-cart'></i> agregar</button>";
+            //     echo "          </div>";
+            //     echo "      </a>";
+            //     echo "  </div>";
+            //     echo "</div>";
+            // }
 
+            echo json_encode($data);
 
         }
 

@@ -112,16 +112,19 @@
 						<!-- /store products -->
 
 						<!-- store bottom filter -->
-						<!-- <div class="store-filter clearfix">
-							<span class="store-qty">Showing 20-100 products</span>
-							<ul class="store-pagination">
+						<div class="store-filter clearfix">
+							<!-- <span class="store-qty">Showing 20-100 products</span> -->
+							<!-- <ul class="store-pagination">
 								<li class="active">1</li>
 								<li><a href="#">2</a></li>
 								<li><a href="#">3</a></li>
 								<li><a href="#">4</a></li>
 								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
-						</div> -->
+							</ul> -->
+
+							<ul class="pagination " style="float:right" id="pagination"></ul>
+
+						</div>
 						<!-- /store bottom filter -->
 					</div>
 					<!-- /STORE -->
@@ -149,11 +152,13 @@
 			require_once 'views/scriptstodos.php';
 		?>
 
+		<script src="libs/js/jquery.twbsPagination.min.js"></script>
 		<!-- SCRIPTS PROPIOS -->
 		<script>
 			//LISTAR POR FAMILIA
 			var idfamilia = "<?php echo isset($_GET["id"]) ? $_GET["id"] : 0;  ?>";
 			var producto = "<?php echo isset($_GET["prod"]) ? $_GET["prod"] : "";  ?>";
+			var PRODUCTOSTOTAL;
 
 			$(document).ready(function(){
 
@@ -173,7 +178,7 @@
 				$(".loader").fadeOut("slow");
 
 				//Main
-				Main();
+				// Main();
 
 				},1000);
 
@@ -237,8 +242,10 @@
 					type:	'get',
 					data: datos,
 					success:function(e){
-						//console.log(e);
-						$("#contenedorproductos").html(e);
+						// $("#contenedorproductos").html(e);
+						PRODUCTOSTOTAL = JSON.parse(e); 
+						// console.log(PRODUCTOSTOTAL);
+						ArmarPaginacion(PRODUCTOSTOTAL.length,8);
 					}
 				})
 
@@ -270,7 +277,6 @@
 				})
 			}
 
-
 			//LISTA MARCAS POR FAMILIA
 			function ListarMarcasFamilia(categorias,marcas,precio1,precio2){
 				//contenedorcategorias
@@ -297,6 +303,67 @@
 					}
 				})
 			}
+
+
+			// PAGINACION
+			function ArmarPaginacion(total,cantidad){
+
+				var tot = Math.round(total / cantidad);
+
+				window.pagObj = $('#pagination').twbsPagination({
+					totalPages: tot,
+					activeClass :'paginacionactiva',
+					visiblePages: 5,
+					onPageClick: function (event, page) {
+						ArmarDatosProductos(page,cantidad);
+					}
+				}).on('page', function (event, page) {
+					// console.info(page + ' (from event listening)');
+
+
+				});
+			}
+
+			function ArmarDatosProductos(indice,cantidad){
+				var div ="";
+
+				var inicio = (indice -1) * cantidad;
+				var fin = inicio + cantidad ;
+				// console.log(inicio,cantidad,fin);
+				for(var i = inicio; i < fin && i < PRODUCTOSTOTAL.length ; i++	 ){
+
+					var imagen = PRODUCTOSTOTAL[i].ruta_imagen_catalogo != null ? PRODUCTOSTOTAL[i].ruta_imagen_catalogo : 'public/vacio.png';
+					// console.log(PRODUCTOSTOTAL[i]);
+					div +=`
+					    <div class='col-md-3 col-xs-6'>
+					     <div class='product'>
+					         <a href='product.php?id=${PRODUCTOSTOTAL[i].cod_producto}'>                          
+					             <div class='product-img'>
+					                  <img src='${imagen}' alt='' class='productosimg'>
+					             </div>
+					              <div class='product-body product-body-listado' >
+					                 <p class='product-category'>${PRODUCTOSTOTAL[i].nombre_categoria}</p>
+					                  <h3 class='product-name'><a href='#'>${PRODUCTOSTOTAL[i].nombre_procucto}</a></h3>
+					                 <h5 class='product-category'><a href='#'>${PRODUCTOSTOTAL[i].descripcion_producto}</a></h5>
+					                 <h4 class='product-price'> S/.${PRODUCTOSTOTAL[i].precio1} <del class='product-old-price'> S/.${PRODUCTOSTOTAL[i].precio2}</del></h4>
+					              </div>
+					             <div class='add-to-cart'>
+					                <button class='add-to-cart-btn' data-id='${PRODUCTOSTOTAL[i].cod_producto}' data-nombre='${PRODUCTOSTOTAL[i].nombre_procucto}' data-descripcion='${PRODUCTOSTOTAL[i].descripcion_producto}'  data-categoria='${PRODUCTOSTOTAL[i].nombre_categoria}' data-imagen='${imagen}' data-precio='${PRODUCTOSTOTAL[i].precio1}'  ><i class='fa fa-shopping-cart'></i> agregar</button>
+					              </div>
+					          </a>
+					      </div>
+					    </div>
+					`;
+
+				}
+				// console.log(div);
+				$("#contenedorproductos").html(div);
+				// Main();
+				
+
+			}
+
+
 
 		</script>
 

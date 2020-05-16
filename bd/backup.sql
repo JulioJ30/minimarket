@@ -134,7 +134,7 @@ CREATE TABLE `detalle_venta_carrito` (
   KEY `fk_cod_producto` (`cod_producto`),
   CONSTRAINT `fk_cod_producto` FOREIGN KEY (`cod_producto`) REFERENCES `producto` (`cod_producto`),
   CONSTRAINT `fk_cod_venta_carrito` FOREIGN KEY (`cod_venta_carrito`) REFERENCES `venta_carrito` (`cod_venta_carrito`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `detalle_venta_carrito` */
 
@@ -145,7 +145,11 @@ insert  into `detalle_venta_carrito`(`cod_detalle`,`cod_venta_carrito`,`cod_prod
 (9,16,1,1.000000,7.990000),
 (11,17,9,7.000000,6.930000),
 (12,17,10,2.000000,1.980000),
-(13,17,11,3.000000,2.970000);
+(13,17,11,3.000000,2.970000),
+(14,18,9,5.000000,4.950000),
+(15,19,2,2.000000,15.980000),
+(16,20,5,1.000000,7.990000),
+(17,21,1,1.000000,7.990000);
 
 /*Table structure for table `direcciones_usuarios` */
 
@@ -396,15 +400,15 @@ CREATE TABLE `producto` (
 /*Data for the table `producto` */
 
 insert  into `producto`(`cod_producto`,`cod_empaque`,`cod_Detalle_categoria`,`fecha_venc_producto`,`nombre_procucto`,`descripcion_producto`,`precio_producto`,`stock_producto`,`tipo_stock_producto`,`obervacion_producto`,`precio_especial_producto`,`sku_producto`,`estado_producto`,`ruta_imagen_catalogo`,`cod_um`,`psugerido`) values 
-(1,1,1,'2020-06-30','2 litros','sabor a fresa',7.99,10.00,'C','Yogurt',7.99,'1223222222',0,'https://plazavea.vteximg.com.br/arquivos/ids/169455-450-450/79036.jpg?v=635769971188800000',1,'0'),
-(2,1,2,'2020-06-30','2 litros','sabor a fresa',7.99,20.00,'C','Yogurt',7.99,'1223222222',0,NULL,1,'0'),
+(1,1,1,'2020-06-30','2 litros','sabor a fresa',7.99,9.00,'C','Yogurt',7.99,'1223222222',0,'https://plazavea.vteximg.com.br/arquivos/ids/169455-450-450/79036.jpg?v=635769971188800000',1,'0'),
+(2,1,2,'2020-06-30','2 litros','sabor a fresa',7.99,18.00,'C','Yogurt',7.99,'1223222222',0,NULL,1,'0'),
 (3,4,3,'2020-06-30','Queso Edam','sin sal',7.99,15.00,'C','Queso',7.99,'1223254645442',0,'https://wongfood.vteximg.com.br/arquivos/ids/306461-750-750/467156-1.jpg?v=636982022545270000',3,'0'),
 (4,4,4,'2020-06-30','Queso Edam','con sal',7.99,20.00,'C','Queso',7.99,'122320000822',0,NULL,3,'0'),
-(5,1,5,'2020-06-30','5mm ml','Con gas',7.99,20.00,'C','Agua Mineral Con Gas',7.99,'1223222222',0,NULL,1,'0'),
+(5,1,5,'2020-06-30','5mm ml','Con gas',7.99,19.00,'C','Agua Mineral Con Gas',7.99,'1223222222',0,NULL,1,'0'),
 (6,3,6,'2020-06-30','5mm ml','sin gas',7.99,20.00,'C','Agua mineral Sin Gas',7.99,'1223254645442',0,NULL,1,'1'),
 (7,3,7,'2020-06-30','3 lt','Zero',10.99,20.00,'C','Zero',0.99,'122320000822',0,NULL,1,'1'),
 (8,3,8,'2020-06-30','1.5 lt','ALto en Azucar',7.99,20.00,'C','Piña',7.99,'122320000822',0,NULL,1,'1'),
-(9,3,9,'2020-06-30','Sanguches dobles','pan grande',10.99,9.00,'C','pollo',0.99,'122320000822',0,'public/img/productos/preparados/Sanwuches/9.jpg',1,'0'),
+(9,3,9,'2020-06-30','Sanguches dobles','pan grande',10.99,4.00,'C','pollo',0.99,'122320000822',0,'public/img/productos/preparados/Sanwuches/9.jpg',1,'0'),
 (10,3,10,'2020-06-30','Sanguches triple','pan grande',10.99,18.00,'C','pollo',0.99,'122320000822',0,'public/img/productos/preparados/Triples/10.jpg',1,'0'),
 (11,3,11,'2020-06-30','Sanguches simple','pan grande',10.99,16.00,'C','pollo',0.99,'122320000822',0,'public/img/productos/preparados/CombosDesayuno/11.jpg',1,'0'),
 (12,3,10,'2020-06-30','Sanguches simple','pan grande',10.99,20.00,'C','pollo',0.99,'122320000822',0,'public/img/productos/preparados/Triples/12.jpg',1,'0'),
@@ -424,12 +428,13 @@ CREATE TABLE `temp_detalle_venta_carrito` (
   `sub_total_detalle` decimal(6,2) DEFAULT NULL,
   `total_detalle` decimal(6,2) DEFAULT NULL,
   PRIMARY KEY (`cod_tmp_venta_carrito`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `temp_detalle_venta_carrito` */
 
 insert  into `temp_detalle_venta_carrito`(`cod_tmp_venta_carrito`,`cod_producto`,`cod_usu`,`cantidad_detalle`,`sub_total_detalle`,`total_detalle`) values 
-(6,5,8,1.00,7.99,7.99);
+(6,5,8,1.00,7.99,7.99),
+(9,4,7,1.00,7.99,7.99);
 
 /*Table structure for table `tienda` */
 
@@ -508,9 +513,9 @@ CREATE TABLE `venta_carrito` (
   `fecha_creacion` date NOT NULL,
   `fecha_entrega` date DEFAULT NULL,
   `cod_comprobante` int(11) NOT NULL,
-  `monto_total_bruto_venta` decimal(9,6) NOT NULL,
-  `monto_total_neto_venta` decimal(9,6) NOT NULL,
-  `monto_igv_venta` decimal(9,6) NOT NULL,
+  `monto_total_bruto_venta` decimal(6,2) DEFAULT NULL,
+  `monto_total_neto_venta` decimal(6,2) DEFAULT NULL,
+  `monto_igv_venta` decimal(6,2) DEFAULT NULL,
   `estado_venta` char(3) NOT NULL,
   `cod_horario` int(11) NOT NULL,
   PRIMARY KEY (`cod_venta_carrito`),
@@ -522,15 +527,19 @@ CREATE TABLE `venta_carrito` (
   CONSTRAINT `venta_carrito_ibfk_1` FOREIGN KEY (`cod_direcc_usu`) REFERENCES `direcciones_usuarios` (`cod_direcc_usu`),
   CONSTRAINT `venta_carrito_ibfk_2` FOREIGN KEY (`cod_metodo_pago`) REFERENCES `metodo_pago` (`cod_metodo_pago`),
   CONSTRAINT `venta_carrito_ibfk_3` FOREIGN KEY (`cod_comprobante`) REFERENCES `comprobante` (`cod_comprobante`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 COMMENT='Tabla principal de ventas';
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1 COMMENT='Tabla principal de ventas';
 
 /*Data for the table `venta_carrito` */
 
 insert  into `venta_carrito`(`cod_venta_carrito`,`cod_direcc_usu`,`cod_metodo_pago`,`fecha_creacion`,`fecha_entrega`,`cod_comprobante`,`monto_total_bruto_venta`,`monto_total_neto_venta`,`monto_igv_venta`,`estado_venta`,`cod_horario`) values 
-(14,3,2,'2020-05-15',NULL,1,0.000000,0.000000,0.000000,'1',3),
-(15,4,2,'2020-05-15',NULL,2,0.000000,0.000000,0.000000,'1',1),
-(16,4,4,'2020-05-15',NULL,2,0.000000,0.000000,0.000000,'1',2),
-(17,3,1,'2020-05-15',NULL,2,0.000000,0.000000,0.000000,'1',2);
+(14,3,2,'2020-05-15',NULL,1,0.00,0.00,0.00,'1',3),
+(15,4,2,'2020-05-15',NULL,2,0.00,0.00,0.00,'1',1),
+(16,4,4,'2020-05-15',NULL,2,0.00,0.00,0.00,'1',2),
+(17,3,1,'2020-05-15',NULL,2,0.00,0.00,0.00,'1',2),
+(18,3,3,'2020-05-15',NULL,1,0.00,0.00,0.00,'1',2),
+(19,3,3,'2020-05-15',NULL,2,0.00,0.00,0.00,'1',2),
+(20,3,3,'2020-05-16',NULL,1,6.55,1.44,7.99,'1',3),
+(21,3,1,'2020-05-16',NULL,1,6.55,7.99,1.44,'1',2);
 
 /* Procedure structure for procedure `sp_carrito_elimimar` */
 
@@ -812,7 +821,7 @@ DELIMITER $$
 	)
 BEGIN
 			
-		SET @sql = "SELECT cod_categoria,nombre_categoria,COUNT(*)cantidad FROM v_productos where estado_categoria = 0 ";
+		SET @sql = "SELECT cod_categoria,nombre_categoria,COUNT(*)cantidad FROM v_productos where estado_categoria = 0 and stock > 0 ";
 		
 		-- FILTROS
 		
@@ -887,7 +896,7 @@ DELIMITER $$
 BEGIN
 		
 		
-		SET @sql = "SELECT cod_marca,nombre_marca,COUNT(*)cantidad FROM v_productos where estado_marca = 0 ";
+		SET @sql = "SELECT cod_marca,nombre_marca,COUNT(*)cantidad FROM v_productos where estado_marca = 0 and stock > 0  ";
 		
 			-- FAMILIAS
 			IF _idfamilia IS NOT NULL THEN
@@ -1027,7 +1036,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_productosfamilia_listar`(
 		IN 	_idfamilia	INT,
-		IN 	_idcategoria	varchar(255),
+		IN 	_idcategoria	VARCHAR(255),
 		IN 	_idmarca	VARCHAR(255),	
 		IN  	_precio1	DECIMAL(9,6),
 		IN  	_precio2	DECIMAL(9,6),
@@ -1035,7 +1044,7 @@ DELIMITER $$
 	)
 BEGIN
 
-		SET @sql = "select * from v_productos where estado_producto = 0";
+		SET @sql = "select * from v_productos where estado_producto = 0 and stock > 0 " ;
 		
 		-- FILTROS
 		
@@ -1050,9 +1059,9 @@ BEGIN
 			END IF;
 		
 			-- MARCAS
-			if _idmarca is not null then
+			IF _idmarca IS NOT NULL THEN
 				SET @sql = CONCAT(@sql, " and cod_marca in(", _idmarca,")" );
-			end if;
+			END IF;
 			
 			-- CATEGORIAS
 			IF _idcategoria IS NOT NULL THEN
@@ -1060,9 +1069,9 @@ BEGIN
 			END IF;
 			
 			-- PRECIO MINIMO
-			if _precio1 is not null then
-				set @sql = concat(@sql, " and precio1 >= ", _precio1);
-			end if;
+			IF _precio1 IS NOT NULL THEN
+				SET @sql = CONCAT(@sql, " and precio1 >= ", _precio1);
+			END IF;
 			
 			-- PRECIO MAXIMO
 			IF _precio2 IS NOT NULL THEN
@@ -1130,7 +1139,9 @@ BEGIN
 			cat.`cod_categoria`,
 			cat.`nombre_categoria`,
 			pro.ruta_imagen_catalogo,
-			fa.`cod_familia`
+			fa.`cod_familia`,
+			pro.tipo_stock_producto,
+			pro.stock_producto
 		FROM producto pro
 		INNER JOIN detalle_categoria dtc ON
 		dtc.cod_Detalle_categoria = pro.cod_Detalle_categoria
@@ -1189,8 +1200,11 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_venta_carrito_registrar`(
 		IN 	_iddireccionusuario	INT,
 		IN 	_idmetodopago		INT,
-		in 	_idcodigohoraio		int,
-		in 	_idcomprobante		int
+		IN 	_idcodigohoraio		INT,
+		IN 	_idcomprobante		INT,
+		in 	_subtotal		decimal(6,2),
+		IN 	_total			DECIMAL(6,2),
+		IN 	_igv			DECIMAL(6,2)
 	)
 BEGIN
 		DECLARE v_idusuario INT;
@@ -1201,7 +1215,7 @@ BEGIN
 		
 		-- REGISTRAMOS VENTA
 		INSERT INTO venta_carrito (cod_direcc_usu,cod_metodo_pago,fecha_creacion,fecha_entrega,cod_comprobante,monto_total_bruto_venta,monto_total_neto_venta,monto_igv_venta,estado_venta,cod_horario) VALUES
-		(_iddireccionusuario,_idmetodopago,CURDATE(),NULL,_idcomprobante,0,0,0,1,_idcodigohoraio);
+		(_iddireccionusuario,_idmetodopago,CURDATE(),NULL,_idcomprobante,_subtotal,_total,_igv,1,_idcodigohoraio);
 		
 		-- OBTENEMOS ID	DE VENTA
 		SELECT LAST_INSERT_ID() INTO v_idventa;
@@ -1248,7 +1262,8 @@ DROP TABLE IF EXISTS `v_productos`;
  `cod_marca` int(11) ,
  `nombre_marca` varchar(50) ,
  `estado_categoria` int(1) ,
- `estado_marca` int(9) 
+ `estado_marca` int(9) ,
+ `stock` decimal(6,2) 
 )*/;
 
 /*View structure for view v_productos */
@@ -1256,7 +1271,7 @@ DROP TABLE IF EXISTS `v_productos`;
 /*!50001 DROP TABLE IF EXISTS `v_productos` */;
 /*!50001 DROP VIEW IF EXISTS `v_productos` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_productos` AS select `pro`.`cod_producto` AS `cod_producto`,`pro`.`nombre_procucto` AS `nombre_procucto`,`pro`.`descripcion_producto` AS `descripcion_producto`,if(((`pro`.`precio_especial_producto` > 0) and (`pro`.`precio_especial_producto` < `pro`.`precio_producto`)),`pro`.`precio_especial_producto`,`pro`.`precio_producto`) AS `precio1`,if((`pro`.`precio_especial_producto` > `pro`.`precio_producto`),`pro`.`precio_especial_producto`,`pro`.`precio_producto`) AS `precio2`,`cat`.`cod_categoria` AS `cod_categoria`,`cat`.`nombre_categoria` AS `nombre_categoria`,`pro`.`ruta_imagen_catalogo` AS `ruta_imagen_catalogo`,`pro`.`estado_producto` AS `estado_producto`,`fa`.`cod_familia` AS `cod_familia`,`mar`.`cod_marca` AS `cod_marca`,`mar`.`nombre_marca` AS `nombre_marca`,`cat`.`estado_categoria` AS `estado_categoria`,`mar`.`estado_marca` AS `estado_marca` from ((((`producto` `pro` join `detalle_categoria` `dtc` on((`dtc`.`cod_detalle_categoria` = `pro`.`cod_Detalle_categoria`))) join `categoria` `cat` on((`cat`.`cod_categoria` = `dtc`.`cod_categoria`))) join `familia` `fa` on((`fa`.`cod_familia` = `cat`.`cod_familia`))) join `marca` `mar` on((`mar`.`cod_marca` = `dtc`.`cod_marca`))) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_productos` AS select `pro`.`cod_producto` AS `cod_producto`,`pro`.`nombre_procucto` AS `nombre_procucto`,`pro`.`descripcion_producto` AS `descripcion_producto`,if(((`pro`.`precio_especial_producto` > 0) and (`pro`.`precio_especial_producto` < `pro`.`precio_producto`)),`pro`.`precio_especial_producto`,`pro`.`precio_producto`) AS `precio1`,if((`pro`.`precio_especial_producto` > `pro`.`precio_producto`),`pro`.`precio_especial_producto`,`pro`.`precio_producto`) AS `precio2`,`cat`.`cod_categoria` AS `cod_categoria`,`cat`.`nombre_categoria` AS `nombre_categoria`,`pro`.`ruta_imagen_catalogo` AS `ruta_imagen_catalogo`,`pro`.`estado_producto` AS `estado_producto`,`fa`.`cod_familia` AS `cod_familia`,`mar`.`cod_marca` AS `cod_marca`,`mar`.`nombre_marca` AS `nombre_marca`,`cat`.`estado_categoria` AS `estado_categoria`,`mar`.`estado_marca` AS `estado_marca`,if((`pro`.`tipo_stock_producto` = 'C'),`pro`.`stock_producto`,1) AS `stock` from ((((`producto` `pro` join `detalle_categoria` `dtc` on((`dtc`.`cod_detalle_categoria` = `pro`.`cod_Detalle_categoria`))) join `categoria` `cat` on((`cat`.`cod_categoria` = `dtc`.`cod_categoria`))) join `familia` `fa` on((`fa`.`cod_familia` = `cat`.`cod_familia`))) join `marca` `mar` on((`mar`.`cod_marca` = `dtc`.`cod_marca`))) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
